@@ -7,5 +7,4 @@ Fabric Hack Mod Base
 ./gradlew idea
 ```
 3. Open IntelliJ IDEA.
-4. Navigate to File > New > Project from Existing Sources.
-5. Navigate to the project's root directory and select the build.gradle file.
+
