@@ -14,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MinecraftClientMixin {
 
     private Window window;
-    private Keyboard keyboard;
 
     @Inject(at = @At("RETURN"), method = "updateWindowTitle()V")
 	private void updateWindowTitle(CallbackInfo info) {

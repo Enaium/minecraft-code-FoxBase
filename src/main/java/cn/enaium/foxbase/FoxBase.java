@@ -7,6 +7,7 @@ import cn.enaium.foxbase.module.ModuleManager;
 import cn.enaium.foxbase.setting.SettingManager;
 
 public enum FoxBase {
+
     instance;
 
     public String name = "FoxBase";
@@ -19,7 +20,6 @@ public enum FoxBase {
     public SettingManager settingManager;
     public CommandManager commandManager;
     public ConfigManager configManager;
-
 
     public void run() {
         eventManager = new EventManager();
@@ -35,6 +35,5 @@ public enum FoxBase {
     public void stop() {
         configManager.saveConfig();
     }
-
 
 }
