@@ -40,9 +40,12 @@ public class Render2D {
         return 13;
     }
 
-    public static void drawRect(int x1, int x2, int y1, int y2, int color)
-    {
-        DrawableHelper.fill(x1,x2,y1,y2,color);
+    public static void drawRect(int x1, int y1, int x2, int y2, int color) {
+        DrawableHelper.fill(x1, y1, x2, y2, color);
+    }
+
+    public static void drawRectWH(int x, int y, int width, int height, int color) {
+        DrawableHelper.fill(x, y, x + width, y + height, color);
     }
 
     public static void drawHorizontalLine(int i, int j, int k, int l) {
@@ -52,7 +55,7 @@ public class Render2D {
             j = m;
         }
 
-        drawRect(i, k, j + 1, k + 1,l);
+        drawRect(i, k, j + 1, k + 1, l);
     }
 
     public static void drawVerticalLine(int i, int j, int k, int l) {
@@ -62,7 +65,7 @@ public class Render2D {
             k = m;
         }
 
-        drawRect(i, j + 1, i + 1, k,l);
+        drawRect(i, j + 1, i + 1, k, l);
     }
 
     public static void setColor(Color color) {
@@ -80,5 +83,9 @@ public class Render2D {
 
     public static int toRGBA(Color c) {
         return c.getRed() | c.getGreen() << 8 | c.getBlue() << 16 | c.getAlpha() << 24;
+    }
+
+    public static boolean isHovered(int mouseX, int mouseY, int x, int y, int width, int height) {
+        return mouseX >= x && mouseX - width <= x && mouseY >= y && mouseY - height <= y;
     }
 }

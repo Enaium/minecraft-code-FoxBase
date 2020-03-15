@@ -8,11 +8,7 @@ import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.Render2D;
-import com.mojang.blaze3d.platform.GlStateManager;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.item.*;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
