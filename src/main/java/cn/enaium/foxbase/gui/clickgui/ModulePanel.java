@@ -37,11 +37,8 @@ public class ModulePanel {
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
-        if (this.hovered) {
-            color = ColorUtils.SELECT;
-        } else if (this.module.isToggle()) {
-            color = ColorUtils.TOGGLE;
-        }
+        if (this.module.isToggle()) color = ColorUtils.TOGGLE;
+        if (this.hovered) color = ColorUtils.SELECT;
 
         Render2D.drawRectWH(x, y, width, height, color);
         FontUtils.drawHVCenteredString(this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
