@@ -2,6 +2,7 @@ package cn.enaium.foxbase.setting;
 
 import cn.enaium.foxbase.module.Module;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Setting {
@@ -58,9 +59,9 @@ public class Setting {
         this.category = Category.VALUE_FLOAT;
     }
 
-    public Setting(Module m, String n, String currentMode, ArrayList<String> options) {
-        this.module = m;
-        this.name = n;
+    public Setting(Module module, String name, String currentMode, ArrayList<String> options) {
+        this.module = module;
+        this.name = name;
         this.currentMode = currentMode;
         this.modes = options;
         this.category = Category.MODE;
@@ -95,7 +96,7 @@ public class Setting {
     }
 
     public void setCurrentValueDouble(double currentValueDouble) {
-        this.currentValueDouble = currentValueDouble;
+        this.currentValueDouble = valueFix(currentValueDouble);
     }
 
     public double getMinValueDouble() {
@@ -143,7 +144,7 @@ public class Setting {
     }
 
     public void setCurrentValueFloat(float currentValueFloat) {
-        this.currentValueFloat = currentValueFloat;
+        this.currentValueFloat = valueFix(currentValueFloat);
     }
 
     public float getMinValueFloat() {
@@ -214,16 +215,26 @@ public class Setting {
     }
 
     public String getCategory() {
-        if(isBoolean())
+        if (isBoolean())
             return "Boolean";
-        if(isValueInt())
+        if (isValueInt())
             return "Int";
-        if(isValueDouble())
+        if (isValueDouble())
             return "Double";
-        if(isValueFloat())
+        if (isValueFloat())
             return "Float";
-        if(isMode())
+        if (isMode())
             return "String";
         return "";
+    }
+
+    private float valueFix(float value) {
+        DecimalFormat decimalFormat = new DecimalFormat(".0");
+        return Float.parseFloat(decimalFormat.format(value));
+    }
+
+    private double valueFix(double value) {
+        DecimalFormat decimalFormat = new DecimalFormat(".0");
+        return Double.parseDouble(decimalFormat.format(value));
     }
 }

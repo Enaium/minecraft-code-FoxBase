@@ -30,7 +30,7 @@ public class ModulePanel {
             for (Setting setting : settings) {
                 if (setting.isBoolean()) {
                     this.settingElements.add(new BooleanSettingElement(setting));
-                } else if (setting.isValue()) {
+                } else if (setting.isValue() || setting.isMode()) {
                     this.settingElements.add(new ValueSettingElement(setting));
                 }
             }
