@@ -7,6 +7,8 @@ import cn.enaium.foxbase.event.events.EventRender2D;
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
+import cn.enaium.foxbase.utils.ColorUtils;
+import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2D;
 import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.glfw.GLFW;
@@ -24,8 +26,8 @@ public class HUD extends Module {
 
     private int screen;
 
-    private Setting tabGUI = new Setting(this,"TabGUI",true);
-    private Setting toggleList = new Setting(this,"ToggleList",true);
+    private Setting tabGUI = new Setting(this, "TabGUI", true);
+    private Setting toggleList = new Setting(this, "ToggleList", true);
 
     public HUD() {
         super("HUD", GLFW.GLFW_KEY_P, Category.RENDER);
@@ -42,31 +44,31 @@ public class HUD extends Module {
 
     @EventTarget
     public void toggleList(EventRender2D e) {
-        if(!this.toggleList.isToggle())
+        if (!this.toggleList.isToggle())
             return;
 
         int yStart = 1;
 
         ArrayList<Module> modules = new ArrayList();
         for (Module m : FoxBase.instance.moduleManager.getModules()) {
-            if(m.isToggle())
+            if (m.isToggle())
                 modules.add(m);
         }
 
         List<Module> mods = modules;
-        mods.sort((o1, o2) -> Render2D.getStringWidth(o2.getDisplayName()) - Render2D.getStringWidth(o1.getDisplayName()));
+        mods.sort((o1, o2) -> FontUtils.getStringWidth(o2.getDisplayName()) - FontUtils.getStringWidth(o1.getDisplayName()));
 
         for (Module module : mods) {
 
-            int startX = Render2D.getScaledWidth() - Render2D.getStringWidth(module.getDisplayName()) - 6;
+            int startX = Render2D.getScaledWidth() - FontUtils.getStringWidth(module.getDisplayName()) - 6;
 
-            Render2D.drawRect(startX, yStart - 1, Render2D.getScaledWidth(), yStart + 12, new Color(23, 23, 23).getRGB());
-            Render2D.drawRect(Render2D.getScaledWidth() - 2, yStart - 1, Render2D.getScaledWidth(), yStart + 12, new Color(33, 170, 47).getRGB());
+            Render2D.drawRect(startX, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.BG);
+            Render2D.drawRect(Render2D.getScaledWidth() - 2, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            Render2D.drawVerticalLine(startX - 1, yStart - 2, yStart + 12, new Color(33, 170, 47).getRGB());
-            Render2D.drawHorizontalLine(startX - 1, Render2D.getScaledWidth(), yStart + 12, new Color(33, 170, 47).getRGB());
+            Render2D.drawVerticalLine(startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
+            Render2D.drawHorizontalLine(startX - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            Render2D.drawStringWithShadow(module.getDisplayName(), startX + 3, yStart, new Color(33, 170, 47).getRGB());
+            FontUtils.drawStringWithShadow(module.getDisplayName(), startX + 3, yStart, ColorUtils.SELECT);
 
             yStart += 13;
         }
@@ -74,22 +76,22 @@ public class HUD extends Module {
 
     @EventTarget
     public void onTabGUI(EventRender2D e) {
-        if(!this.tabGUI.isToggle())
+        if (!this.tabGUI.isToggle())
             return;
 
         this.renderTopString(5, 5);
         int startX = 5;
         int startY = (5 + 9) + 2;
         Render2D.drawRect(startX, startY, startX + this.getWidestCategory() + 5,
-                startY + this.categoryValues.size() * (9 + 2), new Color(23, 23, 23).getRGB());
+                startY + this.categoryValues.size() * (9 + 2), ColorUtils.BG);
         for (Category c : this.categoryValues) {
             if (this.getCurrentCategorry().equals(c)) {
                 Render2D.drawRect(startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
-                        new Color(33, 170, 47).getRGB());
+                        ColorUtils.SELECT);
             }
 
             String name = c.name();
-            Render2D.drawStringWithShadow(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
+            FontUtils.drawStringWithShadow(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
                     startX + 2 + (this.getCurrentCategorry().equals(c) ? 2 : 0), startY + 2, -1);
             startY += 9 + 2;
         }
@@ -98,13 +100,13 @@ public class HUD extends Module {
             int startModsX = startX + this.getWidestCategory() + 6;
             int startModsY = ((5 + 9) + 2) + currentCategoryIndex * (9 + 2);
             Render2D.drawRect(startModsX, startModsY, startModsX + this.getWidestMod() + 5,
-                    startModsY + this.getModsForCurrentCategory().size() * (9 + 2), new Color(23, 23, 23).getRGB());
+                    startModsY + this.getModsForCurrentCategory().size() * (9 + 2), ColorUtils.BG);
             for (Module m : getModsForCurrentCategory()) {
                 if (this.getCurrentModule().equals(m)) {
                     Render2D.drawRect(startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
-                            startModsY + 9 + 2, new Color(33, 170, 47).getRGB());
+                            startModsY + 9 + 2, ColorUtils.SELECT);
                 }
-                Render2D.drawStringWithShadow(m.getName() + (FoxBase.instance.settingManager.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
+                FontUtils.drawStringWithShadow(m.getName() + (FoxBase.instance.settingManager.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
                         startModsY + 2, m.isToggle() ? -1 : Color.GRAY.getRGB());
                 startModsY += 9 + 2;
             }
@@ -114,31 +116,31 @@ public class HUD extends Module {
             int startSettingY = ((5 + 9) + 2) + (currentCategoryIndex * (9 + 2)) + currentModIndex * (9 + 2);
 
             Render2D.drawRect(startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
-                    startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), new Color(23, 23, 23).getRGB());
+                    startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), ColorUtils.BG);
             for (Setting s : this.getSettingForCurrentMod()) {
 
                 if (this.getCurrentSetting().equals(s)) {
                     Render2D.drawRect(startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
-                            startSettingY + 9 + 2, new Color(33, 170, 47).getRGB());
+                            startSettingY + 9 + 2, ColorUtils.SELECT);
                 }
                 if (s.isBoolean()) {
-                    Render2D.drawStringWithShadow(s.getName() + ": " + s.isToggle(),
+                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.isToggle(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isValueInt()) {
-                    Render2D.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueInt(),
+                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueInt(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
-                }else if (s.isValueDouble()) {
-                    Render2D.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueDouble(),
+                } else if (s.isValueDouble()) {
+                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueDouble(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
-                }else if (s.isValueFloat()) {
-                    Render2D.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueFloat(),
+                } else if (s.isValueFloat()) {
+                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueFloat(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isMode()) {
-                    Render2D.drawStringWithShadow(s.getName() + ": " + s.getCurrentMode(),
+                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentMode(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 }
@@ -148,7 +150,7 @@ public class HUD extends Module {
     }
 
     private void renderTopString(int x, int y) {
-        Render2D.drawStringWithShadow(FoxBase.instance.name + " B"
+        FontUtils.drawStringWithShadow(FoxBase.instance.name + " B"
                 + FoxBase.instance.version, x, y, new Color(67, 0, 99).getRGB());
     }
 
@@ -173,9 +175,9 @@ public class HUD extends Module {
                 s.setToggle(!s.isToggle());
             } else if (s.isValueInt()) {
                 s.setCurrentValueInt(s.getCurrentValueInt() + 1);
-            }else if (s.isValueDouble()) {
+            } else if (s.isValueDouble()) {
                 s.setCurrentValueDouble(s.getCurrentValueDouble() + 0.1D);
-            }else if (s.isValueFloat()) {
+            } else if (s.isValueFloat()) {
                 s.setCurrentValueFloat(s.getCurrentValueFloat() + 0.1F);
             } else {
                 try {
@@ -210,10 +212,10 @@ public class HUD extends Module {
             if (s.isBoolean()) {
                 s.setToggle(!s.isToggle());
             } else if (s.isValueInt()) {
-                    s.setCurrentValueInt(s.getCurrentValueInt() - 1);
-            }else if (s.isValueDouble()) {
+                s.setCurrentValueInt(s.getCurrentValueInt() - 1);
+            } else if (s.isValueDouble()) {
                 s.setCurrentValueDouble(s.getCurrentValueDouble() - 0.1D);
-            }else if (s.isValueFloat()) {
+            } else if (s.isValueFloat()) {
                 s.setCurrentValueFloat(s.getCurrentValueFloat() - 0.1F);
             } else {
                 try {
@@ -256,11 +258,11 @@ public class HUD extends Module {
     @EventTarget
     public void onKey(EventKeyboard e) {
 
-        if(e.getAction() != GLFW.GLFW_PRESS)
+        if (e.getAction() != GLFW.GLFW_PRESS)
             return;
 
         Screen screen = mc.currentScreen;
-        if(screen != null)
+        if (screen != null)
             return;
 
         switch (e.getKeyCode()) {
@@ -299,14 +301,7 @@ public class HUD extends Module {
     }
 
     private ArrayList<Module> getModsForCurrentCategory() {
-        ArrayList<Module> mods = new ArrayList<Module>();
-        Category c = getCurrentCategorry();
-        for (Module m : FoxBase.instance.moduleManager.getModules()) {
-            if (m.getCategory().equals(c)) {
-                mods.add(m);
-            }
-        }
-        return mods;
+        return FoxBase.instance.moduleManager.getModulesForCategory(getCurrentCategorry());
     }
 
     private int getWidestSetting() {
@@ -317,15 +312,15 @@ public class HUD extends Module {
                 name = s.getName() + ": " + s.isToggle();
             } else if (s.isValueInt()) {
                 name = s.getName() + ": " + s.getCurrentValueInt();
-            }else if (s.isValueDouble()) {
+            } else if (s.isValueDouble()) {
                 name = s.getName() + ": " + s.getCurrentValueDouble();
-            }else if (s.isValueFloat()) {
+            } else if (s.isValueFloat()) {
                 name = s.getName() + ": " + s.getCurrentValueFloat();
-            } else  {
+            } else {
                 name = s.getName() + ": " + s.getCurrentMode();
             }
-            if (Render2D.getStringWidth(name) > width) {
-                width = Render2D.getStringWidth(name);
+            if (FontUtils.getStringWidth(name) > width) {
+                width = FontUtils.getStringWidth(name);
             }
         }
         return width;
@@ -334,7 +329,7 @@ public class HUD extends Module {
     private int getWidestMod() {
         int width = 0;
         for (Module m : FoxBase.instance.moduleManager.getModules()) {
-            int cWidth = Render2D.getStringWidth(m.getName());
+            int cWidth = FontUtils.getStringWidth(m.getName());
             if (cWidth > width) {
                 width = cWidth;
             }
@@ -346,7 +341,7 @@ public class HUD extends Module {
         int width = 0;
         for (Category c : this.categoryValues) {
             String name = c.name();
-            int cWidth = Render2D.getStringWidth(
+            int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
             if (cWidth > width) {
                 width = cWidth;
@@ -354,7 +349,6 @@ public class HUD extends Module {
         }
         return width;
     }
-
 
 
 }

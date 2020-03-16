@@ -1,7 +1,14 @@
 package cn.enaium.foxbase.utils;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.BufferRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.Matrix4f;
+import net.minecraft.client.util.math.Rotation3;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -16,36 +23,21 @@ public class Render2D {
         return MinecraftClient.getInstance().getWindow().getScaledHeight();
     }
 
-    public static void drawString(String string, int x, int y, int color) {
-        MinecraftClient.getInstance().getFontManager().getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID).draw(string, x, y, color);
-    }
-
-    public static void drawString(String string, float x, float y, int color) {
-        MinecraftClient.getInstance().getFontManager().getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID).draw(string, x, y, color);
-    }
-
-    public static void drawStringWithShadow(String string, int x, int y, int color) {
-        MinecraftClient.getInstance().getFontManager().getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID).drawWithShadow(string, x, y, color);
-    }
-
-    public static void drawStringWithShadow(String string, float x, float y, int color) {
-        MinecraftClient.getInstance().getFontManager().getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID).drawWithShadow(string, x, y, color);
-    }
-
-    public static int getStringWidth(String string) {
-        return MinecraftClient.getInstance().getFontManager().getTextRenderer(MinecraftClient.DEFAULT_TEXT_RENDERER_ID).getStringWidth(string);
-    }
-
-    public static int getFontHeight() {
-        return 13;
-    }
 
     public static void drawRect(int x1, int y1, int x2, int y2, int color) {
         DrawableHelper.fill(x1, y1, x2, y2, color);
     }
 
+    public static void drawRect(double x1, double y1, double x2, double y2, int color) {
+        fill(Rotation3.identity().getMatrix(), x1, y1, x2, y2, color);
+    }
+
     public static void drawRectWH(int x, int y, int width, int height, int color) {
         DrawableHelper.fill(x, y, x + width, y + height, color);
+    }
+
+    public static void drawRectWH(double x, double y, double width, double height, int color) {
+        fill(Rotation3.identity().getMatrix(), x, y, x + width, y + height, color);
     }
 
     public static void drawHorizontalLine(int i, int j, int k, int l) {
@@ -68,6 +60,39 @@ public class Render2D {
         drawRect(i, j + 1, i + 1, k, l);
     }
 
+    public static void fill(Matrix4f matrix4f, double x1, double y1, double x2, double y2, int color) {
+        double j;
+        if (x1 < x2) {
+            j = x1;
+            x1 = x2;
+            x2 = j;
+        }
+
+        if (y1 < y2) {
+            j = y1;
+            y1 = y2;
+            y2 = j;
+        }
+
+        float f = (float) (color >> 24 & 255) / 255.0F;
+        float g = (float) (color >> 16 & 255) / 255.0F;
+        float h = (float) (color >> 8 & 255) / 255.0F;
+        float k = (float) (color & 255) / 255.0F;
+        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+        RenderSystem.enableBlend();
+        RenderSystem.disableTexture();
+        RenderSystem.defaultBlendFunc();
+        bufferBuilder.begin(7, VertexFormats.POSITION_COLOR);
+        bufferBuilder.vertex(matrix4f, (float) x1, (float) y2, 0.0F).color(g, h, k, f).next();
+        bufferBuilder.vertex(matrix4f, (float) x2, (float) y2, 0.0F).color(g, h, k, f).next();
+        bufferBuilder.vertex(matrix4f, (float) x2, (float) y1, 0.0F).color(g, h, k, f).next();
+        bufferBuilder.vertex(matrix4f, (float) x1, (float) y1, 0.0F).color(g, h, k, f).next();
+        bufferBuilder.end();
+        BufferRenderer.draw(bufferBuilder);
+        RenderSystem.enableTexture();
+        RenderSystem.disableBlend();
+    }
+
     public static void setColor(Color color) {
         GL11.glColor4f(color.getRed() / 255.0f, color.getGreen() / 255.0f, color.getBlue() / 255.0f,
                 color.getAlpha() / 255.0f);
@@ -86,6 +111,14 @@ public class Render2D {
     }
 
     public static boolean isHovered(int mouseX, int mouseY, int x, int y, int width, int height) {
+        return mouseX >= x && mouseX - width <= x && mouseY >= y && mouseY - height <= y;
+    }
+
+    public static boolean isHovered(double mouseX, double mouseY, double x, double y, double width, double height) {
+        return mouseX >= x && mouseX - width <= x && mouseY >= y && mouseY - height <= y;
+    }
+
+    public static boolean isHovered(float mouseX, float mouseY, float x, float y, float width, float height) {
         return mouseX >= x && mouseX - width <= x && mouseY >= y && mouseY - height <= y;
     }
 }

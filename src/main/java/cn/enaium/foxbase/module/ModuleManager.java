@@ -3,13 +3,18 @@ package cn.enaium.foxbase.module;
 import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.event.EventTarget;
 import cn.enaium.foxbase.event.events.EventKeyboard;
+import cn.enaium.foxbase.module.modules.combat.Aura;
+import cn.enaium.foxbase.module.modules.movement.Flight;
 import cn.enaium.foxbase.module.modules.movement.Sprint;
+import cn.enaium.foxbase.module.modules.render.FullBright;
+import cn.enaium.foxbase.module.modules.render.GUI;
 import cn.enaium.foxbase.module.modules.render.HUD;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class ModuleManager {
     private ArrayList<Module> modules;
@@ -22,6 +27,10 @@ public class ModuleManager {
     public void loadMods() {
         this.addModule(new Sprint());
         this.addModule(new HUD());
+        this.addModule(new FullBright());
+        this.addModule(new Flight());
+        this.addModule(new Aura());
+        this.addModule(new GUI());
     }
 
 
@@ -31,11 +40,11 @@ public class ModuleManager {
 
     @EventTarget
     public void onKey(EventKeyboard e) {
-        if(e.getAction() != GLFW.GLFW_PRESS)
+        if (e.getAction() != GLFW.GLFW_PRESS)
             return;
 
         Screen screen = MinecraftClient.getInstance().currentScreen;
-        if(screen != null)
+        if (screen != null)
             return;
 
         for (Module mod : modules) {
@@ -56,4 +65,14 @@ public class ModuleManager {
         return modules;
     }
 
+    public ArrayList<Module> getModulesForCategory(Category c) {
+        ArrayList<Module> modules = new ArrayList<>();
+
+        for (Module m : this.modules) {
+            if (m.getCategory().equals(c))
+                modules.add(m);
+        }
+
+        return modules;
+    }
 }

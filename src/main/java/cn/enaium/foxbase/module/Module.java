@@ -3,6 +3,7 @@ package cn.enaium.foxbase.module;
 import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.setting.Setting;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 
 public class Module {
     private boolean toggle;
