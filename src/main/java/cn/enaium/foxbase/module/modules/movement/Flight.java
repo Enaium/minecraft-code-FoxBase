@@ -11,8 +11,11 @@ import org.lwjgl.glfw.GLFW;
 
 public class Flight extends Module {
 
+    Setting speed = new Setting(this, "Speed", 3.5D, 1.0D, 10.0D);
+
     public Flight() {
         super("Flight", GLFW.GLFW_KEY_C, Category.MOVEMENT);
+        addSetting(speed);
     }
 
     @Override

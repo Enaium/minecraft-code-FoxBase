@@ -3,6 +3,7 @@ package cn.enaium.foxbase.gui.clickgui;
 import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.gui.clickgui.setting.BooleanSettingElement;
 import cn.enaium.foxbase.gui.clickgui.setting.SettingElement;
+import cn.enaium.foxbase.gui.clickgui.setting.ValueSettingElement;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
@@ -29,6 +30,8 @@ public class ModulePanel {
             for (Setting setting : settings) {
                 if (setting.isBoolean()) {
                     this.settingElements.add(new BooleanSettingElement(setting));
+                } else if (setting.isValue()) {
+                    this.settingElements.add(new ValueSettingElement(setting));
                 }
             }
         }
@@ -68,6 +71,10 @@ public class ModulePanel {
         int width = 0;
         for (Setting m : FoxBase.instance.settingManager.getSettings()) {
             String name = m.getName();
+            if (m.isValueInt()) name = name + ":" + m.getCurrentValueInt();
+            else if (m.isValueDouble()) name = name + ":" + m.getCurrentValueDouble();
+            else if (m.isValueFloat()) name = name + ":" + m.getCurrentValueFloat();
+            else if (m.isMode()) name = name + ":" + m.getCurrentMode();
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
             if (cWidth > width) {

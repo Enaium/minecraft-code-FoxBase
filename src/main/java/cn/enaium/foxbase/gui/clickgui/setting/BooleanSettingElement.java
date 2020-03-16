@@ -16,12 +16,12 @@ public class BooleanSettingElement extends SettingElement {
 
     @Override
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
+        super.render(mouseX, mouseY, delta, x, y, width, height);
         this.hovered = Render2D.isHovered(mouseX, mouseY, x + width + 2, y + 2, height - 4, height - 4);
         int color = ColorUtils.CHECK_BG;
         if (this.setting.isToggle()) color = ColorUtils.CHECK_TOGGLE;
         if (this.hovered) color = ColorUtils.SELECT;
         Render2D.drawRectWH(x + width + 2, y + 2, height - 4, height - 4, color);
-        super.render(mouseX, mouseY, delta, x, y, width, height);
     }
 
     @Override
