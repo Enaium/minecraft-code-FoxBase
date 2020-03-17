@@ -1,9 +1,9 @@
-package cn.enaium.foxbase.gui.clickgui;
+package cn.enaium.foxbase.screen.clickgui;
 
 import cn.enaium.foxbase.FoxBase;
-import cn.enaium.foxbase.gui.clickgui.setting.BooleanSettingElement;
-import cn.enaium.foxbase.gui.clickgui.setting.SettingElement;
-import cn.enaium.foxbase.gui.clickgui.setting.ValueSettingElement;
+import cn.enaium.foxbase.screen.clickgui.setting.BooleanSettingElement;
+import cn.enaium.foxbase.screen.clickgui.setting.SettingElement;
+import cn.enaium.foxbase.screen.clickgui.setting.ValueSettingElement;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;

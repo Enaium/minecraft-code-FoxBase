@@ -1,10 +1,8 @@
-package cn.enaium.foxbase.gui.clickgui.setting;
+package cn.enaium.foxbase.screen.clickgui.setting;
 
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.Render2D;
-
-import java.awt.*;
 
 public class BooleanSettingElement extends SettingElement {
 

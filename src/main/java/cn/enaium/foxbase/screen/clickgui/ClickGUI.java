@@ -1,10 +1,9 @@
-package cn.enaium.foxbase.gui.clickgui;
+package cn.enaium.foxbase.screen.clickgui;
 
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.utils.FontUtils;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
 
 import java.util.ArrayList;
 
@@ -27,6 +26,7 @@ public class ClickGUI extends Screen {
         for (CategroyPanel categroyPanel : categroyPanels) {
             categroyPanel.render(mouseX, mouseY, delta);
         }
+        FontUtils.drawString("FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
         super.render(mouseX, mouseY, delta);
     }
 

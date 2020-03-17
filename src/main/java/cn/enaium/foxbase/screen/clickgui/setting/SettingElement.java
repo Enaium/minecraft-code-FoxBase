@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.gui.clickgui.setting;
+package cn.enaium.foxbase.screen.clickgui.setting;
 
 import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.module.Module;
