@@ -25,8 +25,9 @@ public class ConfigManager {
     }
 
     private void makeDirectory() {
-        if (!directory.exists())
+        if (!directory.exists()) {
             directory.mkdir();
+        }
     }
 
     private void registerFiles() {

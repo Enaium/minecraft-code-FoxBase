@@ -40,8 +40,12 @@ public class ModulePanel {
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
-        if (this.module.isToggle()) color = ColorUtils.TOGGLE;
-        if (this.hovered) color = ColorUtils.SELECT;
+        if (this.module.isToggle()) {
+            color = ColorUtils.TOGGLE;
+        }
+        if (this.hovered) {
+            color = ColorUtils.SELECT;
+        }
 
         Render2D.drawRectWH(x, y, width, height, color);
         FontUtils.drawHVCenteredString(this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
@@ -55,12 +59,13 @@ public class ModulePanel {
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.hovered)
+        if (this.hovered) {
             if (button == 0) {
                 this.module.toggle();
             } else if (button == 1) {
                 this.displaySettingElement = !displaySettingElement;
             }
+        }
 
         for (SettingElement settingElement : settingElements) {
             settingElement.mouseClicked(mouseX, mouseY, button);
@@ -71,10 +76,15 @@ public class ModulePanel {
         int width = 0;
         for (Setting m : FoxBase.instance.settingManager.getSettings()) {
             String name = m.getName();
-            if (m.isValueInt()) name = name + ":" + m.getCurrentValueInt();
-            else if (m.isValueDouble()) name = name + ":" + m.getCurrentValueDouble();
-            else if (m.isValueFloat()) name = name + ":" + m.getCurrentValueFloat();
-            else if (m.isMode()) name = name + ":" + m.getCurrentMode();
+            if (m.isValueInt()) {
+                name = name + ":" + m.getCurrentValueInt();
+            } else if (m.isValueDouble()) {
+                name = name + ":" + m.getCurrentValueDouble();
+            } else if (m.isValueFloat()) {
+                name = name + ":" + m.getCurrentValueFloat();
+            } else if (m.isMode()) {
+                name = name + ":" + m.getCurrentMode();
+            }
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
             if (cWidth > width) {

@@ -44,15 +44,17 @@ public class HUD extends Module {
 
     @EventTarget
     public void toggleList(EventRender2D e) {
-        if (!this.toggleList.isToggle())
+        if (!this.toggleList.isToggle()) {
             return;
+        }
 
         int yStart = 1;
 
         ArrayList<Module> modules = new ArrayList();
         for (Module m : FoxBase.instance.moduleManager.getModules()) {
-            if (m.isToggle())
+            if (m.isToggle()) {
                 modules.add(m);
+            }
         }
 
         List<Module> mods = modules;
@@ -76,8 +78,9 @@ public class HUD extends Module {
 
     @EventTarget
     public void onTabGUI(EventRender2D e) {
-        if (!this.tabGUI.isToggle())
+        if (!this.tabGUI.isToggle()) {
             return;
+        }
 
         this.renderTopString(5, 5);
         int startX = 5;
@@ -258,12 +261,14 @@ public class HUD extends Module {
     @EventTarget
     public void onKey(EventKeyboard e) {
 
-        if (e.getAction() != GLFW.GLFW_PRESS)
+        if (e.getAction() != GLFW.GLFW_PRESS) {
             return;
+        }
 
         Screen screen = mc.currentScreen;
-        if (screen != null)
+        if (screen != null) {
             return;
+        }
 
         switch (e.getKeyCode()) {
             case GLFW.GLFW_KEY_UP:

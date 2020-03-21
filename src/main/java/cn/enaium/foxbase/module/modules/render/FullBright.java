@@ -12,11 +12,13 @@ public class FullBright extends Module {
         super("FullBright", GLFW.GLFW_KEY_G, Category.RENDER);
     }
 
+    @Override
     public void onEnable() {
         super.onEnable();
         mc.options.gamma = 300;
     }
 
+    @Override
     public void onDisable() {
         super.onDisable();
         mc.options.gamma = 1;

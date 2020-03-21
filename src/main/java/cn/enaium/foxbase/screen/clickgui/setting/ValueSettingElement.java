@@ -31,14 +31,17 @@ public class ValueSettingElement extends SettingElement {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.addHovered && button == 0) {
             if (this.setting.isValueInt()) {
-                if (this.setting.getCurrentValueInt() < this.setting.getMaxValueInt())
+                if (this.setting.getCurrentValueInt() < this.setting.getMaxValueInt()) {
                     this.setting.setCurrentValueInt(this.setting.getCurrentValueInt() + 1);
+                }
             } else if (this.setting.isValueFloat()) {
-                if (this.setting.getCurrentValueFloat() < this.setting.getMaxValueFloat())
+                if (this.setting.getCurrentValueFloat() < this.setting.getMaxValueFloat()) {
                     this.setting.setCurrentValueFloat(this.setting.getCurrentValueFloat() + 0.1F);
+                }
             } else if (this.setting.isValueDouble()) {
-                if (this.setting.getCurrentValueDouble() < this.setting.getMaxValueDouble())
+                if (this.setting.getCurrentValueDouble() < this.setting.getMaxValueDouble()) {
                     this.setting.setCurrentValueDouble(this.setting.getCurrentValueDouble() + 0.1D);
+                }
             } else if (this.setting.isMode()) {
 
                 try {
@@ -49,14 +52,17 @@ public class ValueSettingElement extends SettingElement {
             }
         } else if (this.removeHovered && button == 0) {
             if (this.setting.isValueInt()) {
-                if (this.setting.getCurrentValueInt() > this.setting.getMinValueInt())
+                if (this.setting.getCurrentValueInt() > this.setting.getMinValueInt()) {
                     this.setting.setCurrentValueInt(this.setting.getCurrentValueInt() - 1);
+                }
             } else if (this.setting.isValueFloat()) {
-                if (this.setting.getCurrentValueFloat() > this.setting.getMinValueFloat())
+                if (this.setting.getCurrentValueFloat() > this.setting.getMinValueFloat()) {
                     this.setting.setCurrentValueFloat(this.setting.getCurrentValueFloat() - 0.1F);
+                }
             } else if (this.setting.isValueDouble()) {
-                if (this.setting.getCurrentValueDouble() > this.setting.getMinValueDouble())
+                if (this.setting.getCurrentValueDouble() > this.setting.getMinValueDouble()) {
                     this.setting.setCurrentValueDouble(this.setting.getCurrentValueDouble() - 0.1D);
+                }
             } else if (this.setting.isMode()) {
                 try {
                     this.setting.setCurrentMode(this.setting.getModes().get(this.setting.getCurrentModeIndex() - 1));

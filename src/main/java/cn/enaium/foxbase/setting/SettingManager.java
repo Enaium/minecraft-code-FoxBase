@@ -23,12 +23,14 @@ public class SettingManager {
         ArrayList<Setting> settings = new ArrayList<Setting>();
 
         for (Setting s : this.settings) {
-            if (s.getModule().equals(m))
+            if (s.getModule().equals(m)) {
                 settings.add(s);
+            }
         }
 
-        if (settings.isEmpty())
+        if (settings.isEmpty()) {
             return null;
+        }
 
         return settings;
     }

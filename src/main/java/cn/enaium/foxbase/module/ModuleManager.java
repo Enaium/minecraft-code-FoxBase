@@ -40,23 +40,27 @@ public class ModuleManager {
 
     @EventTarget
     public void onKey(EventKeyboard e) {
-        if (e.getAction() != GLFW.GLFW_PRESS)
+        if (e.getAction() != GLFW.GLFW_PRESS) {
             return;
+        }
 
         Screen screen = MinecraftClient.getInstance().currentScreen;
-        if (screen != null)
+        if (screen != null) {
             return;
+        }
 
         for (Module mod : modules) {
-            if (mod.getKeyCode() == e.getKeyCode())
+            if (mod.getKeyCode() == e.getKeyCode()) {
                 mod.toggle();
+            }
         }
     }
 
     public Module getModule(String name) {
         for (Module m : modules) {
-            if (m.getName().equalsIgnoreCase(name))
+            if (m.getName().equalsIgnoreCase(name)) {
                 return m;
+            }
         }
         return null;
     }
@@ -69,8 +73,9 @@ public class ModuleManager {
         ArrayList<Module> modules = new ArrayList<>();
 
         for (Module m : this.modules) {
-            if (m.getCategory().equals(c))
+            if (m.getCategory().equals(c)) {
                 modules.add(m);
+            }
         }
 
         return modules;

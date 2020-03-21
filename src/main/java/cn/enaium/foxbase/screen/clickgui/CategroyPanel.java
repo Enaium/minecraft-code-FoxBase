@@ -61,7 +61,7 @@ public class CategroyPanel {
     }
 
     public void mouseClicked(double mouseX, double mouseY, int button) {
-        if (this.hovered)
+        if (this.hovered) {
             if (button == 0) {
                 this.dragging = true;
                 this.prevX = this.x - mouseX;
@@ -69,6 +69,7 @@ public class CategroyPanel {
             } else if (button == 1) {
                 this.displayModulePanel = !this.displayModulePanel;
             }
+        }
 
         for (ModulePanel modulePanel : this.modulePanels) {
             modulePanel.mouseClicked(mouseX, mouseY, button);

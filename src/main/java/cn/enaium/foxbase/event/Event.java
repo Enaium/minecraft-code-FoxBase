@@ -30,8 +30,9 @@ public abstract class Event {
 
         CopyOnWriteArrayList<Data> dataList = FoxBase.instance.eventManager.get(this.getClass());
 
-        if (dataList == null)
+        if (dataList == null) {
             return;
+        }
 
         dataList.forEach(data -> {
             

@@ -36,24 +36,26 @@ public class SetCommand implements Command {
 
                 for (Setting s : settings) {
                     ChatUtils.message(s.getName() + "(" + s.getCategory() + ")");
-                    if(s.isMode())
+                    if(s.isMode()) {
                         s.getModes().forEach(ChatUtils::message);
+                    }
                 }
             }
 
             if(args.length == 4) {
                 for (Setting s : settings) {
                     if(s.getName().equalsIgnoreCase(args[2])) {
-                        if(s.isBoolean())
+                        if(s.isBoolean()) {
                             s.setToggle(Boolean.parseBoolean(args[3]));
-                        else if (s.isValueInt())
+                        } else if (s.isValueInt()) {
                             s.setCurrentValueInt(Integer.parseInt(args[3]));
-                        else if(s.isValueDouble())
+                        } else if(s.isValueDouble()) {
                             s.setCurrentValueDouble(Double.parseDouble(args[3]));
-                        else if(s.isValueFloat())
+                        } else if(s.isValueFloat()) {
                             s.setCurrentValueFloat(Float.parseFloat(args[3]));
-                        else if(s.isMode())
+                        } else if(s.isMode()) {
                             s.setCurrentMode(args[3]);
+                        }
                         ChatUtils.message(s.getName() + " has setting to " + args[3] + ".");
                     }
                 }

@@ -215,16 +215,21 @@ public class Setting {
     }
 
     public String getCategory() {
-        if (isBoolean())
+        if (isBoolean()) {
             return "Boolean";
-        if (isValueInt())
+        }
+        if (isValueInt()) {
             return "Int";
-        if (isValueDouble())
+        }
+        if (isValueDouble()) {
             return "Double";
-        if (isValueFloat())
+        }
+        if (isValueFloat()) {
             return "Float";
-        if (isMode())
+        }
+        if (isMode()) {
             return "String";
+        }
         return "";
     }
 

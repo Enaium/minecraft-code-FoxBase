@@ -73,7 +73,11 @@ public class Module {
     public void toggle()
     {
         this.toggle = !this.toggle;
-        if(this.toggle) onEnable(); else onDisable();
+        if(this.toggle) {
+            onEnable();
+        } else {
+            onDisable();
+        }
     }
 
     public void onEnable() {

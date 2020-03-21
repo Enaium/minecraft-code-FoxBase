@@ -15,8 +15,9 @@ public class EventManager {
     public void register(Object o) {
 
         Arrays.stream(o.getClass().getDeclaredMethods()).forEach(method -> {
-            if (!isMethodBad(method))
+            if (!isMethodBad(method)) {
                 register(method, o);
+            }
         });
 
         REGISTRY_MAP.values().forEach(flexibleArray -> flexibleArray.sort(((o1, o2) -> (o1.getPriority().getValue() - o2.getPriority().getValue()))));
@@ -29,13 +30,15 @@ public class EventManager {
 
         Data methodData = new Data(o, method, method.getAnnotation(EventTarget.class).priority());
 
-        if (!methodData.getTarget().isAccessible())
+        if (!methodData.getTarget().isAccessible()) {
             methodData.getTarget().setAccessible(true);
+        }
 
 
         if (REGISTRY_MAP.containsKey(clazz)) {
-            if (!REGISTRY_MAP.get(clazz).contains(methodData))
+            if (!REGISTRY_MAP.get(clazz).contains(methodData)) {
                 REGISTRY_MAP.get(clazz).add(methodData);
+            }
         } else {
             REGISTRY_MAP.put(clazz, new CopyOnWriteArrayList<Data>(Collections.singletonList(methodData)));
         }

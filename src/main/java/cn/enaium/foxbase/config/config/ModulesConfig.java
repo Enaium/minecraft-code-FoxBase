@@ -43,13 +43,16 @@ public class ModulesConfig extends Config {
             }
 
 
-            if (jsonObject.has("toggle"))
-                if (Boolean.parseBoolean(jsonObject.get("toggle").getAsString()))
+            if (jsonObject.has("toggle")) {
+                if (Boolean.parseBoolean(jsonObject.get("toggle").getAsString())) {
                     module.toggle();
+                }
+            }
 
 
-            if (jsonObject.has("key"))
+            if (jsonObject.has("key")) {
                 module.setKeyCode(Integer.parseInt(jsonObject.get("key").getAsString()));
+            }
 
 
             ArrayList<Setting> settings = FoxBase.instance.settingManager.getSettingsForModule(module);
@@ -60,16 +63,17 @@ public class ModulesConfig extends Config {
 
                 jsonArray.forEach(jsonElement -> settings.stream().filter(setting -> jsonElement.getAsJsonObject().has(setting.getName()))
                         .forEach(setting -> {
-                            if (setting.isBoolean())
+                            if (setting.isBoolean()) {
                                 setting.setToggle(jsonElement.getAsJsonObject().get(setting.getName()).getAsBoolean());
-                            else if (setting.isValueInt())
+                            } else if (setting.isValueInt()) {
                                 setting.setCurrentValueInt(jsonElement.getAsJsonObject().get(setting.getName()).getAsInt());
-                            else if (setting.isValueDouble())
+                            } else if (setting.isValueDouble()) {
                                 setting.setCurrentValueDouble(jsonElement.getAsJsonObject().get(setting.getName()).getAsDouble());
-                            else if (setting.isValueFloat())
+                            } else if (setting.isValueFloat()) {
                                 setting.setCurrentValueFloat(jsonElement.getAsJsonObject().get(setting.getName()).getAsFloat());
-                            else
+                            } else {
                                 setting.setCurrentMode(jsonElement.getAsJsonObject().get(setting.getName()).getAsString());
+                            }
                         }));
             }
 
@@ -105,16 +109,17 @@ public class ModulesConfig extends Config {
                 JsonObject jsonObject1 = new JsonObject();
 
                 settings.forEach(setting -> {
-                    if (setting.isBoolean())
+                    if (setting.isBoolean()) {
                         jsonObject1.addProperty(setting.getName(), setting.isToggle());
-                    else if (setting.isValueInt())
+                    } else if (setting.isValueInt()) {
                         jsonObject1.addProperty(setting.getName(), setting.getCurrentValueInt());
-                    else if (setting.isValueDouble())
+                    } else if (setting.isValueDouble()) {
                         jsonObject1.addProperty(setting.getName(), setting.getCurrentValueDouble());
-                    else if (setting.isValueFloat())
+                    } else if (setting.isValueFloat()) {
                         jsonObject1.addProperty(setting.getName(), setting.getCurrentValueFloat());
-                    else
+                    } else {
                         jsonObject1.addProperty(setting.getName(), setting.getCurrentMode());
+                    }
                 });
 
                 jsonArray.add(jsonObject1);
@@ -131,13 +136,15 @@ public class ModulesConfig extends Config {
     }
 
     private void makeDirecotry() {
-        if (!directory.exists())
+        if (!directory.exists()) {
             directory.mkdir();
+        }
     }
 
     private void makeModuleFile(Module module) throws IOException {
-        if (!getFile(module).exists())
+        if (!getFile(module).exists()) {
             getFile(module).createNewFile();
+        }
     }
 
     private File getFile(Module module) {
