@@ -1,5 +1,4 @@
-# FoxBase
-Fabric Hack Mod Base
+# Minecraft 1.15.2 Fabric
 ## Setup
 1. Clone this repository.
 2. Run the following command from the project's root directory:
@@ -7,4 +6,4 @@ Fabric Hack Mod Base
 ./gradlew idea
 ```
 3. Open IntelliJ IDEA.
-
+4. Open `Open => Select FoxBase folder`
