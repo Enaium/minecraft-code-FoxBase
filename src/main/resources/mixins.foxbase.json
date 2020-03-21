@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "cn.enaium.foxbase.injection.mixins",
+  "refmap": "mixins.foxbase.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "ExampleMixin"
+  ]
+}
