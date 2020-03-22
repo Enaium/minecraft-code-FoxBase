@@ -1,7 +1,9 @@
 package cn.enaium.foxbase.injection.mixins;
 
 import cn.enaium.foxbase.FoxBase;
-import net.minecraft.client.Minecraft;
+import cn.enaium.foxbase.event.Event;
+import cn.enaium.foxbase.event.events.EventUpdate;
+import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -12,19 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */
-@Mixin(Minecraft.class)
-public class ExampleMixin {
-
-    @Inject(at = @At("RETURN"), method = "startGame")
-    private void startGame(CallbackInfo info) {
-        FoxBase.instance.Start();
+@Mixin(EntityPlayerSP.class)
+public class EntityPlayerSPMixin {
+    @Inject(at = @At("HEAD"), method = "onUpdate")
+    private void onUpdate(CallbackInfo info) {
+        new EventUpdate().call();
     }
-
-    @Inject(at = @At("RETURN"), method = "shutdownMinecraftApplet")
-    private void shutdownMinecraftApplet(CallbackInfo info) {
-        FoxBase.instance.Stop();
-    }
-
-
-
 }

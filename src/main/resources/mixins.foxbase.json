@@ -4,6 +4,7 @@
   "refmap": "mixins.foxbase.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ExampleMixin"
+    "MinecraftMixin",
+    "EntityPlayerSPMixin"
   ]
 }
