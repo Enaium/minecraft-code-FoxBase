@@ -7,6 +7,11 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import java.util.Map;
 
+/**
+ * Project: FoxBase
+ * -----------------------------------------------------------
+ * Copyright © 2020 | Enaium | All rights reserved.
+ */
 public class MixinLoader implements IFMLLoadingPlugin {
 
     public MixinLoader() {
