@@ -75,7 +75,7 @@ public class Module {
         if(this.toggle) {
             onEnable();
         } else {
-        onDisable();
+            onDisable();
     }
     }
 
