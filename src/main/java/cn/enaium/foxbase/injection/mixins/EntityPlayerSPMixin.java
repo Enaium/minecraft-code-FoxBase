@@ -1,7 +1,5 @@
 package cn.enaium.foxbase.injection.mixins;
 
-import cn.enaium.foxbase.FoxBase;
-import cn.enaium.foxbase.event.Event;
 import cn.enaium.foxbase.event.events.EventUpdate;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
