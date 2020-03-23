@@ -7,3 +7,4 @@
 ```
 3. Open IntelliJ IDEA.
 4. Open `Open => Select FoxBase folder`
+5. Click `Import gradle project`
