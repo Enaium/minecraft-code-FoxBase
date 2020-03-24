@@ -4,6 +4,7 @@ import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.event.EventTarget;
 import cn.enaium.foxbase.event.events.EventKeyboard;
 import cn.enaium.foxbase.event.events.EventRender2D;
+import cn.enaium.foxbase.event.events.EventRender3D;
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
@@ -48,10 +49,9 @@ public class HUD extends Module {
         addSetting(tabGUI);
         addSetting(toggleList);
     }
-
+    
     @EventTarget
     public void toggleList(EventRender2D e) {
-        System.out.println("@HUD");
 
         if (!this.toggleList.isToggle()) {
             return;
