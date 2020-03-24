@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.module;
 
 import cn.enaium.foxbase.FoxBase;
+import cn.enaium.foxbase.setting.Setting;
 import net.minecraft.client.Minecraft;
 
 /**
@@ -23,6 +24,10 @@ public class Module {
         this.name = name;
         this.keyCode = keyCode;
         this.category = category;
+    }
+
+    protected void addSetting(Setting setting) {
+        FoxBase.instance.settingManager.addSetting(setting);
     }
 
     public boolean isToggle() {
@@ -61,7 +66,7 @@ public class Module {
         if (displayText == null) {
             return name;
         } else {
-            return name  + " : " + displayText;
+            return name + " : " + displayText;
         }
     }
 
@@ -69,14 +74,13 @@ public class Module {
         this.displayText = displayText;
     }
 
-    public void toggle()
-    {
+    public void toggle() {
         this.toggle = !this.toggle;
-        if(this.toggle) {
+        if (this.toggle) {
             onEnable();
         } else {
             onDisable();
-    }
+        }
     }
 
     public void onEnable() {

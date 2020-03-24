@@ -5,6 +5,8 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "MinecraftMixin",
-    "EntityPlayerSPMixin"
+    "EntityPlayerSPMixin",
+    "GuiIngameMixin",
+    "EntityRendererMixin"
   ]
 }
