@@ -16,7 +16,7 @@ public class Render2D {
     }
 
     public static void drawRectWH(int x, int y, int width, int height, int color) {
-        Gui.drawRect(x, y, x + width, y + height, color);
+        drawRect(x, y, x + width, y + height, color);
     }
 
     public static void drawRectWH(double x, double y, double width, double height, int color) {

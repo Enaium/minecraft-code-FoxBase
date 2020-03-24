@@ -8,5 +8,4 @@ public class ColorUtils {
     public static final int TOGGLE = new Color(123, 123, 123).getRGB();
     public static final int CHECK_BG = new Color(123, 123, 123).getRGB();
     public static final int CHECK_TOGGLE = new Color(123, 233, 123).getRGB();
-
 }

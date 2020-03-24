@@ -25,7 +25,7 @@ public class MinecraftMixin {
         FoxBase.instance.Start();
     }
 
-    @Inject(at = @At("RETURN"), method = "shutdownMinecraftApplet")
+    @Inject(at = @At("HEAD"), method = "shutdownMinecraftApplet")
     private void shutdownMinecraftApplet(CallbackInfo info) {
         FoxBase.instance.Stop();
     }
