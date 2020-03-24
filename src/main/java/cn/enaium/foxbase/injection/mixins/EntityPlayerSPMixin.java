@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(EntityPlayerSP.class)
 public class EntityPlayerSPMixin {
-    @Inject(at = @At("HEAD"), method = "onUpdate()V")
+    @Inject(at = @At("HEAD"), method = "onUpdate")
     private void onUpdate(CallbackInfo info) {
         new EventUpdate().call();
     }

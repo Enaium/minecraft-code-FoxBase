@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiIngame.class)
 public class GuiIngameMixin {
 
-    @Inject(at = @At("HEAD"), method = "renderGameOverlay()V")
+    @Inject(at = @At("HEAD"), method = "renderGameOverlay")
     private void renderGameOverlay(CallbackInfo info) {
         new EventUpdate().call();
     }

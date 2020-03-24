@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  */
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "renderWorldPass()V")
+    @Inject(at = @At("RETURN"), method = "renderWorldPass")
     private void renderWorldPass(int p_renderWorldPass_1_, float p_renderWorldPass_2_, long p_renderWorldPass_3_, CallbackInfo info) {
         new EventRender3D(p_renderWorldPass_2_).call();
     }

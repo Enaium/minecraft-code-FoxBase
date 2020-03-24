@@ -20,12 +20,12 @@ public class MinecraftMixin {
 
     public GuiScreen currentScreen;
 
-    @Inject(at = @At("RETURN"), method = "startGame()V")
+    @Inject(at = @At("RETURN"), method = "startGame")
     private void startGame(CallbackInfo info) {
         FoxBase.instance.Start();
     }
 
-    @Inject(at = @At("RETURN"), method = "shutdownMinecraftApplet()V")
+    @Inject(at = @At("RETURN"), method = "shutdownMinecraftApplet")
     private void shutdownMinecraftApplet(CallbackInfo info) {
         FoxBase.instance.Stop();
     }
