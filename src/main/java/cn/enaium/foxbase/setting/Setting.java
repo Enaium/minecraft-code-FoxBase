@@ -5,6 +5,11 @@ import cn.enaium.foxbase.module.Module;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
+/**
+ * Project: FoxBase
+ * -----------------------------------------------------------
+ * Copyright © 2020 | Enaium | All rights reserved.
+ */
 public class Setting {
 
     private Module module;

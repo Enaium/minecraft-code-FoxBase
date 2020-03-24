@@ -5,6 +5,11 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ChatComponentText;
 
+/**
+ * Project: FoxBase
+ * -----------------------------------------------------------
+ * Copyright © 2020 | Enaium | All rights reserved.
+ */
 public class ChatUtils
 {
 

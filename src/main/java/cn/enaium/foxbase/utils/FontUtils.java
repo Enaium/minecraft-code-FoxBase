@@ -3,6 +3,11 @@ package cn.enaium.foxbase.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 
+/**
+ * Project: FoxBase
+ * -----------------------------------------------------------
+ * Copyright © 2020 | Enaium | All rights reserved.
+ */
 public class FontUtils {
 
     public static FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;

@@ -51,6 +51,7 @@ public class HUD extends Module {
 
     @EventTarget
     public void toggleList(EventRender2D e) {
+        System.out.println("@HUD");
 
         if (!this.toggleList.isToggle()) {
             return;
