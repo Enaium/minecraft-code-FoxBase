@@ -49,7 +49,7 @@ public class HUD extends Module {
         addSetting(tabGUI);
         addSetting(toggleList);
     }
-    
+
     @EventTarget
     public void toggleList(EventRender2D e) {
 
