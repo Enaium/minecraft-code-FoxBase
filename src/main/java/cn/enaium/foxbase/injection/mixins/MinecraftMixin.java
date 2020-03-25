@@ -30,11 +30,12 @@ public class MinecraftMixin {
         FoxBase.instance.Stop();
     }
 
-    @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;dispatchKeypresses()V", shift = At.Shift.AFTER), method = "runTick")
-    private void runTick(CallbackInfo info) {
+    @Inject(at = @At(value = "RETURN"), method = "dispatchKeypresses")
+    private void dispatchKeypresses(CallbackInfo info) {
         if (Keyboard.getEventKeyState() && this.currentScreen == null) {
             new EventKeyboard(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()).call();
         }
     }
+
 
 }
