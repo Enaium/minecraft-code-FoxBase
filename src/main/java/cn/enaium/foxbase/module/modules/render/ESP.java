@@ -34,21 +34,21 @@ public class ESP extends Module {
             if (o instanceof EntityPlayer) {
                 EntityPlayer entity = (EntityPlayer) o;
                 if (entity != mc.thePlayer && !entity.isDead) {
-                    Render3DUtils.drawBoundingBox(entity);
+                    
                 }
             }
 
             if (o instanceof EntityAnimal) {
                 EntityAnimal entity = (EntityAnimal) o;
                 if (!entity.isDead) {
-                    Render3DUtils.drawBoundingBox(entity);
+                    
                 }
             }
 
             if (o instanceof EntityMob) {
                 EntityMob entity = (EntityMob) o;
                 if (!entity.isDead) {
-                    Render3DUtils.drawBoundingBox(entity);
+                    
                 }
             }
         }
