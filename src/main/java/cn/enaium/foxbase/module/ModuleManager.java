@@ -4,6 +4,7 @@ import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.event.EventTarget;
 import cn.enaium.foxbase.event.events.EventKeyboard;
 import cn.enaium.foxbase.module.modules.movement.Sprint;
+import cn.enaium.foxbase.module.modules.render.ESP;
 import cn.enaium.foxbase.module.modules.render.FullBright;
 import cn.enaium.foxbase.module.modules.render.GUI;
 import cn.enaium.foxbase.module.modules.render.HUD;
@@ -28,6 +29,7 @@ public class ModuleManager {
         this.addModule(new FullBright());
         this.addModule(new GUI());
         this.addModule(new HUD());
+        this.addModule(new ESP());
     }
 
     private void addModule(Module m) {

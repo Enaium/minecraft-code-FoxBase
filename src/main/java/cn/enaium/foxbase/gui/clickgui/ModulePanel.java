@@ -8,7 +8,7 @@ import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.utils.Render2DUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class ModulePanel {
     }
 
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
-        this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
+        this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
         if (this.module.isToggle()) {
             color = ColorUtils.TOGGLE;
@@ -52,7 +52,7 @@ public class ModulePanel {
             color = ColorUtils.SELECT;
         }
 
-        Render2D.drawRectWH(x, y, width, height, color);
+        Render2DUtils.drawRectWH(x, y, width, height, color);
         FontUtils.drawHVCenteredString(this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;

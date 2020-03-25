@@ -3,7 +3,7 @@ package cn.enaium.foxbase.gui.clickgui.setting;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.utils.Render2DUtils;
 
 import java.awt.*;
 
@@ -24,10 +24,10 @@ public class ValueSettingElement extends SettingElement {
     @Override
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         super.render(mouseX, mouseY, delta, x, y, width, height);
-        this.addHovered = Render2D.isHovered(mouseX, mouseY, x + width + 2, y + 2, height / 2 - 4, height - 4);
-        this.removeHovered = Render2D.isHovered(mouseX, mouseY, x + width + 2 + 8, y + 2, height / 2 - 4, height - 4);
-        Render2D.drawRectWH(x + width + 2, y + 2, height / 2 - 4, height - 4, this.addHovered ? ColorUtils.CHECK_BG : ColorUtils.SELECT);
-        Render2D.drawRectWH(x + width + 2 + 8, y + 2, height / 2 - 4, height - 4, this.removeHovered ? ColorUtils.CHECK_BG : ColorUtils.SELECT);
+        this.addHovered = Render2DUtils.isHovered(mouseX, mouseY, x + width + 2, y + 2, height / 2 - 4, height - 4);
+        this.removeHovered = Render2DUtils.isHovered(mouseX, mouseY, x + width + 2 + 8, y + 2, height / 2 - 4, height - 4);
+        Render2DUtils.drawRectWH(x + width + 2, y + 2, height / 2 - 4, height - 4, this.addHovered ? ColorUtils.CHECK_BG : ColorUtils.SELECT);
+        Render2DUtils.drawRectWH(x + width + 2 + 8, y + 2, height / 2 - 4, height - 4, this.removeHovered ? ColorUtils.CHECK_BG : ColorUtils.SELECT);
         FontUtils.drawVCenteredString("+", x + width + 2, y + 2 + height / 2, Color.WHITE.getRGB());
         FontUtils.drawVCenteredString("-", x + width + 2 + 8, y + 2 + height / 2, Color.WHITE.getRGB());
     }

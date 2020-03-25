@@ -14,7 +14,7 @@ import java.awt.*;
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */
-public class Render2D {
+public class Render2DUtils {
 
     public static void drawRectWH(int x, int y, int width, int height, int color) {
         drawRect(x, y, x + width, y + height, color);

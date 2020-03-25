@@ -4,13 +4,12 @@ import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.event.EventTarget;
 import cn.enaium.foxbase.event.events.EventKeyboard;
 import cn.enaium.foxbase.event.events.EventRender2D;
-import cn.enaium.foxbase.event.events.EventRender3D;
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.utils.Render2DUtils;
 import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Keyboard;
 
@@ -31,8 +30,6 @@ public class HUD extends Module {
     private boolean editMode;
 
     private int screen;
-
-    private ScaledResolution sr = new ScaledResolution(mc);
 
     private Setting tabGUI = new Setting(this, "TabGUI", true);
     private Setting toggleList = new Setting(this, "ToggleList", true);
@@ -58,7 +55,7 @@ public class HUD extends Module {
         }
 
         int yStart = 1;
-
+        ScaledResolution sr = new ScaledResolution(mc);
         ArrayList<Module> modules = new ArrayList();
         for (Module m : FoxBase.instance.moduleManager.getModules()) {
             if (m.isToggle()) {
@@ -73,11 +70,11 @@ public class HUD extends Module {
 
             int startX = sr.getScaledWidth() - FontUtils.getStringWidth(module.getDisplayName()) - 6;
 
-            Render2D.drawRect(startX, yStart - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.BG);
-            Render2D.drawRect(sr.getScaledWidth() - 2, yStart - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
+            Render2DUtils.drawRect(startX, yStart - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.BG);
+            Render2DUtils.drawRect(sr.getScaledWidth() - 2, yStart - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            Render2D.drawVerticalLine(startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
-            Render2D.drawHorizontalLine(startX - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
+            Render2DUtils.drawVerticalLine(startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
+            Render2DUtils.drawHorizontalLine(startX - 1, sr.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
             FontUtils.drawStringWithShadow(module.getDisplayName(), startX + 3, yStart, ColorUtils.SELECT);
 
@@ -94,11 +91,11 @@ public class HUD extends Module {
         this.renderTopString(5, 5);
         int startX = 5;
         int startY = (5 + 9) + 2;
-        Render2D.drawRect(startX, startY, startX + this.getWidestCategory() + 5,
+        Render2DUtils.drawRect(startX, startY, startX + this.getWidestCategory() + 5,
                 startY + this.categoryValues.size() * (9 + 2), ColorUtils.BG);
         for (Category c : this.categoryValues) {
             if (this.getCurrentCategorry().equals(c)) {
-                Render2D.drawRect(startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
+                Render2DUtils.drawRect(startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
                         ColorUtils.SELECT);
             }
 
@@ -111,11 +108,11 @@ public class HUD extends Module {
         if (screen == 1 || screen == 2) {
             int startModsX = startX + this.getWidestCategory() + 6;
             int startModsY = ((5 + 9) + 2) + currentCategoryIndex * (9 + 2);
-            Render2D.drawRect(startModsX, startModsY, startModsX + this.getWidestMod() + 5,
+            Render2DUtils.drawRect(startModsX, startModsY, startModsX + this.getWidestMod() + 5,
                     startModsY + this.getModsForCurrentCategory().size() * (9 + 2), ColorUtils.BG);
             for (Module m : getModsForCurrentCategory()) {
                 if (this.getCurrentModule().equals(m)) {
-                    Render2D.drawRect(startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
+                    Render2DUtils.drawRect(startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
                             startModsY + 9 + 2, ColorUtils.SELECT);
                 }
                 FontUtils.drawStringWithShadow(m.getName() + (FoxBase.instance.settingManager.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
@@ -127,12 +124,12 @@ public class HUD extends Module {
             int startSettingX = (startX + this.getWidestCategory() + 6) + this.getWidestCategory() + 8;
             int startSettingY = ((5 + 9) + 2) + (currentCategoryIndex * (9 + 2)) + currentModIndex * (9 + 2);
 
-            Render2D.drawRect(startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
+            Render2DUtils.drawRect(startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
                     startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), ColorUtils.BG);
             for (Setting s : this.getSettingForCurrentMod()) {
 
                 if (this.getCurrentSetting().equals(s)) {
-                    Render2D.drawRect(startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
+                    Render2DUtils.drawRect(startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
                             startSettingY + 9 + 2, ColorUtils.SELECT);
                 }
                 if (s.isBoolean()) {

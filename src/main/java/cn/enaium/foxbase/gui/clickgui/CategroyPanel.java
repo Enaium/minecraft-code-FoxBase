@@ -5,7 +5,7 @@ import cn.enaium.foxbase.module.Module;
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.utils.Render2DUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,12 +49,12 @@ public class CategroyPanel {
     }
 
     public void render(int mouseX, int mouseY, float delta) {
-        this.hovered = Render2D.isHovered(mouseX, mouseY, this.x, this.y, this.width, this.height);
+        this.hovered = Render2DUtils.isHovered(mouseX, mouseY, this.x, this.y, this.width, this.height);
         if (this.dragging) {
             this.x = this.prevX + mouseX;
             this.y = this.prevY + mouseY;
         }
-        Render2D.drawRectWH(this.x, this.y, this.width, this.height, this.hovered ? ColorUtils.SELECT : ColorUtils.BG);
+        Render2DUtils.drawRectWH(this.x, this.y, this.width, this.height, this.hovered ? ColorUtils.SELECT : ColorUtils.BG);
         FontUtils.drawHVCenteredString(this.category.name(), this.x + this.width / 2, this.y + this.height / 2, Color.WHITE.getRGB());
         if (this.displayModulePanel) {
             double moduleY = this.y + this.height;
