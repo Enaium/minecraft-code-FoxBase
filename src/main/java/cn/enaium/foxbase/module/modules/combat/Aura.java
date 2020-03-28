@@ -30,10 +30,6 @@ public class Aura extends Module {
 
     @EventTarget
     public void onUpdate(EventUpdate e) {
-        ClientPlayerEntity player = mc.player;
-        ClientWorld world = mc.world;
-        for (Iterator<Entity> entities = StreamSupport.stream(world.getEntities().spliterator(), true).iterator(); entities.hasNext(); ) {
 
-        }
     }
 }

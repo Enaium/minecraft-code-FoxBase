@@ -16,7 +16,7 @@ public class ClientPlayerEntityMixin {
 
 
     @Inject(at = @At("HEAD"),
-            method = "sendChatMessage(Ljava/lang/String;)V",
+            method = "sendChatMessage",
             cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo info) {
         if (FoxBase.instance.commandManager.processCommand(message)) {

@@ -15,17 +15,17 @@ public class MinecraftClientMixin {
 
     private Window window;
 
-    @Inject(at = @At("RETURN"), method = "updateWindowTitle()V")
+    @Inject(at = @At("RETURN"), method = "updateWindowTitle")
 	private void updateWindowTitle(CallbackInfo info) {
 		this.window.setTitle(FoxBase.instance.name + " | Author:" + FoxBase.instance.author + " | Version:" + FoxBase.instance.version + " | Minecraft:" + FoxBase.instance.game);
 	}
 
-    @Inject(at = @At("HEAD"), method = "run()V")
+    @Inject(at = @At("HEAD"), method = "run")
     private void run(CallbackInfo info) {
         FoxBase.instance.run();
     }
 
-    @Inject(at = @At("HEAD"), method = "stop()V")
+    @Inject(at = @At("HEAD"), method = "stop")
     private void stop(CallbackInfo info) {
         FoxBase.instance.stop();
     }

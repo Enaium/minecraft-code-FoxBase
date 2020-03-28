@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Keyboard.class)
 public class KeyboardMixin
 {
-    @Inject(at = @At("HEAD"), method = "onKey(JIIII)V")
+    @Inject(at = @At("HEAD"), method = "onKey")
     private void onOnKey(long windowHandle, int keyCode, int scanCode,
                          int action, int modifiers, CallbackInfo ci)
     {
