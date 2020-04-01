@@ -88,14 +88,14 @@ public class HUD extends Module {
         Render2D.drawRect(startX, startY, startX + this.getWidestCategory() + 5,
                 startY + this.categoryValues.size() * (9 + 2), ColorUtils.BG);
         for (Category c : this.categoryValues) {
-            if (this.getCurrentCategorry().equals(c)) {
+            if (this.getCurrentCategory().equals(c)) {
                 Render2D.drawRect(startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
                         ColorUtils.SELECT);
             }
 
             String name = c.name();
             FontUtils.drawStringWithShadow(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
-                    startX + 2 + (this.getCurrentCategorry().equals(c) ? 2 : 0), startY + 2, -1);
+                    startX + 2 + (this.getCurrentCategory().equals(c) ? 2 : 0), startY + 2, -1);
             startY += 9 + 2;
         }
 
@@ -297,7 +297,7 @@ public class HUD extends Module {
         return FoxBase.instance.settingManager.getSettingsForModule(getCurrentModule());
     }
 
-    private Category getCurrentCategorry() {
+    private Category getCurrentCategory() {
         return this.categoryValues.get(this.currentCategoryIndex);
     }
 
@@ -306,7 +306,7 @@ public class HUD extends Module {
     }
 
     private ArrayList<Module> getModsForCurrentCategory() {
-        return FoxBase.instance.moduleManager.getModulesForCategory(getCurrentCategorry());
+        return FoxBase.instance.moduleManager.getModulesForCategory(getCurrentCategory());
     }
 
     private int getWidestSetting() {
