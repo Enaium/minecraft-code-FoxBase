@@ -31,12 +31,12 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = {@At("HEAD")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsHEAD(CallbackInfo ci) {
-        new EventMotion(Event.Type.PRE);
+        new EventMotion(Event.Type.PRE).call();
     }
 
     @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
-        new EventMotion(Event.Type.POST);
+        new EventMotion(Event.Type.POST).call();
     }
 
 
