@@ -9,22 +9,22 @@ import java.util.ArrayList;
 
 public class ClickGUI extends Screen {
 
-    ArrayList<CategroyPanel> categroyPanels;
+    ArrayList<CategoryPanel> categoryPanels;
 
     public ClickGUI() {
         super(new LiteralText(""));
-        categroyPanels = new ArrayList<>();
+        categoryPanels = new ArrayList<>();
         double categoryY = 5;
         for (Category category : Category.values()) {
-            categroyPanels.add(new CategroyPanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
+            categoryPanels.add(new CategoryPanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
             categoryY += FontUtils.getFontHeight() + 10 + 5;
         }
     }
 
     @Override
     public void render(int mouseX, int mouseY, float delta) {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.render(mouseX, mouseY, delta);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.render(mouseX, mouseY, delta);
         }
         FontUtils.drawString("FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
         super.render(mouseX, mouseY, delta);
@@ -33,16 +33,16 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.mouseClicked(mouseX, mouseY, button);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.mouseClicked(mouseX, mouseY, button);
         }
         return false;
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.mouseReleased(mouseX, mouseY, button);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.mouseReleased(mouseX, mouseY, button);
         }
         return false;
     }

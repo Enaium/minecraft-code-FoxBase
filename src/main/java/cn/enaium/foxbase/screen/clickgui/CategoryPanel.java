@@ -10,7 +10,7 @@ import cn.enaium.foxbase.utils.Render2D;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CategroyPanel {
+public class CategoryPanel {
 
     private Category category;
     private double x;
@@ -29,7 +29,7 @@ public class CategroyPanel {
 
     private ArrayList<ModulePanel> modulePanels;
 
-    public CategroyPanel(Category category, double x, double y, double width, double height) {
+    public CategoryPanel(Category category, double x, double y, double width, double height) {
         this.category = category;
         this.x = x;
         this.y = y;
