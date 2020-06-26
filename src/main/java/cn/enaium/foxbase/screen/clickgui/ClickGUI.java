@@ -3,6 +3,7 @@ package cn.enaium.foxbase.screen.clickgui;
 import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.utils.FontUtils;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class ClickGUI extends Screen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         for (CategoryPanel categoryPanel : categoryPanels) {
-            categoryPanel.render(mouseX, mouseY, delta);
+            categoryPanel.render(matrices, mouseX, mouseY, delta);
         }
-        FontUtils.drawString("FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
-        super.render(mouseX, mouseY, delta);
+        FontUtils.drawString(matrices, "FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
 

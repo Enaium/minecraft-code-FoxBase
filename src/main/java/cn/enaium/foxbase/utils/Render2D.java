@@ -7,8 +7,8 @@ import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.BufferRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.util.math.Matrix4f;
-import net.minecraft.client.util.math.Rotation3;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.Matrix4f;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -24,40 +24,40 @@ public class Render2D {
     }
 
 
-    public static void drawRect(int x1, int y1, int x2, int y2, int color) {
-        DrawableHelper.fill(x1, y1, x2, y2, color);
+    public static void drawRect(MatrixStack matrices, int x1, int y1, int x2, int y2, int color) {
+        DrawableHelper.fill(matrices, x1, y1, x2, y2, color);
     }
 
-    public static void drawRect(double x1, double y1, double x2, double y2, int color) {
-        fill(Rotation3.identity().getMatrix(), x1, y1, x2, y2, color);
+    public static void drawRect(MatrixStack matrices, double x1, double y1, double x2, double y2, int color) {
+        fill(matrices.peek().getModel(), x1, y1, x2, y2, color);
     }
 
-    public static void drawRectWH(int x, int y, int width, int height, int color) {
-        DrawableHelper.fill(x, y, x + width, y + height, color);
+    public static void drawRectWH(MatrixStack matrices, int x, int y, int width, int height, int color) {
+        DrawableHelper.fill(matrices, x, y, x + width, y + height, color);
     }
 
-    public static void drawRectWH(double x, double y, double width, double height, int color) {
-        fill(Rotation3.identity().getMatrix(), x, y, x + width, y + height, color);
+    public static void drawRectWH(MatrixStack matrices, double x, double y, double width, double height, int color) {
+        fill(matrices.peek().getModel(), x, y, x + width, y + height, color);
     }
 
-    public static void drawHorizontalLine(int i, int j, int k, int l) {
+    public static void drawHorizontalLine(MatrixStack matrices, int i, int j, int k, int l) {
         if (j < i) {
             int m = i;
             i = j;
             j = m;
         }
 
-        drawRect(i, k, j + 1, k + 1, l);
+        drawRect(matrices, i, k, j + 1, k + 1, l);
     }
 
-    public static void drawVerticalLine(int i, int j, int k, int l) {
+    public static void drawVerticalLine(MatrixStack matrices, int i, int j, int k, int l) {
         if (k < j) {
             int m = j;
             j = k;
             k = m;
         }
 
-        drawRect(i, j + 1, i + 1, k, l);
+        drawRect(matrices, i, j + 1, i + 1, k, l);
     }
 
     public static void fill(Matrix4f matrix4f, double x1, double y1, double x2, double y2, int color) {

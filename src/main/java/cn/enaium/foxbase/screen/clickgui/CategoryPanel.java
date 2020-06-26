@@ -6,6 +6,7 @@ import cn.enaium.foxbase.module.Category;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2D;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class CategoryPanel {
 
     private boolean dragging;
 
-    private boolean displayModulePanel;
+    public boolean displayModulePanel;
 
     private ArrayList<ModulePanel> modulePanels;
 
@@ -43,18 +44,18 @@ public class CategoryPanel {
         }
     }
 
-    public void render(int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.hovered = Render2D.isHovered(mouseX, mouseY, this.x, this.y, this.width, this.height);
         if (this.dragging) {
             this.x = this.prevX + mouseX;
             this.y = this.prevY + mouseY;
         }
-        Render2D.drawRectWH(this.x, this.y, this.width, this.height, this.hovered ? ColorUtils.SELECT : ColorUtils.BG);
-        FontUtils.drawHVCenteredString(this.category.name(), this.x + this.width / 2, this.y + this.height / 2, Color.WHITE.getRGB());
+        Render2D.drawRectWH(matrices, this.x, this.y, this.width, this.height, this.hovered ? ColorUtils.SELECT : ColorUtils.BG);
+        FontUtils.drawHVCenteredString(matrices, this.category.name(), this.x + this.width / 2, this.y + this.height / 2, Color.WHITE.getRGB());
         if (this.displayModulePanel) {
             double moduleY = this.y + this.height;
             for (ModulePanel modulePanel : this.modulePanels) {
-                modulePanel.render(mouseX, mouseY, delta, this.x + this.width / 2 - (getWidestModule() + 10) / 2.0, moduleY, getWidestModule() + 10, FontUtils.getFontHeight() + 10);
+                modulePanel.render(matrices, mouseX, mouseY, delta, this.x + this.width / 2 - (getWidestModule() + 10) / 2.0, moduleY, getWidestModule() + 10, FontUtils.getFontHeight() + 10);
                 moduleY += FontUtils.getFontHeight() + 10;
             }
         }

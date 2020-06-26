@@ -64,13 +64,13 @@ public class HUD extends Module {
 
             int startX = Render2D.getScaledWidth() - FontUtils.getStringWidth(module.getDisplayName()) - 6;
 
-            Render2D.drawRect(startX, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.BG);
-            Render2D.drawRect(Render2D.getScaledWidth() - 2, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
+            Render2D.drawRect(e.getMatrixStack(), startX, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.BG);
+            Render2D.drawRect(e.getMatrixStack(), Render2D.getScaledWidth() - 2, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            Render2D.drawVerticalLine(startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
-            Render2D.drawHorizontalLine(startX - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
+            Render2D.drawVerticalLine(e.getMatrixStack(), startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
+            Render2D.drawHorizontalLine(e.getMatrixStack(), startX - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            FontUtils.drawStringWithShadow(module.getDisplayName(), startX + 3, yStart, ColorUtils.SELECT);
+            FontUtils.drawStringWithShadow(e.getMatrixStack(), module.getDisplayName(), startX + 3, yStart, ColorUtils.SELECT);
 
             yStart += 13;
         }
@@ -82,19 +82,20 @@ public class HUD extends Module {
             return;
         }
 
-        this.renderTopString(5, 5);
+        FontUtils.drawStringWithShadow(e.getMatrixStack(), FoxBase.instance.name + " B"
+                + FoxBase.instance.version, 5, 5, new Color(67, 0, 99).getRGB());
         int startX = 5;
         int startY = (5 + 9) + 2;
-        Render2D.drawRect(startX, startY, startX + this.getWidestCategory() + 5,
+        Render2D.drawRect(e.getMatrixStack(), startX, startY, startX + this.getWidestCategory() + 5,
                 startY + this.categoryValues.size() * (9 + 2), ColorUtils.BG);
         for (Category c : this.categoryValues) {
             if (this.getCurrentCategory().equals(c)) {
-                Render2D.drawRect(startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
+                Render2D.drawRect(e.getMatrixStack(), startX + 1, startY, startX + this.getWidestCategory() + 5 - 1, startY + 9 + 2,
                         ColorUtils.SELECT);
             }
 
             String name = c.name();
-            FontUtils.drawStringWithShadow(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
+            FontUtils.drawStringWithShadow(e.getMatrixStack(), name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
                     startX + 2 + (this.getCurrentCategory().equals(c) ? 2 : 0), startY + 2, -1);
             startY += 9 + 2;
         }
@@ -102,14 +103,14 @@ public class HUD extends Module {
         if (screen == 1 || screen == 2) {
             int startModsX = startX + this.getWidestCategory() + 6;
             int startModsY = ((5 + 9) + 2) + currentCategoryIndex * (9 + 2);
-            Render2D.drawRect(startModsX, startModsY, startModsX + this.getWidestMod() + 5,
+            Render2D.drawRect(e.getMatrixStack(), startModsX, startModsY, startModsX + this.getWidestMod() + 5,
                     startModsY + this.getModsForCurrentCategory().size() * (9 + 2), ColorUtils.BG);
             for (Module m : getModsForCurrentCategory()) {
                 if (this.getCurrentModule().equals(m)) {
-                    Render2D.drawRect(startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
+                    Render2D.drawRect(e.getMatrixStack(), startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
                             startModsY + 9 + 2, ColorUtils.SELECT);
                 }
-                FontUtils.drawStringWithShadow(m.getName() + (FoxBase.instance.settingManager.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
+                FontUtils.drawStringWithShadow(e.getMatrixStack(), m.getName() + (FoxBase.instance.settingManager.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
                         startModsY + 2, m.isToggle() ? -1 : Color.GRAY.getRGB());
                 startModsY += 9 + 2;
             }
@@ -118,43 +119,38 @@ public class HUD extends Module {
             int startSettingX = (startX + this.getWidestCategory() + 6) + this.getWidestCategory() + 8;
             int startSettingY = ((5 + 9) + 2) + (currentCategoryIndex * (9 + 2)) + currentModIndex * (9 + 2);
 
-            Render2D.drawRect(startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
+            Render2D.drawRect(e.getMatrixStack(), startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
                     startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), ColorUtils.BG);
             for (Setting s : this.getSettingForCurrentMod()) {
 
                 if (this.getCurrentSetting().equals(s)) {
-                    Render2D.drawRect(startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
+                    Render2D.drawRect(e.getMatrixStack(), startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
                             startSettingY + 9 + 2, ColorUtils.SELECT);
                 }
                 if (s.isBoolean()) {
-                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.isToggle(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + s.isToggle(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isValueInt()) {
-                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueInt(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + s.getCurrentValueInt(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isValueDouble()) {
-                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueDouble(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + s.getCurrentValueDouble(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isValueFloat()) {
-                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentValueFloat(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + s.getCurrentValueFloat(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s.isMode()) {
-                    FontUtils.drawStringWithShadow(s.getName() + ": " + s.getCurrentMode(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + s.getCurrentMode(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 }
                 startSettingY += 9 + 2;
             }
         }
-    }
-
-    private void renderTopString(int x, int y) {
-        FontUtils.drawStringWithShadow(FoxBase.instance.name + " B"
-                + FoxBase.instance.version, x, y, new Color(67, 0, 99).getRGB());
     }
 
     private void up() {

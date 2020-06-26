@@ -9,6 +9,7 @@ import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2D;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ModulePanel {
         }
     }
 
-    public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
         if (this.module.isToggle()) {
@@ -47,12 +48,12 @@ public class ModulePanel {
             color = ColorUtils.SELECT;
         }
 
-        Render2D.drawRectWH(x, y, width, height, color);
-        FontUtils.drawHVCenteredString(this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
+        Render2D.drawRectWH(matrices, x, y, width, height, color);
+        FontUtils.drawHVCenteredString(matrices, this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;
             for (SettingElement settingElement : settingElements) {
-                settingElement.render(mouseX, mouseY, delta, x + width, SettingElementY, getWidestSetting(), height);
+                settingElement.render(matrices, mouseX, mouseY, delta, x + width, SettingElementY, getWidestSetting(), height);
                 SettingElementY += height;
             }
         }

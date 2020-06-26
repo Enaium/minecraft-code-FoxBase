@@ -3,6 +3,7 @@ package cn.enaium.foxbase.screen.clickgui.setting;
 import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.Render2D;
+import net.minecraft.client.util.math.MatrixStack;
 
 public class BooleanSettingElement extends SettingElement {
 
@@ -13,8 +14,8 @@ public class BooleanSettingElement extends SettingElement {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
-        super.render(mouseX, mouseY, delta, x, y, width, height);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
+        super.render(matrices, mouseX, mouseY, delta, x, y, width, height);
         this.hovered = Render2D.isHovered(mouseX, mouseY, x + width + 2, y + 2, height - 4, height - 4);
         int color = ColorUtils.CHECK_BG;
         if (this.setting.isToggle()) {
@@ -23,7 +24,7 @@ public class BooleanSettingElement extends SettingElement {
         if (this.hovered) {
             color = ColorUtils.SELECT;
         }
-        Render2D.drawRectWH(x + width + 2, y + 2, height - 4, height - 4, color);
+        Render2D.drawRectWH(matrices, x + width + 2, y + 2, height - 4, height - 4, color);
     }
 
     @Override

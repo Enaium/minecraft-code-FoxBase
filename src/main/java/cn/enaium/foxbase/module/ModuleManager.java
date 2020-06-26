@@ -4,7 +4,6 @@ import cn.enaium.foxbase.FoxBase;
 import cn.enaium.foxbase.event.EventTarget;
 import cn.enaium.foxbase.event.events.EventKeyboard;
 import cn.enaium.foxbase.module.modules.combat.Aura;
-import cn.enaium.foxbase.module.modules.movement.Flight;
 import cn.enaium.foxbase.module.modules.movement.Sprint;
 import cn.enaium.foxbase.module.modules.render.FullBright;
 import cn.enaium.foxbase.module.modules.render.GUI;
@@ -14,7 +13,6 @@ import net.minecraft.client.gui.screen.Screen;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class ModuleManager {
     private ArrayList<Module> modules;
@@ -28,7 +26,6 @@ public class ModuleManager {
         this.addModule(new Sprint());
         this.addModule(new HUD());
         this.addModule(new FullBright());
-        this.addModule(new Flight());
         this.addModule(new Aura());
         this.addModule(new GUI());
     }
