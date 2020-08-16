@@ -1,4 +1,4 @@
-# Minecraft 1.16.1 Fabric
+# Minecraft 1.16.2 Fabric
 ## Setup
 1. Clone this repository.
 2. Run the following command from the project's root directory:
