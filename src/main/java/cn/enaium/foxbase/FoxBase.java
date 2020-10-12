@@ -13,7 +13,7 @@ public enum FoxBase {
     public String name = "FoxBase";
     public String author = "Enaium";
     public String version = "1.0";
-    public String game = "1.16.1";
+    public String game = "1.16.3";
 
     public EventManager eventManager;
     public ModuleManager moduleManager;
