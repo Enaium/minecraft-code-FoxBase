@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.mixin;
 
-import cn.enaium.foxbase.event.events.EventRender2D;
+import cn.enaium.foxbase.client.events.Render2DEvent;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +14,6 @@ public class InGameHudMixin {
             target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V",
             ordinal = 4), method = "render")
     private void render(MatrixStack matrixStack, float partialTicks, CallbackInfo info) {
-        new EventRender2D(matrixStack).call();
+        new Render2DEvent(matrixStack).call();
     }
 }

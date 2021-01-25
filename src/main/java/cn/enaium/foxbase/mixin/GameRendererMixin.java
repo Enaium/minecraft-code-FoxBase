@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.mixin;
 
-import cn.enaium.foxbase.event.events.EventRender3D;
+import cn.enaium.foxbase.client.events.Render3DEvent;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,6 +19,6 @@ public class GameRendererMixin {
     private void onRenderWorld(float partialTicks, long finishTimeNano,
                                MatrixStack matrixStack, CallbackInfo ci)
     {
-        new EventRender3D(partialTicks).call();
+        new Render3DEvent(partialTicks).call();
     }
 }
