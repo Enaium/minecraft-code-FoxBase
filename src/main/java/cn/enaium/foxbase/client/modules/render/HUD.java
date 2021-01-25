@@ -35,10 +35,8 @@ public class HUD extends Module {
 
     private int screen;
 
-    @SettingAT
     private EnableSetting tabGUI = new EnableSetting(this, "TabGUI", "TabGUI", true);
 
-    @SettingAT
     private EnableSetting toggleList = new EnableSetting(this, "ToggleList", "ToggleList", true);
 
     public HUD() {
@@ -50,6 +48,8 @@ public class HUD extends Module {
         this.editMode = false;
         this.screen = 0;
         this.categoryValues.addAll(Arrays.asList(Category.values()));
+        CF4M.getInstance().settingManager.settings.add(tabGUI);
+        CF4M.getInstance().settingManager.settings.add(toggleList);
     }
 
     @EventAT

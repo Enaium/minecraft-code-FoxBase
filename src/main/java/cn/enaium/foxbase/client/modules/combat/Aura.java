@@ -1,5 +1,6 @@
 package cn.enaium.foxbase.client.modules.combat;
 
+import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.event.EventAT;
 import cn.enaium.cf4m.event.events.UpdateEvent;
 import cn.enaium.cf4m.module.Category;
@@ -21,15 +22,14 @@ import java.util.Arrays;
  */
 public class Aura extends Module {
 
-    @SettingAT
     IntegerSetting cps = new IntegerSetting(this, "CPS", "CPS", 7, 1, 20);
 
-    @SettingAT
     ModeSetting mode = new ModeSetting(this, "MODE", "MODE", "MOD1", new ArrayList<>(Arrays.asList(new String[]{"MOD1", "MOD2", "MOD3"})));
-
 
     public Aura() {
         super("Aura", "Aura", GLFW.GLFW_KEY_R, Category.COMBAT);
+        CF4M.getInstance().settingManager.settings.add(cps);
+        CF4M.getInstance().settingManager.settings.add(mode);
     }
 
     @EventAT
