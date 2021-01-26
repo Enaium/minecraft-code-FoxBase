@@ -11,6 +11,7 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@ModuleAT
 public class FullBright extends Module {
 
     public FullBright() {

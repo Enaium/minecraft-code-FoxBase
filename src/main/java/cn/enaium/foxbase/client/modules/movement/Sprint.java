@@ -13,6 +13,7 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@ModuleAT
 public class Sprint extends Module {
     public Sprint() {
         super("Sprint", "Sprint", GLFW.GLFW_KEY_V, Category.MOVEMENT);

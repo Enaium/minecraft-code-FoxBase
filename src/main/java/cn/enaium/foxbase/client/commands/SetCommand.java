@@ -17,6 +17,7 @@ import java.util.List;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@CommandAT({"s", "setting"})
 public class SetCommand implements Command {
     @Override
     public void run(String[] args) {

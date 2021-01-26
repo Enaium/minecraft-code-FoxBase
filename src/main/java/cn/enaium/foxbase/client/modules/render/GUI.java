@@ -12,6 +12,7 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@ModuleAT
 public class GUI extends Module {
     public GUI() {
         super("GUI", "GUI", GLFW.GLFW_KEY_RIGHT_SHIFT, Category.RENDER);

@@ -13,6 +13,7 @@ import java.util.List;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@CommandAT({"h", "help"})
 public class HelpCommand implements Command {
 
     @Override

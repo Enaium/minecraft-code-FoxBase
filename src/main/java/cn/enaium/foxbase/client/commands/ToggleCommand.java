@@ -14,6 +14,7 @@ import java.util.List;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
+@CommandAT({"t", "toggle"})
 public class ToggleCommand implements Command {
 
     @Override
