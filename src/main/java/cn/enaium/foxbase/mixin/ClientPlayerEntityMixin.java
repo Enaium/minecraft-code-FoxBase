@@ -1,9 +1,8 @@
 package cn.enaium.foxbase.mixin;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.event.Event;
+import cn.enaium.cf4m.event.EventBase;
 import cn.enaium.cf4m.event.events.UpdateEvent;
-import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.events.MotionEvent;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -17,7 +16,7 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo info) {
-        if (CF4M.getInstance().commandManager.isCommand(message)) {
+        if (CF4M.getInstance().command.isCommand(message)) {
             info.cancel();
         }
     }
@@ -29,12 +28,12 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = {@At("HEAD")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsHEAD(CallbackInfo ci) {
-        new MotionEvent(Event.Type.PRE).call();
+        new MotionEvent(EventBase.Type.PRE).call();
     }
 
     @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
-        new MotionEvent(Event.Type.POST).call();
+        new MotionEvent(EventBase.Type.POST).call();
     }
 
 

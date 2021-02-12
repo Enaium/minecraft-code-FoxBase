@@ -1,12 +1,11 @@
 package cn.enaium.foxbase.client.modules.render;
 
-import cn.enaium.cf4m.event.EventAT;
+import cn.enaium.cf4m.annotation.Event;
+import cn.enaium.cf4m.annotation.Setting;
+import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.event.events.KeyboardEvent;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.module.ModuleAT;
-import cn.enaium.cf4m.setting.Setting;
-import cn.enaium.cf4m.setting.SettingAT;
+import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.FoxBase;
@@ -27,8 +26,8 @@ import java.util.List;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@ModuleAT
-public class HUD extends Module {
+@Module(value = "HUD", key = GLFW.GLFW_KEY_O, category = Category.RENDER)
+public class HUD {
 
     private ArrayList<Category> categoryValues;
     private int currentCategoryIndex, currentModIndex, currentSettingIndex;
@@ -36,14 +35,13 @@ public class HUD extends Module {
 
     private int screen;
 
-    @SettingAT
+    @Setting
     private EnableSetting tabGUI = new EnableSetting(this, "TabGUI", "TabGUI", true);
 
-    @SettingAT
+    @Setting
     private EnableSetting toggleList = new EnableSetting(this, "ToggleList", "ToggleList", true);
 
     public HUD() {
-        super("HUD", "HUD", GLFW.GLFW_KEY_P, Category.RENDER);
         this.categoryValues = new ArrayList<>();
         this.currentCategoryIndex = 0;
         this.currentModIndex = 0;
@@ -53,7 +51,7 @@ public class HUD extends Module {
         this.categoryValues.addAll(Arrays.asList(Category.values()));
     }
 
-    @EventAT
+    @Event
     public void toggleList(Render2DEvent e) {
         if (!this.toggleList.isEnable()) {
             return;
@@ -61,19 +59,19 @@ public class HUD extends Module {
 
         int yStart = 1;
 
-        ArrayList<Module> modules = new ArrayList();
-        for (Module m : CF4M.getInstance().moduleManager.modules) {
-            if (m.isEnable()) {
-                modules.add(m);
+        ArrayList<Object> modules = new ArrayList();
+        for (Object module : CF4M.getInstance().module.getModules()) {
+            if (CF4M.getInstance().module.isEnable(module)) {
+                modules.add(module);
             }
         }
 
-        List<Module> mods = modules;
-        mods.sort((o1, o2) -> FontUtils.getStringWidth(o2.getName()) - FontUtils.getStringWidth(o1.getName()));
+        List<Object> mods = modules;
+        mods.sort((o1, o2) -> FontUtils.getStringWidth(CF4M.getInstance().module.getName(o2)) - FontUtils.getStringWidth(CF4M.getInstance().module.getName(o1)));
 
-        for (Module module : mods) {
+        for (Object module : mods) {
 
-            int startX = Render2D.getScaledWidth() - FontUtils.getStringWidth(module.getName()) - 6;
+            int startX = Render2D.getScaledWidth() - FontUtils.getStringWidth(CF4M.getInstance().module.getName(module)) - 6;
 
             Render2D.drawRect(e.getMatrixStack(), startX, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.BG);
             Render2D.drawRect(e.getMatrixStack(), Render2D.getScaledWidth() - 2, yStart - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
@@ -81,13 +79,13 @@ public class HUD extends Module {
             Render2D.drawVerticalLine(e.getMatrixStack(), startX - 1, yStart - 2, yStart + 12, ColorUtils.SELECT);
             Render2D.drawHorizontalLine(e.getMatrixStack(), startX - 1, Render2D.getScaledWidth(), yStart + 12, ColorUtils.SELECT);
 
-            FontUtils.drawStringWithShadow(e.getMatrixStack(), module.getName(), startX + 3, yStart, ColorUtils.SELECT);
+            FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.getInstance().module.getName(module), startX + 3, yStart, ColorUtils.SELECT);
 
             yStart += 13;
         }
     }
 
-    @EventAT
+    @Event
     public void onTabGUI(Render2DEvent e) {
         if (!this.tabGUI.isEnable()) {
             return;
@@ -106,7 +104,7 @@ public class HUD extends Module {
             }
 
             String name = c.name();
-            FontUtils.drawStringWithShadow(e.getMatrixStack(), name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase(),
+            FontUtils.drawStringWithShadow(e.getMatrixStack(), name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase(),
                     startX + 2 + (this.getCurrentCategory().equals(c) ? 2 : 0), startY + 2, -1);
             startY += 9 + 2;
         }
@@ -116,13 +114,13 @@ public class HUD extends Module {
             int startModsY = ((5 + 9) + 2) + currentCategoryIndex * (9 + 2);
             Render2D.drawRect(e.getMatrixStack(), startModsX, startModsY, startModsX + this.getWidestMod() + 5,
                     startModsY + this.getModsForCurrentCategory().size() * (9 + 2), ColorUtils.BG);
-            for (Module m : getModsForCurrentCategory()) {
-                if (this.getCurrentModule().equals(m)) {
+            for (Object module : getModsForCurrentCategory()) {
+                if (this.getCurrentModule().equals(module)) {
                     Render2D.drawRect(e.getMatrixStack(), startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
                             startModsY + 9 + 2, ColorUtils.SELECT);
                 }
-                FontUtils.drawStringWithShadow(e.getMatrixStack(), m.getName() + (Utils.getSettingsForModule(m) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(m) ? 2 : 0),
-                        startModsY + 2, m.isEnable() ? -1 : Color.GRAY.getRGB());
+                FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.getInstance().module.getName(module) + (CF4M.getInstance().module.getSettings(module) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(module) ? 2 : 0),
+                        startModsY + 2, CF4M.getInstance().module.isEnable(module) ? -1 : Color.GRAY.getRGB());
                 startModsY += 9 + 2;
             }
         }
@@ -132,7 +130,7 @@ public class HUD extends Module {
 
             Render2D.drawRect(e.getMatrixStack(), startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
                     startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), ColorUtils.BG);
-            for (Setting s : this.getSettingForCurrentMod()) {
+            for (SettingBase s : this.getSettingForCurrentMod()) {
 
                 if (this.getCurrentSetting().equals(s)) {
                     Render2D.drawRect(e.getMatrixStack(), startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
@@ -184,22 +182,22 @@ public class HUD extends Module {
         }
 
         if (editMode) {
-            Setting s = this.getCurrentSetting();
-            if (s instanceof EnableSetting) {
-                ((EnableSetting) s).setEnable(!((EnableSetting) s).isEnable());
-            } else if (s instanceof IntegerSetting) {
-                ((IntegerSetting) s).setCurrent(((IntegerSetting) s).getCurrent() + 1);
-            } else if (s instanceof DoubleSetting) {
-                ((DoubleSetting) s).setCurrent(((DoubleSetting) s).getCurrent() + 0.1D);
-            } else if (s instanceof FloatSetting) {
-                ((FloatSetting) s).setCurrent(((FloatSetting) s).getCurrent() + 0.1F);
-            } else if (s instanceof LongSetting) {
-                ((LongSetting) s).setCurrent(((LongSetting) s).getCurrent() + 1L);
-            } else if (s instanceof ModeSetting) {
+            SettingBase setting = this.getCurrentSetting();
+            if (setting instanceof EnableSetting) {
+                ((EnableSetting) setting).setEnable(!((EnableSetting) setting).isEnable());
+            } else if (setting instanceof IntegerSetting) {
+                ((IntegerSetting) setting).setCurrent(((IntegerSetting) setting).getCurrent() + 1);
+            } else if (setting instanceof DoubleSetting) {
+                ((DoubleSetting) setting).setCurrent(((DoubleSetting) setting).getCurrent() + 0.1D);
+            } else if (setting instanceof FloatSetting) {
+                ((FloatSetting) setting).setCurrent(((FloatSetting) setting).getCurrent() + 0.1F);
+            } else if (setting instanceof LongSetting) {
+                ((LongSetting) setting).setCurrent(((LongSetting) setting).getCurrent() + 1L);
+            } else if (setting instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) s).setCurrent(((ModeSetting) s).getModes().get(Utils.getCurrentModeIndex((ModeSetting) s) - 1));
+                    ((ModeSetting) setting).setCurrent(((ModeSetting) setting).getModes().get(Utils.getCurrentModeIndex((ModeSetting) setting) - 1));
                 } catch (Exception e) {
-                    ((ModeSetting) s).setCurrent(((ModeSetting) s).getModes().get(((ModeSetting) s).getModes().size() - 1));
+                    ((ModeSetting) setting).setCurrent(((ModeSetting) setting).getModes().get(((ModeSetting) setting).getModes().size() - 1));
                 }
 
             }
@@ -224,22 +222,22 @@ public class HUD extends Module {
         }
 
         if (editMode) {
-            Setting s = this.getCurrentSetting();
-            if (s instanceof EnableSetting) {
-                ((EnableSetting) s).setEnable(!((EnableSetting) s).isEnable());
-            } else if (s instanceof IntegerSetting) {
-                ((IntegerSetting) s).setCurrent(((IntegerSetting) s).getCurrent() - 1);
-            } else if (s instanceof DoubleSetting) {
-                ((DoubleSetting) s).setCurrent(((DoubleSetting) s).getCurrent() - 0.1D);
-            } else if (s instanceof FloatSetting) {
-                ((FloatSetting) s).setCurrent(((FloatSetting) s).getCurrent() - 0.1F);
-            } else if (s instanceof LongSetting) {
-                ((LongSetting) s).setCurrent(((LongSetting) s).getCurrent() - 1L);
-            } else if (s instanceof ModeSetting) {
+            SettingBase setting = this.getCurrentSetting();
+            if (setting instanceof EnableSetting) {
+                ((EnableSetting) setting).setEnable(!((EnableSetting) setting).isEnable());
+            } else if (setting instanceof IntegerSetting) {
+                ((IntegerSetting) setting).setCurrent(((IntegerSetting) setting).getCurrent() - 1);
+            } else if (setting instanceof DoubleSetting) {
+                ((DoubleSetting) setting).setCurrent(((DoubleSetting) setting).getCurrent() - 0.1D);
+            } else if (setting instanceof FloatSetting) {
+                ((FloatSetting) setting).setCurrent(((FloatSetting) setting).getCurrent() - 0.1F);
+            } else if (setting instanceof LongSetting) {
+                ((LongSetting) setting).setCurrent(((LongSetting) setting).getCurrent() - 1L);
+            } else if (setting instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) s).setCurrent(((ModeSetting) s).getModes().get(Utils.getCurrentModeIndex((ModeSetting) s) + 1));
+                    ((ModeSetting) setting).setCurrent(((ModeSetting) setting).getModes().get(Utils.getCurrentModeIndex((ModeSetting) setting) + 1));
                 } catch (Exception e) {
-                    ((ModeSetting) s).setCurrent(((ModeSetting) s).getModes().get(0));
+                    ((ModeSetting) setting).setCurrent(((ModeSetting) setting).getModes().get(0));
                 }
 
             }
@@ -251,9 +249,9 @@ public class HUD extends Module {
         if (this.screen == 0) {
             this.screen = 1;
         } else if (this.screen == 1 && this.getCurrentModule() != null && this.getSettingForCurrentMod() == null) {
-            this.getCurrentModule().enable();
+            CF4M.getInstance().module.enable(this.getCurrentModule());
         } else if (this.screen == 1 && this.getSettingForCurrentMod() != null && this.getCurrentModule() != null && key == GLFW.GLFW_KEY_ENTER) {
-            this.getCurrentModule().enable();
+            CF4M.getInstance().module.enable(this.getCurrentModule());
         } else if (this.screen == 1 && this.getSettingForCurrentMod() != null && this.getCurrentModule() != null) {
             this.screen = 2;
         } else if (this.screen == 2) {
@@ -273,9 +271,9 @@ public class HUD extends Module {
 
     }
 
-    @EventAT
+    @Event
     public void onKey(KeyboardEvent e) {
-        switch (e.getKeyCode()) {
+        switch (e.getKey()) {
             case GLFW.GLFW_KEY_UP:
                 this.up();
                 break;
@@ -294,42 +292,42 @@ public class HUD extends Module {
         }
     }
 
-    private Setting getCurrentSetting() {
+    private SettingBase getCurrentSetting() {
         return getSettingForCurrentMod().get(currentSettingIndex);
     }
 
-    private ArrayList<Setting> getSettingForCurrentMod() {
-        return Utils.getSettingsForModule(getCurrentModule());
+    private ArrayList<SettingBase> getSettingForCurrentMod() {
+        return CF4M.getInstance().module.getSettings(getCurrentModule());
     }
 
     private Category getCurrentCategory() {
         return this.categoryValues.get(this.currentCategoryIndex);
     }
 
-    private Module getCurrentModule() {
+    private Object getCurrentModule() {
         return getModsForCurrentCategory().get(currentModIndex);
     }
 
-    private ArrayList<Module> getModsForCurrentCategory() {
+    private ArrayList<Object> getModsForCurrentCategory() {
         return Utils.getModulesForCategory(getCurrentCategory());
     }
 
     private int getWidestSetting() {
         int width = 0;
-        for (Setting s : getSettingForCurrentMod()) {
+        for (SettingBase setting : getSettingForCurrentMod()) {
             String name;
-            if (s instanceof EnableSetting) {
-                name = s.getName() + ": " + ((EnableSetting) s).isEnable();
-            } else if (s instanceof IntegerSetting) {
-                name = s.getName() + ": " + ((IntegerSetting) s).getCurrent();
-            } else if (s instanceof DoubleSetting) {
-                name = s.getName() + ": " + ((DoubleSetting) s).getCurrent();
-            } else if (s instanceof FloatSetting) {
-                name = s.getName() + ": " + ((FloatSetting) s).getCurrent();
-            } else if (s instanceof LongSetting) {
-                name = s.getName() + ": " + ((LongSetting) s).getCurrent();
-            } else if (s instanceof ModeSetting) {
-                name = s.getName() + ": " + ((ModeSetting) s).getCurrent();
+            if (setting instanceof EnableSetting) {
+                name = setting.getName() + ": " + ((EnableSetting) setting).isEnable();
+            } else if (setting instanceof IntegerSetting) {
+                name = setting.getName() + ": " + ((IntegerSetting) setting).getCurrent();
+            } else if (setting instanceof DoubleSetting) {
+                name = setting.getName() + ": " + ((DoubleSetting) setting).getCurrent();
+            } else if (setting instanceof FloatSetting) {
+                name = setting.getName() + ": " + ((FloatSetting) setting).getCurrent();
+            } else if (setting instanceof LongSetting) {
+                name = setting.getName() + ": " + ((LongSetting) setting).getCurrent();
+            } else if (setting instanceof ModeSetting) {
+                name = setting.getName() + ": " + ((ModeSetting) setting).getCurrent();
             } else {
                 name = "NULL";
             }
@@ -342,8 +340,8 @@ public class HUD extends Module {
 
     private int getWidestMod() {
         int width = 0;
-        for (Module m : CF4M.getInstance().moduleManager.modules) {
-            int cWidth = FontUtils.getStringWidth(m.getName());
+        for (Object module : CF4M.getInstance().module.getModules()) {
+            int cWidth = FontUtils.getStringWidth(CF4M.getInstance().module.getName(module));
             if (cWidth > width) {
                 width = cWidth;
             }

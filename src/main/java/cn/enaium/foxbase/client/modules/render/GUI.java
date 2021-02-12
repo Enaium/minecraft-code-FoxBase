@@ -1,8 +1,9 @@
 package cn.enaium.foxbase.client.modules.render;
 
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.annotation.module.Enable;
+import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.module.ModuleAT;
 import cn.enaium.foxbase.client.clickgui.ClickGUI;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
@@ -12,16 +13,11 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@ModuleAT
-public class GUI extends Module {
-    public GUI() {
-        super("GUI", "GUI", GLFW.GLFW_KEY_RIGHT_SHIFT, Category.RENDER);
-    }
-
-    @Override
+@Module(value = "GUI", key = GLFW.GLFW_KEY_RIGHT_SHIFT, category = Category.RENDER)
+public class GUI {
+    @Enable
     public void onEnable() {
-        super.onEnable();
         MinecraftClient.getInstance().openScreen(new ClickGUI());
-        enable();
+        CF4M.getInstance().module.enable(this);
     }
 }

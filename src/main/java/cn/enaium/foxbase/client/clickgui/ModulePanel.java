@@ -1,7 +1,6 @@
 package cn.enaium.foxbase.client.clickgui;
 
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.setting.Setting;
+import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
@@ -23,19 +22,19 @@ import java.util.ArrayList;
  */
 public class ModulePanel {
 
-    private Module module;
+    private Object module;
     private boolean hovered;
 
     private boolean displaySettingElement;
 
     private ArrayList<SettingElement> settingElements;
 
-    public ModulePanel(Module module) {
+    public ModulePanel(Object module) {
         this.module = module;
         this.settingElements = new ArrayList<>();
-        ArrayList<Setting> settings = Utils.getSettingsForModule(this.module);
+        ArrayList<SettingBase> settings = CF4M.getInstance().module.getSettings(this.module);
         if (settings != null) {
-            for (Setting setting : settings) {
+            for (SettingBase setting : settings) {
                 if (setting instanceof EnableSetting) {
                     this.settingElements.add(new BooleanSettingElement((EnableSetting) setting));
                 } else if (setting instanceof IntegerSetting || setting instanceof DoubleSetting || setting instanceof FloatSetting || setting instanceof LongSetting || setting instanceof ModeSetting) {
@@ -48,7 +47,7 @@ public class ModulePanel {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
-        if (this.module.isEnable()) {
+        if (CF4M.getInstance().module.isEnable(this.module)) {
             color = ColorUtils.TOGGLE;
         }
         if (this.hovered) {
@@ -56,7 +55,7 @@ public class ModulePanel {
         }
 
         Render2D.drawRectWH(matrices, x, y, width, height, color);
-        FontUtils.drawHVCenteredString(matrices, this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
+        FontUtils.drawHVCenteredString(matrices, CF4M.getInstance().module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;
             for (SettingElement settingElement : settingElements) {
@@ -69,7 +68,7 @@ public class ModulePanel {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered) {
             if (button == 0) {
-                this.module.enable();
+                CF4M.getInstance().module.enable(this.module);
             } else if (button == 1) {
                 this.displaySettingElement = !displaySettingElement;
             }
@@ -82,7 +81,7 @@ public class ModulePanel {
 
     private int getWidestSetting() {
         int width = 0;
-        for (Setting m : CF4M.getInstance().settingManager.settings) {
+        for (SettingBase m : CF4M.getInstance().module.getSettings()) {
             String name = m.getName();
             if (m instanceof IntegerSetting) {
                 name = name + ":" + ((IntegerSetting) m).getCurrent();

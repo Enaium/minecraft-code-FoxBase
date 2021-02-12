@@ -1,8 +1,9 @@
 package cn.enaium.foxbase.client.modules.render;
 
+import cn.enaium.cf4m.annotation.module.Disable;
+import cn.enaium.cf4m.annotation.module.Enable;
+import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.module.ModuleAT;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 
@@ -11,22 +12,16 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@ModuleAT
-public class FullBright extends Module {
+@Module(value = "FullBright", key = GLFW.GLFW_KEY_G, category = Category.RENDER)
+public class FullBright {
 
-    public FullBright() {
-        super("FullBright", "FullBright", GLFW.GLFW_KEY_G, Category.RENDER);
-    }
-
-    @Override
+    @Enable
     public void onEnable() {
-        super.onEnable();
         MinecraftClient.getInstance().options.gamma = 300;
     }
 
-    @Override
+    @Disable
     public void onDisable() {
-        super.onDisable();
         MinecraftClient.getInstance().options.gamma = 1;
     }
 

@@ -1,34 +1,32 @@
 package cn.enaium.foxbase.client.commands;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.command.Command;
-import cn.enaium.cf4m.command.CommandAT;
-import cn.enaium.foxbase.utils.ChatUtils;
+import cn.enaium.cf4m.annotation.Command;
+import cn.enaium.cf4m.command.ICommand;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@CommandAT({"h", "help"})
-public class HelpCommand implements Command {
+@Command({"h", "help"})
+public class HelpCommand implements ICommand {
 
     @Override
-    public void run(String[] args) {
-        ChatUtils.message("Here are the list of commands:");
-        for (Command c : CF4M.getInstance().commandManager.commands.values()) {
-            for (String s : c.usage()) {
-                ChatUtils.message("USAGE:" + CF4M.getInstance().commandManager.prefix + s);
-            }
+    public boolean run(String[] args) {
+        CF4M.getInstance().configuration.message("Here are the list of commands:");
+        for (Map.Entry<String[], ICommand> entry : CF4M.getInstance().command.getCommands().entrySet()) {
+            CF4M.getInstance().configuration.message(Arrays.toString(entry.getKey()));
         }
+        return true;
     }
 
     @Override
-    public List<String> usage() {
-        return Arrays.asList("help");
+    public String usage() {
+        return "help";
     }
 }
 

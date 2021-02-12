@@ -1,49 +1,35 @@
 package cn.enaium.foxbase.client.commands;
 
-import cn.enaium.cf4m.command.Command;
-import cn.enaium.cf4m.command.CommandAT;
-import cn.enaium.cf4m.module.Module;
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.foxbase.utils.ChatUtils;
-
-import java.util.Arrays;
-import java.util.List;
+import cn.enaium.cf4m.annotation.Command;
+import cn.enaium.cf4m.command.ICommand;
 
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@CommandAT({"t", "toggle"})
-public class ToggleCommand implements Command {
+@Command({"t", "toggle"})
+public class ToggleCommand implements ICommand {
 
     @Override
-    public void run(String[] args) {
-
+    public boolean run(String[] args) {
         if (args.length == 2) {
+            Object module = CF4M.getInstance().module.getModule(args[1]);
 
-            Module module = getModule(args[1]);
             if (module == null) {
-                ChatUtils.message("The module with the name " + args[1] + " does not exist.");
-                return;
+                CF4M.getInstance().configuration.message("The module with the name " + args[1] + " does not exist.");
+                return true;
             }
 
-            module.enable();
+            CF4M.getInstance().module.enable(module);
+            return true;
         }
-    }
-
-    public Module getModule(String name) {
-        for (Module m : CF4M.getInstance().moduleManager.modules) {
-            if (m.getName().equalsIgnoreCase(name)) {
-                return m;
-            }
-        }
-        return null;
+        return false;
     }
 
     @Override
-    public List<String> usage() {
-        return Arrays.asList("-toggle [module]");
+    public String usage() {
+        return "<module>";
     }
-
 }

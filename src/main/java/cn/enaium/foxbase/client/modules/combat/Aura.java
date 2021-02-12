@@ -1,13 +1,10 @@
 package cn.enaium.foxbase.client.modules.combat;
 
-import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.event.EventAT;
+import cn.enaium.cf4m.annotation.Event;
+import cn.enaium.cf4m.annotation.Setting;
+import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.event.events.UpdateEvent;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.module.ModuleAT;
-import cn.enaium.cf4m.setting.Setting;
-import cn.enaium.cf4m.setting.SettingAT;
 import cn.enaium.cf4m.setting.settings.IntegerSetting;
 import cn.enaium.cf4m.setting.settings.ModeSetting;
 import org.lwjgl.glfw.GLFW;
@@ -20,20 +17,16 @@ import java.util.Arrays;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@ModuleAT
-public class Aura extends Module {
+@Module("Aura")
+public class Aura {
 
-    @SettingAT
+    @Setting
     IntegerSetting cps = new IntegerSetting(this, "CPS", "CPS", 7, 1, 20);
 
-    @SettingAT
-    ModeSetting mode = new ModeSetting(this, "MODE", "MODE", "MOD1", new ArrayList<>(Arrays.asList(new String[]{"MOD1", "MOD2", "MOD3"})));
+    @Setting
+    ModeSetting mode = new ModeSetting(this, "MODE", "MODE", "MOD1", new ArrayList<>(Arrays.asList("MOD1", "MOD2", "MOD3")));
 
-    public Aura() {
-        super("Aura", "Aura", GLFW.GLFW_KEY_R, Category.COMBAT);
-    }
-
-    @EventAT
+    @Event
     public void onUpdate(UpdateEvent e) {
 
     }

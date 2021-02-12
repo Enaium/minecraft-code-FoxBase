@@ -1,7 +1,6 @@
 package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
@@ -43,9 +42,9 @@ public class CategoryPanel {
         this.width = width;
         this.height = height;
         this.modulePanels = new ArrayList<>();
-        ArrayList<Module> modules = new ArrayList<>(Utils.getModulesForCategory(this.category));
-        for (Module m : modules) {
-            this.modulePanels.add(new ModulePanel(m));
+        ArrayList<Object> modules = new ArrayList<>(Utils.getModulesForCategory(this.category));
+        for (Object module : modules) {
+            this.modulePanels.add(new ModulePanel(module));
         }
     }
 
@@ -90,8 +89,8 @@ public class CategoryPanel {
 
     private int getWidestModule() {
         int width = 0;
-        for (Module m : CF4M.getInstance().moduleManager.modules) {
-            String name = m.getName();
+        for (Object module : CF4M.getInstance().module.getModules()) {
+            String name = CF4M.getInstance().module.getName(module);
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {

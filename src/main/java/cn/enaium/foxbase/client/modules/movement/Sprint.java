@@ -1,10 +1,9 @@
 package cn.enaium.foxbase.client.modules.movement;
 
-import cn.enaium.cf4m.event.EventAT;
+import cn.enaium.cf4m.annotation.Event;
+import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.event.events.UpdateEvent;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.module.Module;
-import cn.enaium.cf4m.module.ModuleAT;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 
@@ -13,13 +12,10 @@ import org.lwjgl.glfw.GLFW;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@ModuleAT
-public class Sprint extends Module {
-    public Sprint() {
-        super("Sprint", "Sprint", GLFW.GLFW_KEY_V, Category.MOVEMENT);
-    }
+@Module(value = "Sprint", key = GLFW.GLFW_KEY_V, category = Category.MOVEMENT)
+public class Sprint {
 
-    @EventAT
+    @Event
     public void onUpdate(UpdateEvent e) {
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.setSprinting(true);

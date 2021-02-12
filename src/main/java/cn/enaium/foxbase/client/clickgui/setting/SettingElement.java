@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.setting.Setting;
+import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.DoubleSetting;
 import cn.enaium.cf4m.setting.settings.FloatSetting;
 import cn.enaium.cf4m.setting.settings.IntegerSetting;
@@ -19,9 +19,9 @@ import java.awt.*;
  */
 public class SettingElement {
 
-    protected Setting setting;
+    protected SettingBase setting;
 
-    public SettingElement(Setting setting) {
+    public SettingElement(SettingBase setting) {
         this.setting = setting;
     }
 
