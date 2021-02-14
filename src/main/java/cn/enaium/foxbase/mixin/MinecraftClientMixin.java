@@ -23,12 +23,12 @@ import java.io.IOException;
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
 
-    private Window window;
-
-    @Inject(at = @At("RETURN"), method = "updateWindowTitle")
-    private void updateWindowTitle(CallbackInfo callbackInfo) {
-        this.window.setTitle(FoxBase.instance.name + " | Author:" + FoxBase.instance.author + " | Version:" + FoxBase.instance.version + " | Minecraft:" + FoxBase.instance.game);
-    }
+//    private Window window;
+//
+//    @Inject(at = @At("RETURN"), method = "updateWindowTitle")
+//    private void updateWindowTitle(CallbackInfo callbackInfo) {
+//        this.window.setTitle(FoxBase.instance.name + " | Author:" + FoxBase.instance.author + " | Version:" + FoxBase.instance.version + " | Minecraft:" + FoxBase.instance.game);
+//    }
 
     @Inject(at = @At("HEAD"), method = "run")
     private void run(CallbackInfo callbackInfo) {
