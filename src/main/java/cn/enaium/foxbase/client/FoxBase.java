@@ -20,12 +20,6 @@ public enum FoxBase {
 
     public void run() {
         new CF4M(this, MinecraftClient.getInstance().runDirectory.toString() + "/" + name);
-        CF4M.getInstance().classManager = new ClassManager() {
-            @Override
-            public Class<?> loadClass(Class<?> clazz) throws ClassNotFoundException {
-                return Class.forName(clazz.getName());
-            }
-        };
         CF4M.getInstance().run();
     }
 
