@@ -330,9 +330,6 @@ public class HUD {
         return this.categoryValues.get(this.currentCategoryIndex);
     }
 
-    private Category getCurrentCategorry() {
-        return this.categoryValues.get(this.currentCategoryIndex);
-    }
 
     private Object getCurrentModule() {
         return getModsForCurrentCategory().get(currentModIndex);
@@ -340,7 +337,7 @@ public class HUD {
 
     private ArrayList<Object> getModsForCurrentCategory() {
         ArrayList<Object> mods = new ArrayList<>();
-        Category c = getCurrentCategorry();
+        Category c = getCurrentCategory();
         for (Object m : CF4M.getInstance().module.getModules()) {
             if (CF4M.getInstance().module.getCategory(m).equals(c)) {
                 mods.add(m);
