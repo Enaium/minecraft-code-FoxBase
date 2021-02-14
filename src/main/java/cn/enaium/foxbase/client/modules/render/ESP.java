@@ -1,15 +1,15 @@
-package cn.enaium.foxbase.module.modules.render;
+package cn.enaium.foxbase.client.modules.render;
 
-import cn.enaium.foxbase.event.EventTarget;
-import cn.enaium.foxbase.event.events.EventRender3D;
-import cn.enaium.foxbase.module.Category;
-import cn.enaium.foxbase.module.Module;
-import cn.enaium.foxbase.setting.Setting;
-import cn.enaium.foxbase.utils.Render3DUtils;
+import cn.enaium.cf4m.annotation.Event;
+import cn.enaium.cf4m.annotation.Setting;
+import cn.enaium.cf4m.annotation.module.Module;
+import cn.enaium.cf4m.module.Category;
+import cn.enaium.cf4m.setting.settings.EnableSetting;
+import cn.enaium.foxbase.client.events.EventRender3D;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.AxisAlignedBB;
 import org.lwjgl.input.Keyboard;
 
 /**
@@ -17,23 +17,22 @@ import org.lwjgl.input.Keyboard;
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */
-public class ESP extends Module {
+@Module("ESP")
+public class ESP {
 
-    private Setting player = new Setting(this, "Player", true);
-    private Setting mob = new Setting(this, "Mob", true);
-    private Setting anim = new Setting(this, "Animal", true);
+    @Setting
+    private EnableSetting player = new EnableSetting(this, "Player", "",true);
+    @Setting
+    private EnableSetting mob = new EnableSetting(this, "Mob", "",true);
+    @Setting
+    private EnableSetting anim = new EnableSetting(this, "Animal", "",true);
 
-
-    public ESP() {
-        super("ESP", 0, Category.RENDER);
-    }
-
-    @EventTarget
+    @Event
     public void onESP(EventRender3D e) {
-        for (Object o : mc.theWorld.loadedEntityList) {
+        for (Object o : Minecraft.getMinecraft().theWorld.loadedEntityList) {
             if (o instanceof EntityPlayer) {
                 EntityPlayer entity = (EntityPlayer) o;
-                if (entity != mc.thePlayer && !entity.isDead) {
+                if (entity != Minecraft.getMinecraft().thePlayer && !entity.isDead) {
                     
                 }
             }

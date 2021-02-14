@@ -1,7 +1,7 @@
 package cn.enaium.foxbase.injection.mixins;
 
-import cn.enaium.foxbase.FoxBase;
-import cn.enaium.foxbase.event.events.EventKeyboard;
+import cn.enaium.cf4m.event.events.KeyboardEvent;
+import cn.enaium.foxbase.client.FoxBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Keyboard;
@@ -33,7 +33,7 @@ public class MinecraftMixin {
     @Inject(at = @At(value = "RETURN"), method = "dispatchKeypresses")
     private void dispatchKeypresses(CallbackInfo info) {
         if (Keyboard.getEventKeyState() && this.currentScreen == null) {
-            new EventKeyboard(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()).call();
+            new KeyboardEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()).call();
         }
     }
 

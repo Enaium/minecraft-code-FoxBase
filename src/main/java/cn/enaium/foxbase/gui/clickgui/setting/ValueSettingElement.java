@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.gui.clickgui.setting;
 
-import cn.enaium.foxbase.setting.Setting;
+import cn.enaium.cf4m.setting.SettingBase;
+import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
@@ -17,7 +18,7 @@ public class ValueSettingElement extends SettingElement {
     private boolean addHovered;
     private boolean removeHovered;
 
-    public ValueSettingElement(Setting setting) {
+    public ValueSettingElement(SettingBase setting) {
         super(setting);
     }
 
@@ -35,47 +36,65 @@ public class ValueSettingElement extends SettingElement {
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.addHovered && button == 0) {
-            if (this.setting.isValueInt()) {
-                if (this.setting.getCurrentValueInt() < this.setting.getMaxValueInt()) {
-                    this.setting.setCurrentValueInt(this.setting.getCurrentValueInt() + 1);
+            if (this.setting instanceof IntegerSetting) {
+                if (((IntegerSetting) this.setting).getCurrent() < ((IntegerSetting) this.setting).getMax()) {
+                    ((IntegerSetting) this.setting).setCurrent(((IntegerSetting) this.setting).getCurrent() + 1);
                 }
-            } else if (this.setting.isValueFloat()) {
-                if (this.setting.getCurrentValueFloat() < this.setting.getMaxValueFloat()) {
-                    this.setting.setCurrentValueFloat(this.setting.getCurrentValueFloat() + 0.1F);
+            } else if (this.setting instanceof FloatSetting) {
+                if (((FloatSetting) this.setting).getCurrent() < ((FloatSetting) this.setting).getMax()) {
+                    ((FloatSetting) this.setting).setCurrent(((FloatSetting) this.setting).getCurrent() + 0.1F);
                 }
-            } else if (this.setting.isValueDouble()) {
-                if (this.setting.getCurrentValueDouble() < this.setting.getMaxValueDouble()) {
-                    this.setting.setCurrentValueDouble(this.setting.getCurrentValueDouble() + 0.1D);
+            } else if (this.setting instanceof DoubleSetting) {
+                if (((DoubleSetting) this.setting).getCurrent() < ((DoubleSetting) this.setting).getMax()) {
+                    ((DoubleSetting) this.setting).setCurrent(((DoubleSetting) this.setting).getCurrent() + 0.1D);
                 }
-            } else if (this.setting.isMode()) {
-
+            } else if (this.setting instanceof LongSetting) {
+                if (((LongSetting) this.setting).getCurrent() < ((LongSetting) this.setting).getMax()) {
+                    ((LongSetting) this.setting).setCurrent(((LongSetting) this.setting).getCurrent() + 1L);
+                }
+            } else if (this.setting instanceof ModeSetting) {
                 try {
-                    this.setting.setCurrentMode(this.setting.getModes().get(this.setting.getCurrentModeIndex() + 1));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(getCurrentModeIndex((ModeSetting) this.setting) + 1));
                 } catch (Exception e) {
-                    this.setting.setCurrentMode(this.setting.getModes().get(0));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(0));
                 }
             }
         } else if (this.removeHovered && button == 0) {
-            if (this.setting.isValueInt()) {
-                if (this.setting.getCurrentValueInt() > this.setting.getMinValueInt()) {
-                    this.setting.setCurrentValueInt(this.setting.getCurrentValueInt() - 1);
+            if (this.setting instanceof IntegerSetting) {
+                if (((IntegerSetting) this.setting).getCurrent() < ((IntegerSetting) this.setting).getMax()) {
+                    ((IntegerSetting) this.setting).setCurrent(((IntegerSetting) this.setting).getCurrent() - 1);
                 }
-            } else if (this.setting.isValueFloat()) {
-                if (this.setting.getCurrentValueFloat() > this.setting.getMinValueFloat()) {
-                    this.setting.setCurrentValueFloat(this.setting.getCurrentValueFloat() - 0.1F);
+            } else if (this.setting instanceof FloatSetting) {
+                if (((FloatSetting) this.setting).getCurrent() < ((FloatSetting) this.setting).getMax()) {
+                    ((FloatSetting) this.setting).setCurrent(((FloatSetting) this.setting).getCurrent() - 0.1F);
                 }
-            } else if (this.setting.isValueDouble()) {
-                if (this.setting.getCurrentValueDouble() > this.setting.getMinValueDouble()) {
-                    this.setting.setCurrentValueDouble(this.setting.getCurrentValueDouble() - 0.1D);
+            } else if (this.setting instanceof DoubleSetting) {
+                if (((DoubleSetting) this.setting).getCurrent() < ((DoubleSetting) this.setting).getMax()) {
+                    ((DoubleSetting) this.setting).setCurrent(((DoubleSetting) this.setting).getCurrent() - 0.1D);
                 }
-            } else if (this.setting.isMode()) {
+            } else if (this.setting instanceof LongSetting) {
+                if (((LongSetting) this.setting).getCurrent() < ((LongSetting) this.setting).getMax()) {
+                    ((LongSetting) this.setting).setCurrent(((LongSetting) this.setting).getCurrent() - 1L);
+                }
+            } else if (this.setting instanceof ModeSetting) {
                 try {
-                    this.setting.setCurrentMode(this.setting.getModes().get(this.setting.getCurrentModeIndex() - 1));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(getCurrentModeIndex((ModeSetting) this.setting) - 1));
                 } catch (Exception e) {
-                    this.setting.setCurrentMode(this.setting.getModes().get(this.setting.getModes().size() - 1));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getModes().size() - 1));
                 }
             }
         }
         super.mouseClicked(mouseX, mouseY, button);
+    }
+
+    private int getCurrentModeIndex(ModeSetting setting) {
+        int index = 0;
+        for (String s : setting.getModes()) {
+            index++;
+            if (setting.getCurrent().equalsIgnoreCase(s)) {
+                return index;
+            }
+        }
+        return index;
     }
 }

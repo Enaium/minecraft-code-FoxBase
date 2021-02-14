@@ -1,8 +1,7 @@
 package cn.enaium.foxbase.gui.clickgui;
 
-import cn.enaium.foxbase.FoxBase;
-import cn.enaium.foxbase.module.Module;
-import cn.enaium.foxbase.module.Category;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.module.Category;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
@@ -41,11 +40,21 @@ public class CategroyPanel {
         this.width = width;
         this.height = height;
         this.modulePanels = new ArrayList<>();
-        ArrayList<Module> modules = new ArrayList<>();
-        modules.addAll(FoxBase.instance.moduleManager.getModulesForCategory(this.category));
-        for (Module m : modules) {
+        ArrayList<Object> modules = new ArrayList<>();
+        modules.addAll(getModulesForCategory(this.category));
+        for (Object m : modules) {
             this.modulePanels.add(new ModulePanel(m));
         }
+    }
+
+    private ArrayList<Object> getModulesForCategory(Category category) {
+        ArrayList<Object> ms = new ArrayList<>();
+        for (Object module : CF4M.getInstance().module.getModules()) {
+            if (CF4M.getInstance().module.getCategory(module).equals(category)) {
+                ms.add(module);
+            }
+        }
+        return ms;
     }
 
     public void render(int mouseX, int mouseY, float delta) {
@@ -89,8 +98,8 @@ public class CategroyPanel {
 
     private int getWidestModule() {
         int width = 0;
-        for (Module m : FoxBase.instance.moduleManager.getModules()) {
-            String name = m.getName();
+        for (Object m : CF4M.getInstance().module.getModules()) {
+            String name = CF4M.getInstance().module.getName(m);
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
             if (cWidth > width) {

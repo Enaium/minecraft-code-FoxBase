@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.gui.clickgui.setting;
 
-import cn.enaium.foxbase.setting.Setting;
+import cn.enaium.cf4m.setting.SettingBase;
+import cn.enaium.cf4m.setting.settings.EnableSetting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
 
@@ -13,7 +14,7 @@ public class BooleanSettingElement extends SettingElement {
 
     private boolean hovered;
 
-    public BooleanSettingElement(Setting setting) {
+    public BooleanSettingElement(SettingBase setting) {
         super(setting);
     }
 
@@ -22,7 +23,7 @@ public class BooleanSettingElement extends SettingElement {
         super.render(mouseX, mouseY, delta, x, y, width, height);
         this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x + width + 2, y + 2, height - 4, height - 4);
         int color = ColorUtils.CHECK_BG;
-        if (this.setting.isToggle()) {
+        if (((EnableSetting)this.setting).isEnable()) {
             color = ColorUtils.CHECK_TOGGLE;
         }
         if (this.hovered) {
@@ -34,7 +35,7 @@ public class BooleanSettingElement extends SettingElement {
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered && button == 0) {
-            this.setting.setToggle(!this.setting.isToggle());
+            ((EnableSetting)this.setting).setEnable(!((EnableSetting)this.setting).isEnable());
         }
         super.mouseClicked(mouseX, mouseY, button);
     }

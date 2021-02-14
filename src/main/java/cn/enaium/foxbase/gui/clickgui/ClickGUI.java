@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.gui.clickgui;
 
-import cn.enaium.foxbase.module.Category;
+import cn.enaium.cf4m.module.Category;
 import cn.enaium.foxbase.utils.FontUtils;
 import net.minecraft.client.gui.GuiScreen;
 

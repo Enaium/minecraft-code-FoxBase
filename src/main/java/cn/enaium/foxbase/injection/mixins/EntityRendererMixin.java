@@ -1,7 +1,6 @@
 package cn.enaium.foxbase.injection.mixins;
 
-import cn.enaium.foxbase.event.events.EventRender3D;
-import cn.enaium.foxbase.event.events.EventUpdate;
+import cn.enaium.foxbase.client.events.EventRender3D;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 import org.spongepowered.asm.mixin.Mixin;

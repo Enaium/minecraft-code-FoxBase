@@ -1,6 +1,8 @@
 package cn.enaium.foxbase.gui.clickgui.setting;
 
-import cn.enaium.foxbase.setting.Setting;
+import cn.enaium.cf4m.annotation.Setting;
+import cn.enaium.cf4m.setting.SettingBase;
+import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
@@ -14,9 +16,9 @@ import java.awt.*;
  */
 public class SettingElement {
 
-    protected Setting setting;
+    protected SettingBase setting;
 
-    public SettingElement(Setting setting) {
+    public SettingElement(SettingBase setting) {
         this.setting = setting;
     }
 
@@ -24,14 +26,16 @@ public class SettingElement {
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         Render2DUtils.drawRectWH(x, y, width + height, height, ColorUtils.BG);
         String name = this.setting.getName();
-        if (this.setting.isValueInt()) {
-            name = name + ":" + this.setting.getCurrentValueInt();
-        } else if (this.setting.isValueDouble()) {
-            name = name + ":" + this.setting.getCurrentValueDouble();
-        } else if (this.setting.isValueFloat()) {
-            name = name + ":" + this.setting.getCurrentValueFloat();
-        } else if (this.setting.isMode()) {
-            name = name + ":" + this.setting.getCurrentMode();
+        if (this.setting instanceof IntegerSetting) {
+            name = name + ":" + ((IntegerSetting) this.setting).getCurrent();
+        } else if (this.setting instanceof DoubleSetting) {
+            name = name + ":" + ((DoubleSetting) this.setting).getCurrent();
+        } else if (this.setting instanceof FloatSetting) {
+            name = name + ":" + ((FloatSetting) this.setting).getCurrent();
+        }  else if (this.setting instanceof LongSetting) {
+            name = name + ":" + ((LongSetting) this.setting).getCurrent();
+        }else if (this.setting instanceof ModeSetting) {
+            name = name + ":" + ((ModeSetting) this.setting).getCurrent();
         }
         FontUtils.drawHVCenteredString(name, x + width / 2, y + height / 2, Color.WHITE.getRGB());
     }

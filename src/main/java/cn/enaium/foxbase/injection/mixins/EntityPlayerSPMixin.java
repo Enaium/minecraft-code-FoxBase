@@ -1,7 +1,7 @@
 package cn.enaium.foxbase.injection.mixins;
 
-import cn.enaium.foxbase.FoxBase;
-import cn.enaium.foxbase.event.events.EventUpdate;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.event.events.UpdateEvent;
 import net.minecraft.client.entity.EntityPlayerSP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class EntityPlayerSPMixin {
     @Inject(at = @At("HEAD"), method = "onUpdate")
     private void onUpdate(CallbackInfo info) {
-        new EventUpdate().call();
+        new UpdateEvent().call();
     }
 
-    @Inject(at = @At("HEAD"), method = "sendChatMessage(Ljava/lang/String;)V", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void sendChatMessage(String message, CallbackInfo info) {
-        if (FoxBase.instance.commandManager.processCommand(message)) {
+        if (CF4M.getInstance().command.isCommand(message)) {
             info.cancel();
         }
     }

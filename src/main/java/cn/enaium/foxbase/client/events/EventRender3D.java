@@ -1,7 +1,8 @@
-package cn.enaium.foxbase.event.events;
+package cn.enaium.foxbase.client.events;
 
-import cn.enaium.foxbase.event.Event;
-public class EventRender3D extends Event {
+import cn.enaium.cf4m.event.EventBase;
+
+public class EventRender3D extends EventBase {
 
 	public float particlTicks;
 

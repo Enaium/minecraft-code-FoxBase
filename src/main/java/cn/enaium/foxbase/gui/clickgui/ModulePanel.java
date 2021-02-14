@@ -1,11 +1,11 @@
 package cn.enaium.foxbase.gui.clickgui;
 
-import cn.enaium.foxbase.FoxBase;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.setting.SettingBase;
+import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.gui.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.gui.clickgui.setting.BooleanSettingElement;
 import cn.enaium.foxbase.gui.clickgui.setting.ValueSettingElement;
-import cn.enaium.foxbase.module.Module;
-import cn.enaium.foxbase.setting.Setting;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
@@ -20,22 +20,22 @@ import java.util.ArrayList;
  */
 public class ModulePanel {
 
-    private Module module;
+    private Object module;
     private boolean hovered;
 
     private boolean displaySettingElement;
 
     private ArrayList<SettingElement> settingElements;
 
-    public ModulePanel(Module module) {
+    public ModulePanel(Object module) {
         this.module = module;
         this.settingElements = new ArrayList<>();
-        ArrayList<Setting> settings = FoxBase.instance.settingManager.getSettingsForModule(this.module);
+        ArrayList<SettingBase> settings = CF4M.getInstance().module.getSettings(this.module);
         if (settings != null) {
-            for (Setting setting : settings) {
-                if (setting.isBoolean()) {
+            for (SettingBase setting : settings) {
+                if (setting instanceof EnableSetting) {
                     this.settingElements.add(new BooleanSettingElement(setting));
-                } else if (setting.isValue() || setting.isMode()) {
+                } else if (setting instanceof IntegerSetting || setting instanceof DoubleSetting || setting instanceof FloatSetting || setting instanceof LongSetting || setting instanceof ModeSetting) {
                     this.settingElements.add(new ValueSettingElement(setting));
                 }
             }
@@ -45,7 +45,7 @@ public class ModulePanel {
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
-        if (this.module.isToggle()) {
+        if (CF4M.getInstance().module.isEnable(this.module)) {
             color = ColorUtils.TOGGLE;
         }
         if (this.hovered) {
@@ -53,7 +53,7 @@ public class ModulePanel {
         }
 
         Render2DUtils.drawRectWH(x, y, width, height, color);
-        FontUtils.drawHVCenteredString(this.module.getName(), x + width / 2, y + height / 2, Color.WHITE.getRGB());
+        FontUtils.drawHVCenteredString(CF4M.getInstance().module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;
             for (SettingElement settingElement : settingElements) {
@@ -66,7 +66,7 @@ public class ModulePanel {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered) {
             if (button == 0) {
-                this.module.toggle();
+                CF4M.getInstance().module.enable(this.module);
             } else if (button == 1) {
                 this.displaySettingElement = !displaySettingElement;
             }
@@ -79,19 +79,21 @@ public class ModulePanel {
 
     private int getWidestSetting() {
         int width = 0;
-        for (Setting m : FoxBase.instance.settingManager.getSettings()) {
+        for (SettingBase m : CF4M.getInstance().module.getSettings()) {
             String name = m.getName();
-            if (m.isValueInt()) {
-                name = name + ":" + m.getCurrentValueInt();
-            } else if (m.isValueDouble()) {
-                name = name + ":" + m.getCurrentValueDouble();
-            } else if (m.isValueFloat()) {
-                name = name + ":" + m.getCurrentValueFloat();
-            } else if (m.isMode()) {
-                name = name + ":" + m.getCurrentMode();
+            if (m instanceof IntegerSetting) {
+                name = name + ":" + ((IntegerSetting) m).getCurrent();
+            } else if (m instanceof DoubleSetting) {
+                name = name + ":" + ((DoubleSetting) m).getCurrent();
+            } else if (m instanceof FloatSetting) {
+                name = name + ":" + ((FloatSetting) m).getCurrent();
+            } else if (m instanceof LongSetting) {
+                name = name + ":" + ((LongSetting) m).getCurrent();
+            }else if (m instanceof ModeSetting) {
+                name = name + ":" + ((ModeSetting) m).getCurrent();
             }
             int cWidth = FontUtils.getStringWidth(
-                    name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
+                    name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {
                 width = cWidth;
             }
