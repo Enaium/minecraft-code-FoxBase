@@ -25,7 +25,7 @@ dependencies {
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
-    implementation('cn.enaium.cf4m:cf4m:1.4.0') {
+    implementation('cn.enaium.cf4m:cf4m:1.4.1') {
         exclude module: 'guava'
     }
 }
