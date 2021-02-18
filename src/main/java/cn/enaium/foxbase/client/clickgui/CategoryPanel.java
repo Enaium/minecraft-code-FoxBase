@@ -5,7 +5,6 @@ import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2D;
-import cn.enaium.foxbase.utils.Utils;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
@@ -42,7 +41,7 @@ public class CategoryPanel {
         this.width = width;
         this.height = height;
         this.modulePanels = new ArrayList<>();
-        ArrayList<Object> modules = new ArrayList<>(Utils.getModulesForCategory(this.category));
+        ArrayList<Object> modules = new ArrayList<>(CF4M.INSTANCE.module.getModules(this.category));
         for (Object module : modules) {
             this.modulePanels.add(new ModulePanel(module));
         }
@@ -89,8 +88,8 @@ public class CategoryPanel {
 
     private int getWidestModule() {
         int width = 0;
-        for (Object module : CF4M.getInstance().module.getModules()) {
-            String name = CF4M.getInstance().module.getName(module);
+        for (Object module : CF4M.INSTANCE.module.getModules()) {
+            String name = CF4M.INSTANCE.module.getName(module);
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {

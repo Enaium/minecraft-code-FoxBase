@@ -5,7 +5,6 @@ import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2D;
-import cn.enaium.foxbase.utils.Utils;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
@@ -56,7 +55,7 @@ public class ValueSettingElement extends SettingElement {
                 }
             } else if (this.setting instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(Utils.getCurrentModeIndex((ModeSetting) this.setting) + 1));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getCurrentModeIndex() + 1));
                 } catch (Exception e) {
                     ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(0));
                 }
@@ -80,7 +79,7 @@ public class ValueSettingElement extends SettingElement {
                 }
             } else if (this.setting instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(Utils.getCurrentModeIndex((ModeSetting) this.setting) - 1));
+                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getCurrentModeIndex() - 1));
                 } catch (Exception e) {
                     ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getModes().size() - 1));
                 }

@@ -16,14 +16,13 @@ public enum FoxBase {
     public String name = "FoxBase";
     public String author = "Enaium";
     public String version = "1.0";
-    public String game = "21w06a";
+    public String game = "21w07a";
 
     public void run() {
-        new CF4M(this, MinecraftClient.getInstance().runDirectory.toString() + "/" + name);
-        CF4M.getInstance().run();
+        CF4M.INSTANCE.run(this, MinecraftClient.getInstance().runDirectory.toString() + "/" + name);
     }
 
     public void stop() {
-        CF4M.getInstance().stop();
+        CF4M.INSTANCE.stop();
     }
 }
