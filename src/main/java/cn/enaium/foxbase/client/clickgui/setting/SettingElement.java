@@ -1,6 +1,5 @@
-package cn.enaium.foxbase.gui.clickgui.setting;
+package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.annotation.Setting;
 import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.utils.ColorUtils;

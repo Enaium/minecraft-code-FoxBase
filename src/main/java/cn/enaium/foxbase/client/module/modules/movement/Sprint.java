@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.client.modules.movement;
+package cn.enaium.foxbase.client.module.modules.movement;
 
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.Event;
@@ -16,7 +16,7 @@ import org.lwjgl.input.Keyboard;
 public class Sprint {
     @Event
     public void onUpdate(UpdateEvent e) {
-        CF4M.getInstance().module.setValue(this, "tag", "Auto");
+        CF4M.INSTANCE.module.setValue(this, "tag", "Auto");
         Minecraft.getMinecraft().thePlayer.setSprinting(true);
     }
 }

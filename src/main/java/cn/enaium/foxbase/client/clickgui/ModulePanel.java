@@ -1,11 +1,11 @@
-package cn.enaium.foxbase.gui.clickgui;
+package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.*;
-import cn.enaium.foxbase.gui.clickgui.setting.SettingElement;
-import cn.enaium.foxbase.gui.clickgui.setting.BooleanSettingElement;
-import cn.enaium.foxbase.gui.clickgui.setting.ValueSettingElement;
+import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
+import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
+import cn.enaium.foxbase.client.clickgui.setting.ValueSettingElement;
 import cn.enaium.foxbase.utils.ColorUtils;
 import cn.enaium.foxbase.utils.FontUtils;
 import cn.enaium.foxbase.utils.Render2DUtils;
@@ -30,7 +30,7 @@ public class ModulePanel {
     public ModulePanel(Object module) {
         this.module = module;
         this.settingElements = new ArrayList<>();
-        ArrayList<SettingBase> settings = CF4M.getInstance().module.getSettings(this.module);
+        ArrayList<SettingBase> settings = CF4M.INSTANCE.module.getSettings(this.module);
         if (settings != null) {
             for (SettingBase setting : settings) {
                 if (setting instanceof EnableSetting) {
@@ -45,7 +45,7 @@ public class ModulePanel {
     public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
-        if (CF4M.getInstance().module.isEnable(this.module)) {
+        if (CF4M.INSTANCE.module.getEnable(this.module)) {
             color = ColorUtils.TOGGLE;
         }
         if (this.hovered) {
@@ -53,7 +53,7 @@ public class ModulePanel {
         }
 
         Render2DUtils.drawRectWH(x, y, width, height, color);
-        FontUtils.drawHVCenteredString(CF4M.getInstance().module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
+        FontUtils.drawHVCenteredString(CF4M.INSTANCE.module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;
             for (SettingElement settingElement : settingElements) {
@@ -66,7 +66,7 @@ public class ModulePanel {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered) {
             if (button == 0) {
-                CF4M.getInstance().module.enable(this.module);
+                CF4M.INSTANCE.module.enable(this.module);
             } else if (button == 1) {
                 this.displaySettingElement = !displaySettingElement;
             }
@@ -79,7 +79,7 @@ public class ModulePanel {
 
     private int getWidestSetting() {
         int width = 0;
-        for (SettingBase m : CF4M.getInstance().module.getSettings()) {
+        for (SettingBase m : CF4M.INSTANCE.module.getSettings()) {
             String name = m.getName();
             if (m instanceof IntegerSetting) {
                 name = name + ":" + ((IntegerSetting) m).getCurrent();

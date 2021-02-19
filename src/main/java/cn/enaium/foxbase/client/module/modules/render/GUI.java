@@ -1,9 +1,9 @@
-package cn.enaium.foxbase.client.modules.render;
+package cn.enaium.foxbase.client.module.modules.render;
 
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.module.Enable;
 import cn.enaium.cf4m.annotation.module.Module;
-import cn.enaium.foxbase.gui.clickgui.ClickGUI;
+import cn.enaium.foxbase.client.clickgui.ClickGUI;
 import net.minecraft.client.Minecraft;
 import org.lwjgl.input.Keyboard;
 
@@ -17,6 +17,6 @@ public class GUI {
     @Enable
     public void onEnable() {
         Minecraft.getMinecraft().displayGuiScreen(new ClickGUI());
-        CF4M.getInstance().module.enable(this);
+        CF4M.INSTANCE.module.enable(this);
     }
 }

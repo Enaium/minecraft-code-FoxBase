@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.gui.clickgui;
+package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.module.Category;
 import cn.enaium.foxbase.utils.FontUtils;

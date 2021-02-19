@@ -1,10 +1,9 @@
-package cn.enaium.foxbase.client.modules.render;
+package cn.enaium.foxbase.client.module.modules.render;
 
 import cn.enaium.cf4m.annotation.module.Disable;
 import cn.enaium.cf4m.annotation.module.Enable;
 import cn.enaium.cf4m.annotation.module.Module;
 import net.minecraft.client.Minecraft;
-import org.lwjgl.input.Keyboard;
 
 /**
  * Project: FoxBase
