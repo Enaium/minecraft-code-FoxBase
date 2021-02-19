@@ -65,8 +65,8 @@ dependencies {
     compile("org.spongepowered:mixin:0.7.10-SNAPSHOT") {
         exclude module: "launchwrapper"
     }
-    dependencies {
-        implementation 'cn.enaium.cf4m:cf4m:1.4.2'
+    implementation('cn.enaium.cf4m:cf4m:1.4.6') {
+        exclude module: "guava"
     }
 }
 

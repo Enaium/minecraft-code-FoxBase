@@ -22,7 +22,7 @@ public class EntityPlayerSPMixin {
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void sendChatMessage(String message, CallbackInfo info) {
-        if (CF4M.getInstance().command.isCommand(message)) {
+        if (CF4M.INSTANCE.command.isCommand(message)) {
             info.cancel();
         }
     }

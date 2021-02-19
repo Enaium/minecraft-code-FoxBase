@@ -24,26 +24,26 @@ public class SetCommand implements ICommand {
 
         if (args.length == 2 || args.length == 4) {
 
-            Object module = CF4M.getInstance().module.getModule(args[1]);
-            ArrayList<SettingBase> settings = CF4M.getInstance().module.getSettings(module);
+            Object module = CF4M.INSTANCE.module.getModule(args[1]);
+            ArrayList<SettingBase> settings = CF4M.INSTANCE.module.getSettings(module);
 
             if(module == null) {
-                CF4M.getInstance().configuration.message("The module with the name \"" + args[1] + "\" does not exist.");
+                CF4M.INSTANCE.configuration.message("The module with the name \"" + args[1] + "\" does not exist.");
                 return true;
             }
 
             if(settings == null) {
-                CF4M.getInstance().configuration.message("The module with the name \"" + args[1] + "\" no setting exists.");
+                CF4M.INSTANCE.configuration.message("The module with the name \"" + args[1] + "\" no setting exists.");
                 return true;
             }
 
             if(args.length == 2) {
-                CF4M.getInstance().configuration.message("Here are the list of settings:");
+                CF4M.INSTANCE.configuration.message("Here are the list of settings:");
 
                 for (SettingBase s : settings) {
-                    CF4M.getInstance().configuration.message(s.getName() + "(" + s.getClass().getSimpleName() + ")");
+                    CF4M.INSTANCE.configuration.message(s.getName() + "(" + s.getClass().getSimpleName() + ")");
                     if(s instanceof ModeSetting) {
-                        ((ModeSetting) s).getModes().forEach(CF4M.getInstance().configuration::message);
+                        ((ModeSetting) s).getModes().forEach(CF4M.INSTANCE.configuration::message);
                     }
                 }
             }
@@ -65,7 +65,7 @@ public class SetCommand implements ICommand {
                             ((ModeSetting) s).setCurrent(args[3]);
                         }
 
-                        CF4M.getInstance().configuration.message(s.getName() + " has setting to " + args[3] + ".");
+                        CF4M.INSTANCE.configuration.message(s.getName() + " has setting to " + args[3] + ".");
                     }
                 }
             }

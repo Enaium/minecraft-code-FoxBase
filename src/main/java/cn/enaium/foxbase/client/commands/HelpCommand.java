@@ -12,9 +12,9 @@ public class HelpCommand implements ICommand {
 
     @Override
     public boolean run(String[] args) {
-        CF4M.getInstance().configuration.message("Here are the list of commands:");
-        for (Map.Entry<String[],ICommand> c : CF4M.getInstance().command.getCommands().entrySet()) {
-            CF4M.getInstance().configuration.message("USAGE: " + Arrays.toString(c.getKey()));
+        CF4M.INSTANCE.configuration.message("Here are the list of commands:");
+        for (Map.Entry<String[],ICommand> c : CF4M.INSTANCE.command.getCommands().entrySet()) {
+            CF4M.INSTANCE.configuration.message("USAGE: " + Arrays.toString(c.getKey()));
         }
         return true;
     }

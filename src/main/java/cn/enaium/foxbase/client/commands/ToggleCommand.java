@@ -12,14 +12,14 @@ public class ToggleCommand implements ICommand {
 
         if (args.length == 2) {
 
-            Object module = CF4M.getInstance().module.getModule(args[1]);
+            Object module = CF4M.INSTANCE.module.getModule(args[1]);
 
             if (module == null) {
-                CF4M.getInstance().configuration.message("The module with the name " + args[1] + " does not exist.");
+                CF4M.INSTANCE.configuration.message("The module with the name " + args[1] + " does not exist.");
                 return true;
             }
 
-            CF4M.getInstance().module.enable(module);
+            CF4M.INSTANCE.module.enable(module);
 
             return true;
         }
