@@ -20,7 +20,7 @@ public enum FoxBase {
 
 
     public void Start() {
-        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir + "/" + name);
+        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().gameDir + "/" + name);
         Display.setTitle(name + " | Author:" + author + " | Version:" + version + " | Minecraft:" + game);
     }
 

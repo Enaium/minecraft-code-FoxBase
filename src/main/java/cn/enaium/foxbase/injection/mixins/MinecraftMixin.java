@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 
     public GuiScreen currentScreen;
 
-    @Inject(at = @At("RETURN"), method = "startGame")
+    @Inject(at = @At("HEAD"), method = "run")
     private void startGame(CallbackInfo info) {
         FoxBase.instance.Start();
     }

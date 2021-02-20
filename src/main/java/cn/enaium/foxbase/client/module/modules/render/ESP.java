@@ -23,10 +23,10 @@ public class ESP {
 
     @Event
     public void onESP(EventRender3D e) {
-        for (Object o : Minecraft.getMinecraft().theWorld.loadedEntityList) {
+        for (Object o : Minecraft.getMinecraft().world.loadedEntityList) {
             if (o instanceof EntityPlayer) {
                 EntityPlayer entity = (EntityPlayer) o;
-                if (entity != Minecraft.getMinecraft().thePlayer && !entity.isDead) {
+                if (entity != Minecraft.getMinecraft().player && !entity.isDead) {
                     
                 }
             }

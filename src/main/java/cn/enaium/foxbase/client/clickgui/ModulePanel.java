@@ -6,9 +6,9 @@ import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.ValueSettingElement;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2DUtils;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.Render2DUtils;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -4,11 +4,11 @@ import cn.enaium.cf4m.event.EventBase;
 
 public class EventRender3D extends EventBase {
 
-	public float particlTicks;
+	public float partialTicks;
 
-	public EventRender3D(float particlTicks) {
+	public EventRender3D(float partialTicks) {
 		super(Type.PRE);
-		this.particlTicks = particlTicks;
+		this.partialTicks = partialTicks;
 	}
 
 }

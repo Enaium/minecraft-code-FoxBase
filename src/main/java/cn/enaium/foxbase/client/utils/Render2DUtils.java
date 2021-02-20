@@ -1,9 +1,8 @@
-package cn.enaium.foxbase.utils;
+package cn.enaium.foxbase.client.utils;
 
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import org.lwjgl.opengl.GL11;
 
@@ -12,7 +11,7 @@ import java.awt.*;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 public class Render2DUtils {
 
@@ -29,104 +28,103 @@ public class Render2DUtils {
     }
 
     public static void drawRect(int left, int top, int right, int bottom, int color) {
-        int j;
+        int lvt_5_2_;
         if (left < right) {
-            j = left;
+            lvt_5_2_ = left;
             left = right;
-            right = j;
+            right = lvt_5_2_;
         }
 
         if (top < bottom) {
-            j = top;
+            lvt_5_2_ = top;
             top = bottom;
-            bottom = j;
+            bottom = lvt_5_2_;
         }
 
-        float f3 = (float) (color >> 24 & 255) / 255.0F;
-        float f = (float) (color >> 16 & 255) / 255.0F;
-        float f1 = (float) (color >> 8 & 255) / 255.0F;
-        float f2 = (float) (color & 255) / 255.0F;
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        float lvt_5_3_ = (float) (color >> 24 & 255) / 255.0F;
+        float lvt_6_1_ = (float) (color >> 16 & 255) / 255.0F;
+        float lvt_7_1_ = (float) (color >> 8 & 255) / 255.0F;
+        float lvt_8_1_ = (float) (color & 255) / 255.0F;
+        Tessellator lvt_9_1_ = Tessellator.getInstance();
+        BufferBuilder lvt_10_1_ = lvt_9_1_.getBuffer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(f, f1, f2, f3);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos(left, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, top, 0.0D).endVertex();
-        worldrenderer.pos(left, top, 0.0D).endVertex();
-        tessellator.draw();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(lvt_6_1_, lvt_7_1_, lvt_8_1_, lvt_5_3_);
+        lvt_10_1_.begin(7, DefaultVertexFormats.POSITION);
+        lvt_10_1_.pos((double) left, (double) bottom, 0.0D).endVertex();
+        lvt_10_1_.pos((double) right, (double) bottom, 0.0D).endVertex();
+        lvt_10_1_.pos((double) right, (double) top, 0.0D).endVertex();
+        lvt_10_1_.pos((double) left, (double) top, 0.0D).endVertex();
+        lvt_9_1_.draw();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }
 
-
     public static void drawRect(float left, float top, float right, float bottom, int color) {
-        float j;
+        float lvt_5_2_;
         if (left < right) {
-            j = left;
+            lvt_5_2_ = left;
             left = right;
-            right = j;
+            right = lvt_5_2_;
         }
 
         if (top < bottom) {
-            j = top;
+            lvt_5_2_ = top;
             top = bottom;
-            bottom = j;
+            bottom = lvt_5_2_;
         }
 
-        float f3 = (float) (color >> 24 & 255) / 255.0F;
-        float f = (float) (color >> 16 & 255) / 255.0F;
-        float f1 = (float) (color >> 8 & 255) / 255.0F;
-        float f2 = (float) (color & 255) / 255.0F;
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        float lvt_5_3_ = (float) (color >> 24 & 255) / 255.0F;
+        float lvt_6_1_ = (float) (color >> 16 & 255) / 255.0F;
+        float lvt_7_1_ = (float) (color >> 8 & 255) / 255.0F;
+        float lvt_8_1_ = (float) (color & 255) / 255.0F;
+        Tessellator lvt_9_1_ = Tessellator.getInstance();
+        BufferBuilder lvt_10_1_ = lvt_9_1_.getBuffer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(f, f1, f2, f3);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos(left, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, top, 0.0D).endVertex();
-        worldrenderer.pos(left, top, 0.0D).endVertex();
-        tessellator.draw();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(lvt_6_1_, lvt_7_1_, lvt_8_1_, lvt_5_3_);
+        lvt_10_1_.begin(7, DefaultVertexFormats.POSITION);
+        lvt_10_1_.pos(left, bottom, 0.0D).endVertex();
+        lvt_10_1_.pos(right, bottom, 0.0D).endVertex();
+        lvt_10_1_.pos(right, top, 0.0D).endVertex();
+        lvt_10_1_.pos(left, top, 0.0D).endVertex();
+        lvt_9_1_.draw();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }
 
     public static void drawRect(double left, double top, double right, double bottom, int color) {
-        double j;
+        double lvt_5_2_;
         if (left < right) {
-            j = left;
+            lvt_5_2_ = left;
             left = right;
-            right = j;
+            right = lvt_5_2_;
         }
 
         if (top < bottom) {
-            j = top;
+            lvt_5_2_ = top;
             top = bottom;
-            bottom = j;
+            bottom = lvt_5_2_;
         }
 
-        float f3 = (float) (color >> 24 & 255) / 255.0F;
-        float f = (float) (color >> 16 & 255) / 255.0F;
-        float f1 = (float) (color >> 8 & 255) / 255.0F;
-        float f2 = (float) (color & 255) / 255.0F;
-        Tessellator tessellator = Tessellator.getInstance();
-        WorldRenderer worldrenderer = tessellator.getWorldRenderer();
+        float lvt_5_3_ = (float) (color >> 24 & 255) / 255.0F;
+        float lvt_6_1_ = (float) (color >> 16 & 255) / 255.0F;
+        float lvt_7_1_ = (float) (color >> 8 & 255) / 255.0F;
+        float lvt_8_1_ = (float) (color & 255) / 255.0F;
+        Tessellator lvt_9_1_ = Tessellator.getInstance();
+        BufferBuilder lvt_10_1_ = lvt_9_1_.getBuffer();
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
-        GlStateManager.tryBlendFuncSeparate(770, 771, 1, 0);
-        GlStateManager.color(f, f1, f2, f3);
-        worldrenderer.begin(7, DefaultVertexFormats.POSITION);
-        worldrenderer.pos(left, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, bottom, 0.0D).endVertex();
-        worldrenderer.pos(right, top, 0.0D).endVertex();
-        worldrenderer.pos(left, top, 0.0D).endVertex();
-        tessellator.draw();
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.color(lvt_6_1_, lvt_7_1_, lvt_8_1_, lvt_5_3_);
+        lvt_10_1_.begin(7, DefaultVertexFormats.POSITION);
+        lvt_10_1_.pos(left, bottom, 0.0D).endVertex();
+        lvt_10_1_.pos(right, bottom, 0.0D).endVertex();
+        lvt_10_1_.pos(right, top, 0.0D).endVertex();
+        lvt_10_1_.pos(left, top, 0.0D).endVertex();
+        lvt_9_1_.draw();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
     }

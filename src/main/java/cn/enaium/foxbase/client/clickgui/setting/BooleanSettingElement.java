@@ -2,8 +2,8 @@ package cn.enaium.foxbase.client.clickgui.setting;
 
 import cn.enaium.cf4m.setting.SettingBase;
 import cn.enaium.cf4m.setting.settings.EnableSetting;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.Render2DUtils;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.Render2DUtils;
 
 /**
  * Project: FoxBase

@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.utils;
+package cn.enaium.foxbase.client.utils;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -6,11 +6,11 @@ import net.minecraft.client.gui.FontRenderer;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 public class FontUtils {
 
-    public static FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
+    public static FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
     public static void drawString(String string, int x, int y, int color) {
         fr.drawString(string, x, y, color);

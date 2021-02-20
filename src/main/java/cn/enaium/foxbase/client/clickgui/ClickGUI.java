@@ -1,7 +1,7 @@
 package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.foxbase.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
 import net.minecraft.client.gui.GuiScreen;
 
 import java.io.IOException;
@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class ClickGUI extends GuiScreen {
 
-    ArrayList<CategroyPanel> categroyPanels;
+    ArrayList<CategoryPanel> categoryPanels;
 
     public ClickGUI() {
-        categroyPanels = new ArrayList<>();
+        categoryPanels = new ArrayList<>();
         double categoryY = 5;
         for (Category category : Category.values()) {
-            categroyPanels.add(new CategroyPanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
+            categoryPanels.add(new CategoryPanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
             categoryY += FontUtils.getFontHeight() + 10 + 5;
         }
     }
@@ -28,24 +28,24 @@ public class ClickGUI extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float delta) {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.render(mouseX, mouseY, delta);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.render(mouseX, mouseY, delta);
         }
         FontUtils.drawString("FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
         super.drawScreen(mouseX, mouseY, delta);
     }
 
     public void mouseClicked(int mouseX, int mouseY, int button) throws IOException {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.mouseClicked(mouseX, mouseY, button);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.mouseClicked(mouseX, mouseY, button);
         }
         super.mouseClicked(mouseX, mouseY, button);
     }
 
     @Override
     public void mouseReleased(int mouseX, int mouseY, int button) {
-        for (CategroyPanel categroyPanel : categroyPanels) {
-            categroyPanel.mouseReleased(mouseX, mouseY, button);
+        for (CategoryPanel categoryPanel : categoryPanels) {
+            categoryPanel.mouseReleased(mouseX, mouseY, button);
         }
         super.mouseReleased(mouseX, mouseY, button);
     }
