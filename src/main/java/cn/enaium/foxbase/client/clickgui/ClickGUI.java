@@ -1,7 +1,7 @@
 package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.foxbase.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;

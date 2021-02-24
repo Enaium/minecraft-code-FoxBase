@@ -1,8 +1,8 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
 import cn.enaium.cf4m.setting.settings.EnableSetting;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.Render2D;
 import net.minecraft.client.util.math.MatrixStack;
 
 /**

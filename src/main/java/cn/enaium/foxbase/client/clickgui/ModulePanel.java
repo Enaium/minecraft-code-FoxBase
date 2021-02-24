@@ -6,9 +6,9 @@ import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.ValueSettingElement;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.Render2D;
 import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
