@@ -21,8 +21,4 @@ public enum FoxBase {
     public void run() {
         CF4M.INSTANCE.run(this, MinecraftClient.getInstance().runDirectory.toString() + "/" + name);
     }
-
-    public void stop() {
-        CF4M.INSTANCE.stop();
-    }
 }

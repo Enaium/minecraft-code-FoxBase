@@ -1,7 +1,7 @@
 package cn.enaium.foxbase.mixin;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.event.EventBase;
+import cn.enaium.cf4m.event.Listener;
 import cn.enaium.cf4m.event.events.UpdateEvent;
 import cn.enaium.foxbase.client.events.MotionEvent;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -28,12 +28,12 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = {@At("HEAD")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsHEAD(CallbackInfo ci) {
-        new MotionEvent(EventBase.Type.PRE).call();
+        new MotionEvent(Listener.At.HEAD).call();
     }
 
     @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
-        new MotionEvent(EventBase.Type.POST).call();
+        new MotionEvent(Listener.At.TAIL).call();
     }
 
 

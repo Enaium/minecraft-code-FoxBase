@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.events;
 
-import cn.enaium.cf4m.event.EventBase;
+import cn.enaium.cf4m.event.Listener;
 import net.minecraft.client.util.math.MatrixStack;
 
 /**
@@ -8,15 +8,16 @@ import net.minecraft.client.util.math.MatrixStack;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-public class Render2DEvent extends EventBase {
-	private final MatrixStack matrixStack;
-	public Render2DEvent(MatrixStack matrixStack) {
-		super(Type.PRE);
-		this.matrixStack = matrixStack;
-	}
+public class Render2DEvent extends Listener {
+    private final MatrixStack matrixStack;
 
-	public MatrixStack getMatrixStack() {
-		return matrixStack;
-	}
+    public Render2DEvent(MatrixStack matrixStack) {
+        super(At.HEAD);
+        this.matrixStack = matrixStack;
+    }
+
+    public MatrixStack getMatrixStack() {
+        return matrixStack;
+    }
 
 }

@@ -9,9 +9,9 @@ import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.FoxBase;
 import cn.enaium.foxbase.client.events.Render2DEvent;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2D;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.Render2D;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;

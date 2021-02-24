@@ -34,9 +34,4 @@ public class MinecraftClientMixin {
     private void run(CallbackInfo callbackInfo) {
         FoxBase.instance.run();
     }
-
-    @Inject(at = @At("HEAD"), method = "stop")
-    private void stop(CallbackInfo callbackInfo) {
-        FoxBase.instance.stop();
-    }
 }
