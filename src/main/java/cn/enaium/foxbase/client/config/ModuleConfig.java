@@ -22,7 +22,7 @@ public class ModuleConfig {
             try {
                 jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.config.getPath(this)), JsonArray.class);
             } catch (IOException e) {
-                System.out.println(e.getLocalizedMessage());
+                e.printStackTrace();
             }
             for (JsonElement jsonElement : jsonArray) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();

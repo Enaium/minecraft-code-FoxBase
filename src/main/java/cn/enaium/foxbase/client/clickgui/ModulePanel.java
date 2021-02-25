@@ -1,11 +1,10 @@
 package cn.enaium.foxbase.client.clickgui;
 
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.ValueSettingElement;
+import cn.enaium.foxbase.client.settings.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
@@ -31,13 +30,13 @@ public class ModulePanel {
     public ModulePanel(Object module) {
         this.module = module;
         this.settingElements = new ArrayList<>();
-        ArrayList<SettingBase> settings = CF4M.INSTANCE.module.getSettings(this.module);
+        ArrayList<Object> settings = CF4M.INSTANCE.setting.getSettings(this.module);
         if (settings != null) {
-            for (SettingBase setting : settings) {
+            for (Object setting : settings) {
                 if (setting instanceof EnableSetting) {
-                    this.settingElements.add(new BooleanSettingElement((EnableSetting) setting));
+                    this.settingElements.add(new BooleanSettingElement((EnableSetting) setting, module));
                 } else if (setting instanceof IntegerSetting || setting instanceof DoubleSetting || setting instanceof FloatSetting || setting instanceof LongSetting || setting instanceof ModeSetting) {
-                    this.settingElements.add(new ValueSettingElement(setting));
+                    this.settingElements.add(new ValueSettingElement(setting, module));
                 }
             }
         }
@@ -82,16 +81,16 @@ public class ModulePanel {
 
     private int getWidestSetting() {
         int width = 0;
-        for (SettingBase m : CF4M.INSTANCE.module.getSettings()) {
-            String name = m.getName();
-            if (m instanceof IntegerSetting) {
-                name = name + ":" + ((IntegerSetting) m).getCurrent();
-            } else if (m instanceof DoubleSetting) {
-                name = name + ":" + ((DoubleSetting) m).getCurrent();
-            } else if (m instanceof FloatSetting) {
-                name = name + ":" + ((FloatSetting) m).getCurrent();
-            } else if (m instanceof ModeSetting) {
-                name = name + ":" + ((ModeSetting) m).getCurrent();
+        for (Object setting : CF4M.INSTANCE.setting.getSettings(module)) {
+            String name = CF4M.INSTANCE.setting.getName(module, setting);
+            if (setting instanceof IntegerSetting) {
+                name = name + ":" + ((IntegerSetting) setting).getCurrent();
+            } else if (setting instanceof DoubleSetting) {
+                name = name + ":" + ((DoubleSetting) setting).getCurrent();
+            } else if (setting instanceof FloatSetting) {
+                name = name + ":" + ((FloatSetting) setting).getCurrent();
+            } else if (setting instanceof ModeSetting) {
+                name = name + ":" + ((ModeSetting) setting).getCurrent();
             }
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());

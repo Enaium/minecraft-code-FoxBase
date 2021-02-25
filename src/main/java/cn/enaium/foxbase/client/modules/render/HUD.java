@@ -1,14 +1,14 @@
 package cn.enaium.foxbase.client.modules.render;
 
 import cn.enaium.cf4m.annotation.Event;
+import cn.enaium.cf4m.annotation.Setting;
 import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.event.events.KeyboardEvent;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.*;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.FoxBase;
 import cn.enaium.foxbase.client.events.Render2DEvent;
+import cn.enaium.foxbase.client.settings.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
@@ -27,15 +27,17 @@ import java.util.List;
 @Module(value = "HUD", key = GLFW.GLFW_KEY_O, category = Category.RENDER)
 public class HUD {
 
-    private ArrayList<Category> categoryValues;
+    private final ArrayList<Category> categoryValues;
     private int currentCategoryIndex, currentModIndex, currentSettingIndex;
     private boolean editMode;
 
     private int screen;
 
-    private EnableSetting tabGUI = new EnableSetting(this, "TabGUI", "TabGUI", true);
+    @Setting("TabGUI")
+    private EnableSetting tabGUI = new EnableSetting(true);
 
-    private EnableSetting toggleList = new EnableSetting(this, "ToggleList", "ToggleList", true);
+    @Setting("ToggleList")
+    private EnableSetting toggleList = new EnableSetting(true);
 
     public HUD() {
         this.categoryValues = new ArrayList<>();
@@ -115,7 +117,7 @@ public class HUD {
                     Render2D.drawRect(e.getMatrixStack(), startModsX + 1, startModsY, startModsX + this.getWidestMod() + 5 - 1,
                             startModsY + 9 + 2, ColorUtils.SELECT);
                 }
-                FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.module.getName(module) + (CF4M.INSTANCE.module.getSettings(module) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(module) ? 2 : 0),
+                FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.module.getName(module) + (CF4M.INSTANCE.setting.getSettings(module) != null ? ">" : ""), startModsX + 2 + (this.getCurrentModule().equals(module) ? 2 : 0),
                         startModsY + 2, CF4M.INSTANCE.module.getEnable(module) ? -1 : Color.GRAY.getRGB());
                 startModsY += 9 + 2;
             }
@@ -126,34 +128,34 @@ public class HUD {
 
             Render2D.drawRect(e.getMatrixStack(), startSettingX, startSettingY, startSettingX + this.getWidestSetting() + 5,
                     startSettingY + this.getSettingForCurrentMod().size() * (9 + 2), ColorUtils.BG);
-            for (SettingBase s : this.getSettingForCurrentMod()) {
+            for (Object s : this.getSettingForCurrentMod()) {
 
                 if (this.getCurrentSetting().equals(s)) {
                     Render2D.drawRect(e.getMatrixStack(), startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
                             startSettingY + 9 + 2, ColorUtils.SELECT);
                 }
                 if (s instanceof EnableSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((EnableSetting) s).getEnable(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((EnableSetting) s).getEnable(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s instanceof IntegerSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((IntegerSetting) s).getCurrent(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((IntegerSetting) s).getCurrent(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s instanceof DoubleSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((DoubleSetting) s).getCurrent(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((DoubleSetting) s).getCurrent(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s instanceof FloatSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((FloatSetting) s).getCurrent(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((FloatSetting) s).getCurrent(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s instanceof LongSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((LongSetting) s).getCurrent(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((LongSetting) s).getCurrent(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 } else if (s instanceof ModeSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), s.getName() + ": " + ((ModeSetting) s).getCurrent(),
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), CF4M.INSTANCE.setting.getName(this.getCurrentModule(), s) + ": " + ((ModeSetting) s).getCurrent(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(s) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(s) ? -1 : Color.GRAY.getRGB());
                 }
@@ -178,7 +180,7 @@ public class HUD {
         }
 
         if (editMode) {
-            SettingBase setting = this.getCurrentSetting();
+            Object setting = this.getCurrentSetting();
             if (setting instanceof EnableSetting) {
                 ((EnableSetting) setting).setEnable(!((EnableSetting) setting).getEnable());
             } else if (setting instanceof IntegerSetting) {
@@ -218,7 +220,7 @@ public class HUD {
         }
 
         if (editMode) {
-            SettingBase setting = this.getCurrentSetting();
+            Object setting = this.getCurrentSetting();
             if (setting instanceof EnableSetting) {
                 ((EnableSetting) setting).setEnable(!((EnableSetting) setting).getEnable());
             } else if (setting instanceof IntegerSetting) {
@@ -288,12 +290,12 @@ public class HUD {
         }
     }
 
-    private SettingBase getCurrentSetting() {
+    private Object getCurrentSetting() {
         return getSettingForCurrentMod().get(currentSettingIndex);
     }
 
-    private ArrayList<SettingBase> getSettingForCurrentMod() {
-        return CF4M.INSTANCE.module.getSettings(getCurrentModule());
+    private ArrayList<Object> getSettingForCurrentMod() {
+        return CF4M.INSTANCE.setting.getSettings(getCurrentModule());
     }
 
     private Category getCurrentCategory() {
@@ -310,20 +312,20 @@ public class HUD {
 
     private int getWidestSetting() {
         int width = 0;
-        for (SettingBase setting : getSettingForCurrentMod()) {
+        for (Object setting : getSettingForCurrentMod()) {
             String name;
             if (setting instanceof EnableSetting) {
-                name = setting.getName() + ": " + ((EnableSetting) setting).getEnable();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((EnableSetting) setting).getEnable();
             } else if (setting instanceof IntegerSetting) {
-                name = setting.getName() + ": " + ((IntegerSetting) setting).getCurrent();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((IntegerSetting) setting).getCurrent();
             } else if (setting instanceof DoubleSetting) {
-                name = setting.getName() + ": " + ((DoubleSetting) setting).getCurrent();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((DoubleSetting) setting).getCurrent();
             } else if (setting instanceof FloatSetting) {
-                name = setting.getName() + ": " + ((FloatSetting) setting).getCurrent();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((FloatSetting) setting).getCurrent();
             } else if (setting instanceof LongSetting) {
-                name = setting.getName() + ": " + ((LongSetting) setting).getCurrent();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((LongSetting) setting).getCurrent();
             } else if (setting instanceof ModeSetting) {
-                name = setting.getName() + ": " + ((ModeSetting) setting).getCurrent();
+                name = CF4M.INSTANCE.setting.getName(this.getCurrentModule(), setting) + ": " + ((ModeSetting) setting).getCurrent();
             } else {
                 name = "NULL";
             }

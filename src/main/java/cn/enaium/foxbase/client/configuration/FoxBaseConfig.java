@@ -8,7 +8,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 /**
- * Project: cf4m-forge-example
+ * Project: FoxBase-forge-example
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */

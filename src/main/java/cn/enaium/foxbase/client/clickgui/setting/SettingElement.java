@@ -1,10 +1,7 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.DoubleSetting;
-import cn.enaium.cf4m.setting.settings.FloatSetting;
-import cn.enaium.cf4m.setting.settings.IntegerSetting;
-import cn.enaium.cf4m.setting.settings.ModeSetting;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.foxbase.client.settings.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
@@ -19,16 +16,17 @@ import java.awt.*;
  */
 public class SettingElement {
 
-    protected SettingBase setting;
+    protected Object setting;
+    protected Object module;
 
-    public SettingElement(SettingBase setting) {
+    public SettingElement(Object setting, Object module) {
         this.setting = setting;
+        this.module = module;
     }
-
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
         Render2D.drawRectWH(matrices, x, y, width + height, height, ColorUtils.BG);
-        String name = this.setting.getName();
+        String name = CF4M.INSTANCE.setting.getName(this.setting, this.module);
         if (this.setting instanceof IntegerSetting) {
             name = name + ":" + ((IntegerSetting) this.setting).getCurrent();
         } else if (this.setting instanceof DoubleSetting) {

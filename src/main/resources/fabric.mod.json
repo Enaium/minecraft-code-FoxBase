@@ -26,6 +26,6 @@
     "foxbase.mixins.json"
   ],
   "depends": {
-    "cf4m": ">=1.4.7"
+    "cf4m": ">=1.4.9"
   }
 }

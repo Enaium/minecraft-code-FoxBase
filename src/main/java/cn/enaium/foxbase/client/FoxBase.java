@@ -1,8 +1,6 @@
 package cn.enaium.foxbase.client;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.manager.ClassManager;
-import net.minecraft.client.MinecraftClient;
 
 /**
  * Project: FoxBase
@@ -19,6 +17,6 @@ public enum FoxBase {
     public String game = "21w07a";
 
     public void run() {
-        CF4M.INSTANCE.run(this, MinecraftClient.getInstance().runDirectory.toString() + "/" + name);
+        CF4M.INSTANCE.run(this);
     }
 }

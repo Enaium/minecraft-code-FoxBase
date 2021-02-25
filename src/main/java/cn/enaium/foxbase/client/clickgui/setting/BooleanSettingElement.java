@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.setting.settings.EnableSetting;
+import cn.enaium.foxbase.client.settings.EnableSetting;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
 import net.minecraft.client.util.math.MatrixStack;
@@ -14,9 +14,10 @@ public class BooleanSettingElement extends SettingElement {
 
     private boolean hovered;
 
-    public BooleanSettingElement(EnableSetting setting) {
-        super(setting);
+    public BooleanSettingElement(EnableSetting setting, Object module) {
+        super(setting, module);
     }
+
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {

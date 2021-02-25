@@ -14,6 +14,11 @@ public class ToggleCommand implements ICommand {
 
     @Override
     public boolean run(String[] args) {
+
+        if (args.length == 1) {
+            CF4M.INSTANCE.module.getModules().forEach(module -> CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.module.getName(module)));
+        }
+
         if (args.length == 2) {
             Object module = CF4M.INSTANCE.module.getModule(args[1]);
 
