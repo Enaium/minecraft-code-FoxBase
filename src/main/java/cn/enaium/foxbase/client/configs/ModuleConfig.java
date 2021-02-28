@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.client.config;
+package cn.enaium.foxbase.client.configs;
 
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.config.Config;
