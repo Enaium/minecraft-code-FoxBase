@@ -25,11 +25,6 @@ public class MinecraftMixin {
         FoxBase.instance.Start();
     }
 
-    @Inject(at = @At("HEAD"), method = "shutdownMinecraftApplet")
-    private void shutdownMinecraftApplet(CallbackInfo info) {
-        FoxBase.instance.Stop();
-    }
-
     @Inject(at = @At(value = "RETURN"), method = "dispatchKeypresses")
     private void dispatchKeypresses(CallbackInfo info) {
         if (Keyboard.getEventKeyState() && this.currentScreen == null) {

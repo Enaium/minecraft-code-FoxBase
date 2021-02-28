@@ -1,9 +1,8 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.EnableSetting;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.Render2DUtils;
+import cn.enaium.foxbase.client.settings.EnableSetting;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.Render2DUtils;
 
 /**
  * Project: FoxBase
@@ -14,8 +13,8 @@ public class BooleanSettingElement extends SettingElement {
 
     private boolean hovered;
 
-    public BooleanSettingElement(SettingBase setting) {
-        super(setting);
+    public BooleanSettingElement(Object setting, Object module) {
+        super(setting, module);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class BooleanSettingElement extends SettingElement {
         super.render(mouseX, mouseY, delta, x, y, width, height);
         this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x + width + 2, y + 2, height - 4, height - 4);
         int color = ColorUtils.CHECK_BG;
-        if (((EnableSetting)this.setting).getEnable()) {
+        if (((EnableSetting) this.setting).getEnable()) {
             color = ColorUtils.CHECK_TOGGLE;
         }
         if (this.hovered) {
@@ -35,7 +34,7 @@ public class BooleanSettingElement extends SettingElement {
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered && button == 0) {
-            ((EnableSetting)this.setting).setEnable(!((EnableSetting)this.setting).getEnable());
+            ((EnableSetting) this.setting).setEnable(!((EnableSetting) this.setting).getEnable());
         }
         super.mouseClicked(mouseX, mouseY, button);
     }

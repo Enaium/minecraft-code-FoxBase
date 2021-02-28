@@ -1,10 +1,11 @@
 package cn.enaium.foxbase.client.commands;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.annotation.Command;
-import cn.enaium.cf4m.command.ICommand;
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.*;
+import cn.enaium.cf4m.annotation.command.Command;
+import cn.enaium.cf4m.annotation.command.Exec;
+import cn.enaium.cf4m.annotation.command.Param;
+import cn.enaium.foxbase.client.settings.*;
+import cn.enaium.foxbase.client.settings.ModeSetting;
 
 import java.util.ArrayList;
 
@@ -13,71 +14,64 @@ import java.util.ArrayList;
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */
-@Command({"s","set"})
-public class SetCommand implements ICommand {
+@Command({"s", "set"})
+public class SetCommand {
+    private Object currentModule;
+    private ArrayList<Object> settings;
+    private Object currentSetting;
 
-
-    @Override
-    public boolean run(String[] args) {
-
-
-
-        if (args.length == 2 || args.length == 4) {
-
-            Object module = CF4M.INSTANCE.module.getModule(args[1]);
-            ArrayList<SettingBase> settings = CF4M.INSTANCE.module.getSettings(module);
-
-            if(module == null) {
-                CF4M.INSTANCE.configuration.message("The module with the name \"" + args[1] + "\" does not exist.");
-                return true;
-            }
-
-            if(settings == null) {
-                CF4M.INSTANCE.configuration.message("The module with the name \"" + args[1] + "\" no setting exists.");
-                return true;
-            }
-
-            if(args.length == 2) {
-                CF4M.INSTANCE.configuration.message("Here are the list of settings:");
-
-                for (SettingBase s : settings) {
-                    CF4M.INSTANCE.configuration.message(s.getName() + "(" + s.getClass().getSimpleName() + ")");
-                    if(s instanceof ModeSetting) {
-                        ((ModeSetting) s).getModes().forEach(CF4M.INSTANCE.configuration::message);
-                    }
-                }
-            }
-
-            if(args.length == 4) {
-                for (SettingBase s : settings) {
-                    if(s.getName().equalsIgnoreCase(args[2])) {
-                        if(s instanceof EnableSetting) {
-                            ((EnableSetting) s).setEnable(Boolean.parseBoolean(args[3]));
-                        }else if(s instanceof DoubleSetting) {
-                            ((DoubleSetting) s).setCurrent(Double.parseDouble(args[3]));
-                        }else if(s instanceof FloatSetting) {
-                            ((FloatSetting) s).setCurrent(Float.parseFloat(args[3]));
-                        }else if(s instanceof LongSetting) {
-                            ((LongSetting) s).setCurrent(Long.parseLong(args[3]));
-                        }else if(s instanceof IntegerSetting) {
-                            ((IntegerSetting) s).setCurrent(Integer.parseInt(args[3]));
-                        }else if(s instanceof ModeSetting) {
-                            ((ModeSetting) s).setCurrent(args[3]);
-                        }
-
-                        CF4M.INSTANCE.configuration.message(s.getName() + " has setting to " + args[3] + ".");
-                    }
-                }
-            }
-
-            return true;
+    @Exec
+    public void exec(@Param("Module") String moduleName) {
+        currentModule = CF4M.INSTANCE.module.getModule(moduleName);
+        if (currentModule == null) {
+            CF4M.INSTANCE.configuration.message("The module with the name \"" + moduleName + "\" does not exist.");
+            return;
         }
 
-        return false;
+        settings = CF4M.INSTANCE.setting.getSettings(currentModule);
+
+        if (settings == null) {
+            CF4M.INSTANCE.configuration.message("The module with the name \"" + moduleName + "\" no setting exists.");
+            return;
+        }
+
+        CF4M.INSTANCE.configuration.message("Here are the list of settings:");
+
+        for (Object s : settings) {
+            CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, s) + "(" + s.getClass().getSimpleName() + ")" + CF4M.INSTANCE.setting.getDescription(currentModule, s));
+            if (s instanceof ModeSetting) {
+                ((ModeSetting) s).getModes().forEach(CF4M.INSTANCE.configuration::message);
+            }
+        }
     }
 
-    @Override
-    public String usage() {
-        return "<module>\n<module> <setting> <value>";
+    @Exec
+    public void exec(@Param("Module") String moduleName, @Param("Setting") String settingName) {
+        exec(moduleName);
+        Object setting = CF4M.INSTANCE.setting.getSetting(currentModule, settingName);
+        if (setting != null) {
+            currentSetting = setting;
+            CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, currentSetting) + "|" + currentSetting.getClass().getSimpleName());
+        } else {
+            CF4M.INSTANCE.configuration.message("The setting with the name \"" + settingName + "\" does not exist.");
+        }
+    }
+
+    @Exec
+    public void exec(@Param("Module") String moduleName, @Param("Setting") String settingName, @Param("SettingValue") String settingValue) {
+        exec(moduleName, settingName);
+        if (currentSetting instanceof EnableSetting) {
+            ((EnableSetting) currentSetting).setEnable(Boolean.parseBoolean(settingName));
+        } else if (currentSetting instanceof IntegerSetting) {
+            ((IntegerSetting) currentSetting).setCurrent(Integer.parseInt(settingName));
+        } else if (currentSetting instanceof DoubleSetting) {
+            ((DoubleSetting) currentSetting).setCurrent(Double.parseDouble(settingName));
+        } else if (currentSetting instanceof LongSetting) {
+            ((LongSetting) currentSetting).setCurrent(Long.parseLong(settingName));
+        } else if (currentSetting instanceof ModeSetting) {
+            ((ModeSetting) currentSetting).setCurrent(settingValue);
+        }
+
+        CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, currentSetting) + " has setting to " + settingValue + ".");
     }
 }

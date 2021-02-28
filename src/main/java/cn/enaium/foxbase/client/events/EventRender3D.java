@@ -1,14 +1,14 @@
 package cn.enaium.foxbase.client.events;
 
-import cn.enaium.cf4m.event.EventBase;
+import cn.enaium.cf4m.event.Listener;
 
-public class EventRender3D extends EventBase {
+public class EventRender3D extends Listener {
 
-	public float particlTicks;
+	public float particleTicks;
 
-	public EventRender3D(float particlTicks) {
-		super(Type.PRE);
-		this.particlTicks = particlTicks;
+	public EventRender3D(float particleTicks) {
+		super(At.TAIL);
+		this.particleTicks = particleTicks;
 	}
 
 }

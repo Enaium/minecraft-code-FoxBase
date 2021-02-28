@@ -2,9 +2,9 @@ package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.module.Category;
-import cn.enaium.foxbase.utils.ColorUtils;
-import cn.enaium.foxbase.utils.FontUtils;
-import cn.enaium.foxbase.utils.Render2DUtils;
+import cn.enaium.foxbase.client.utils.ColorUtils;
+import cn.enaium.foxbase.client.utils.FontUtils;
+import cn.enaium.foxbase.client.utils.Render2DUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * -----------------------------------------------------------
  * Copyright © 2020 | Enaium | All rights reserved.
  */
-public class CategroyPanel {
+public class CategoryPanel {
 
     private Category category;
     private double x;
@@ -33,7 +33,7 @@ public class CategroyPanel {
 
     private ArrayList<ModulePanel> modulePanels;
 
-    public CategroyPanel(Category category, double x, double y, double width, double height) {
+    public CategoryPanel(Category category, double x, double y, double width, double height) {
         this.category = category;
         this.x = x;
         this.y = y;

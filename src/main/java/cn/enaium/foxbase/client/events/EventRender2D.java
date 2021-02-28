@@ -1,11 +1,10 @@
 package cn.enaium.foxbase.client.events;
 
+import cn.enaium.cf4m.event.Listener;
 
-import cn.enaium.cf4m.event.EventBase;
-
-public class EventRender2D extends EventBase {
+public class EventRender2D extends Listener {
 
 	public EventRender2D() {
-		super(Type.PRE);
+		super(At.HEAD);
 	}
 }
