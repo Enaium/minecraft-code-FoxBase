@@ -1,7 +1,6 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.cf4m.setting.SettingBase;
-import cn.enaium.cf4m.setting.settings.*;
+import cn.enaium.foxbase.client.settings.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import cn.enaium.foxbase.client.utils.Render2DUtils;
@@ -18,8 +17,8 @@ public class ValueSettingElement extends SettingElement {
     private boolean addHovered;
     private boolean removeHovered;
 
-    public ValueSettingElement(SettingBase setting) {
-        super(setting);
+    public ValueSettingElement(Object setting, Object module) {
+        super(setting, module);
     }
 
     @Override

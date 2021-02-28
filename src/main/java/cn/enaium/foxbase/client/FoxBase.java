@@ -23,9 +23,4 @@ public enum FoxBase {
         CF4M.INSTANCE.run(this, Minecraft.getMinecraft().gameDir + "/" + name);
         Display.setTitle(name + " | Author:" + author + " | Version:" + version + " | Minecraft:" + game);
     }
-
-    public void Stop() {
-        CF4M.INSTANCE.stop();
-    }
-
 }

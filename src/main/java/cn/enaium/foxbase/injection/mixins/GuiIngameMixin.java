@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiIngame.class)
 public class GuiIngameMixin {
 
-    @Inject(at = @At("RETURN"), method = "renderTooltip")
+    @Inject(at = @At("HEAD"), method = "renderHotbar")
     private void renderTooltip(ScaledResolution p_renderTooltip_1_, float p_renderTooltip_2_, CallbackInfo info) {
         new EventRender2D().call();
     }
