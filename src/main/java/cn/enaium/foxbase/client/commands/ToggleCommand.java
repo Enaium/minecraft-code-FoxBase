@@ -1,40 +1,25 @@
 package cn.enaium.foxbase.client.commands;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.annotation.Command;
-import cn.enaium.cf4m.command.ICommand;
-
+import cn.enaium.cf4m.annotation.command.Command;
+import cn.enaium.cf4m.annotation.command.Exec;
+import cn.enaium.cf4m.annotation.command.Param;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 @Command({"t", "toggle"})
-public class ToggleCommand implements ICommand {
+public class ToggleCommand {
+    @Exec
+    private void exec(@Param("module") String name) {
+        Object module = CF4M.INSTANCE.module.getModule(name);
 
-    @Override
-    public boolean run(String[] args) {
-
-        if (args.length == 1) {
-            CF4M.INSTANCE.module.getModules().forEach(module -> CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.module.getName(module)));
+        if (module == null) {
+            CF4M.INSTANCE.configuration.message("The module with the name " + name + " does not exist.");
+            return;
         }
 
-        if (args.length == 2) {
-            Object module = CF4M.INSTANCE.module.getModule(args[1]);
-
-            if (module == null) {
-                CF4M.INSTANCE.configuration.message("The module with the name " + args[1] + " does not exist.");
-                return true;
-            }
-
-            CF4M.INSTANCE.module.enable(module);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public String usage() {
-        return "<module>";
+        CF4M.INSTANCE.module.enable(module);
     }
 }
