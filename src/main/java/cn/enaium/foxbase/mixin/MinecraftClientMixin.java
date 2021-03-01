@@ -1,9 +1,7 @@
 package cn.enaium.foxbase.mixin;
 
-import cn.enaium.foxbase.FoxBase;
-import net.minecraft.client.Keyboard;
+import cn.enaium.foxbase.client.FoxBase;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,11 +22,5 @@ public class MinecraftClientMixin {
     private void run(CallbackInfo info) {
         FoxBase.instance.run();
     }
-
-    @Inject(at = @At("HEAD"), method = "stop")
-    private void stop(CallbackInfo info) {
-        FoxBase.instance.stop();
-    }
-
 
 }
