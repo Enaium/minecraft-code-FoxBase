@@ -7,7 +7,7 @@ import org.lwjgl.opengl.Display;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 public enum FoxBase {
 
@@ -20,7 +20,7 @@ public enum FoxBase {
 
 
     public void Start() {
-        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().mcDataDir + "/" + name);
+        CF4M.INSTANCE.run(this, Minecraft.getMinecraft().gameDir + "/" + name);
         Display.setTitle(name + " | Author:" + author + " | Version:" + version + " | Minecraft:" + game);
     }
 }

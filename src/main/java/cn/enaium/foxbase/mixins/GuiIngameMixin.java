@@ -11,12 +11,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 @Mixin(GuiIngame.class)
 public class GuiIngameMixin {
-    @Inject(at = @At("HEAD"), method = "renderTooltip")
+
+    @Inject(at = @At("HEAD"), method = "renderHotbar")
     private void renderTooltip(ScaledResolution p_renderTooltip_1_, float p_renderTooltip_2_, CallbackInfo info) {
         new EventRender2D().call();
     }
+
 }

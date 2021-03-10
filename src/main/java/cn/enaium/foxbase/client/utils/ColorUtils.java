@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 public class ColorUtils {
     public static final int SELECT = new Color(33, 170, 47).getRGB();

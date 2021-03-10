@@ -10,7 +10,7 @@ import org.lwjgl.input.Keyboard;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 @Module(value = "GUI",key = Keyboard.KEY_RSHIFT)
 public class GUI {

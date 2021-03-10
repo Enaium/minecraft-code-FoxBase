@@ -3,10 +3,9 @@ buildscript {
         jcenter()
         maven { url 'https://repo.spongepowered.org/maven' }
         maven { url 'https://files.minecraftforge.net/maven' }
-        maven { url 'https://gitlab.com/EMC-Framework/maven/raw/master/' }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
@@ -27,12 +26,11 @@ repositories {
     mavenCentral()
     maven { url 'https://libraries.minecraft.net/' }
     maven { url 'https://repo.spongepowered.org/maven/' }
-    maven { url 'https://gitlab.com/EMC-Framework/maven/raw/master/' }
     maven { url 'https://maven.enaium.cn' }
 }
 
 dependencies {
-    implementation('org.dimdev:mixin:0.7.11-SNAPSHOT') { transitive = false }
+    implementation('org.spongepowered:mixin:0.8') { transitive = false }
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm-tree:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
@@ -45,7 +43,7 @@ dependencies {
 
 minecraft {
     version = "${project.mcVersion}"
-    mappings = 'stable_22'
+    mappings = 'stable_39'
     runDir = 'run'
     tweakClass = "${project.group}.${id}.launch.ClientTweaker"
     makeObfSourceJar = false

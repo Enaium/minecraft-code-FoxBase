@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 @Mixin(EntityPlayerSP.class)
 public class EntityPlayerSPMixin {

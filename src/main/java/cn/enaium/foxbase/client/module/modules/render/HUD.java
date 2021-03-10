@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 @Module(value = "HUD", key = Keyboard.KEY_P, category = Category.RENDER)
 public class HUD {

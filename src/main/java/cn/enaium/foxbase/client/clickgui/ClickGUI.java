@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
+ * Copyright © 2020 | Enaium | All rights reserved.
  */
 public class ClickGUI extends GuiScreen {
 

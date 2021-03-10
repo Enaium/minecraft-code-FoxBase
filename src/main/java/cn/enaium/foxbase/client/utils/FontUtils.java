@@ -10,7 +10,7 @@ import net.minecraft.client.gui.FontRenderer;
  */
 public class FontUtils {
 
-    public static FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
+    public static FontRenderer fr = Minecraft.getMinecraft().fontRenderer;
 
     public static void drawString(String string, int x, int y, int color) {
         fr.drawString(string, x, y, color);

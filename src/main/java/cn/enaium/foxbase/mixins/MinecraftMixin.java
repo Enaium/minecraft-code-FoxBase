@@ -20,7 +20,7 @@ public class MinecraftMixin {
 
     public GuiScreen currentScreen;
 
-    @Inject(at = @At("RETURN"), method = "startGame")
+    @Inject(at = @At("RETURN"), method = "init")
     private void startGame(CallbackInfo info) {
         FoxBase.instance.Start();
     }
@@ -31,4 +31,6 @@ public class MinecraftMixin {
             new KeyboardEvent(Keyboard.getEventKey() == 0 ? Keyboard.getEventCharacter() + 256 : Keyboard.getEventKey()).call();
         }
     }
+
+
 }
