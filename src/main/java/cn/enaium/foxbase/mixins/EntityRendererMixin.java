@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
  * Copyright © 2020 | Enaium | All rights reserved.
  */
 @Mixin(EntityRenderer.class)
-public class EntityRenderMixin {
+public class EntityRendererMixin {
     @Inject(at = @At("RETURN"), method = "renderWorldPass")
     private void renderWorldPass(int p_renderWorldPass_1_, float p_renderWorldPass_2_, long p_renderWorldPass_3_, CallbackInfo info) {
         GlStateManager.pushMatrix();
