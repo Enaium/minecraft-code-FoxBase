@@ -71,7 +71,7 @@ public class Main {
         });
         jFrame.add(installButton, BorderLayout.CENTER);
         JButton aboutButton = new JButton("About");
-        aboutButton.addActionListener(event -> JOptionPane.showMessageDialog(null, Main.class.getPackage().getImplementationTitle() + "-By:" + Main.class.getPackage().getImplementationVendor()));
+        aboutButton.addActionListener(event -> JOptionPane.showMessageDialog(null, Main.class.getPackage().getImplementationTitle() + "-By:" + Main.class.getPackage().getSpecificationVendor()));
         jFrame.add(aboutButton, BorderLayout.EAST);
         jFrame.setVisible(true);
     }
