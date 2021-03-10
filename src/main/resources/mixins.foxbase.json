@@ -7,6 +7,6 @@
     "MinecraftMixin",
     "EntityPlayerSPMixin",
     "GuiIngameMixin",
-    "EntityRendererMixin"
+    "EntityRenderMixin"
   ]
 }
