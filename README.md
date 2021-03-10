@@ -1,4 +1,4 @@
-# Minecraft Vanilla 1.11.2
+# Minecraft Vanilla 1.8.9
 ## Setup
 1. Clone this repository.
 2. Run the following command from the project's root directory:

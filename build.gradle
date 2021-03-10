@@ -6,7 +6,7 @@ buildscript {
         maven { url 'https://gitlab.com/EMC-Framework/maven/raw/master/' }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
@@ -45,7 +45,7 @@ dependencies {
 
 minecraft {
     version = "${project.mcVersion}"
-    mappings = 'snapshot_20161220'
+    mappings = 'stable_22'
     runDir = 'run'
     tweakClass = "${project.group}.${id}.launch.ClientTweaker"
     makeObfSourceJar = false

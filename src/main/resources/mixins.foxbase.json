@@ -5,6 +5,9 @@
   "package": "cn.enaium.foxbase.mixins",
   "refmap": "mixins.foxbase.refmap.json",
   "mixins": [
+    "EntityPlayerSPMixin",
+    "EntityRendererMixin",
+    "GuiIngameMixin",
     "MinecraftMixin"
   ]
 }
