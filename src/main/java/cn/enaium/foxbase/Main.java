@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Locale;
 
 /**
- * Project: untitled
+ * Project: FoxBase
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
@@ -71,7 +71,7 @@ public class Main {
         });
         jFrame.add(installButton, BorderLayout.CENTER);
         JButton aboutButton = new JButton("About");
-        aboutButton.addActionListener(event -> JOptionPane.showMessageDialog(null, Main.class.getPackage().getImplementationTitle() + "-By:" + Main.class.getPackage().getImplementationVendor()));
+        aboutButton.addActionListener(event -> JOptionPane.showMessageDialog(null, Main.class.getPackage().getImplementationTitle() + "-By:" + Main.class.getPackage().getSpecificationVendor()));
         jFrame.add(aboutButton, BorderLayout.EAST);
         jFrame.setVisible(true);
     }
@@ -90,19 +90,5 @@ public class Main {
 
     private static String getOsName() {
         return System.getProperty("os.name").toLowerCase(Locale.ROOT);
-    }
-
-    private static String read(String path) {
-        StringBuilder stringBuilder = new StringBuilder();
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuilder.append(line).append("\n");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
     }
 }
