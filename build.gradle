@@ -7,7 +7,7 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2' }
     }
     dependencies {
-        classpath 'com.gitee.Enaium:ForgeGradle26:26'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
     }
 }
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation('org.spongepowered:mixin:0.8') { transitive = false }
+    implementation('org.spongepowered:mixin:0.7.10-SNAPSHOT') { transitive = false }
     implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
     implementation 'org.ow2.asm:asm-tree:6.2'
     implementation 'org.ow2.asm:asm-commons:6.2'
@@ -46,7 +46,7 @@ dependencies {
 
 minecraft {
     version = "${project.mcVersion}"
-    mappings = 'snapshot_20210309'
+    mappings = 'stable_22'
     runDir = 'run'
     tweakClass = "${project.group}.${id}.launch.ClientTweaker"
     makeObfSourceJar = false
