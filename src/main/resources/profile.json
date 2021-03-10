@@ -16,8 +16,8 @@
       "name": "${group}:${archivesBaseName}:${version}"
     },
     {
-      "name": "org.spongepowered:mixin:0.8",
-      "url": "https://repo.spongepowered.org/maven/"
+      "name": "org.dimdev:mixin:0.7.11-SNAPSHOT",
+      "url": "https://gitlab.com/EMC-Framework/maven/raw/master/"
     },
     {
       "name": "cn.enaium.cf4m:cf4m:${cf4mVersion}",
