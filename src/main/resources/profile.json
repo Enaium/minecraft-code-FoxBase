@@ -1,0 +1,50 @@
+{
+  "inheritsFrom": "${mcVersion}",
+  "id": "${archivesBaseName}-${version}",
+  "jar": "${mcVersion}",
+  "time": "${formattedTime}",
+  "type": "release",
+  "arguments": {
+    "game": [
+      "--tweakClass",
+      "${tweakClass}"
+    ]
+  },
+  "mainClass": "net.minecraft.launchwrapper.Launch",
+  "libraries": [
+    {
+      "name": "${group}:${archivesBaseName}:${version}"
+    },
+    {
+      "name": "org.spongepowered:mixin:0.8",
+      "url": "https://repo.spongepowered.org/maven/"
+    },
+    {
+      "name": "cn.enaium.cf4m:cf4m:${cf4mVersion}",
+      "url": "https://maven.enaium.cn/"
+    },
+    {
+      "name": "org.ow2.asm:asm:6.2",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "org.ow2.asm:asm-tree:6.2",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "org.ow2.asm:asm-commons:6.2",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "org.ow2.asm:asm-util:6.2",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "org.ow2.asm:asm-analysis:6.2",
+      "url": "https://repo1.maven.org/maven2/"
+    },
+    {
+      "name": "net.minecraft:launchwrapper:1.12"
+    }
+  ]
+}

@@ -1,84 +1,103 @@
-plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT'
-    id 'maven-publish'
+buildscript {
+    repositories {
+        jcenter()
+        maven { url 'https://repo.spongepowered.org/maven' }
+        maven { url 'https://files.minecraftforge.net/maven' }
+        maven { url 'https://jitpack.io' }
+        maven { url 'https://plugins.gradle.org/m2' }
+    }
+    dependencies {
+        classpath 'com.gitee.Enaium:ForgeGradle26:26'
+        classpath 'org.spongepowered:mixingradle:0.6-SNAPSHOT'
+    }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.tweaker-client'
+apply plugin: 'org.spongepowered.mixin'
 
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
+group 'cn.enaium'
+version "${project.buildVersion}-MC${project.mcVersion}"
+archivesBaseName = 'FoxBase'
+def id = "foxbase"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
+    mavenCentral()
+    maven { url 'https://libraries.minecraft.net/' }
+    maven { url 'https://repo.spongepowered.org/maven/' }
+    maven { url 'https://jitpack.io' }
     maven { url 'https://maven.enaium.cn' }
 }
 
 dependencies {
-    //to change the versions see the gradle.properties file
-    minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation('org.spongepowered:mixin:0.8') { transitive = false }
+    implementation('net.minecraft:launchwrapper:1.12') { transitive = false }
+    implementation 'org.ow2.asm:asm-tree:6.2'
+    implementation 'org.ow2.asm:asm-commons:6.2'
+    implementation "org.ow2.asm:asm-util:6.2"
 
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    implementation("cn.enaium.cf4m:cf4m:${project.cf4mVersion}") {
+        exclude group: 'com.google.guava', module: 'guava'
+    }
+}
 
-    modImplementation "cn.enaium.cf4m:cf4m-fabric:${project.cf4m_version}"
+minecraft {
+    version = "${project.mcVersion}"
+    mappings = 'stable_47'
+    runDir = 'run'
+    tweakClass = "${project.group}.${id}.launch.ClientTweaker"
+    makeObfSourceJar = false
+}
 
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
+mixin {
+    defaultObfuscationEnv notch
+    add sourceSets.main, "mixins.${id}.refmap.json"
+}
+
+sourceSets {
+    main
+    debug {
+        compileClasspath += main.compileClasspath
+    }
 }
 
 processResources {
+    filesMatching('profile.json') {
+        expand([
+                'version'         : project.version,
+                'archivesBaseName': archivesBaseName,
+                'group'           : project.group,
+                'cf4mVersion'     : project.cf4mVersion,
+                'mcVersion'       : project.mcVersion,
+                'tweakClass'      : project.minecraft.tweakClass,
+                'formattedTime'   : new Date().format("yyyy-MM-dd'T'HH:mm:ss'-08:00'")
+        ])
+    }
+
     inputs.property "version", project.version
-
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
-        expand "version": project.version
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
-
-}
-
-// ensure that the encoding is set to UTF-8, no matter what the system default is
-// this fixes some edge cases with special characters not displaying correctly
-// see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-}
-
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
+    inputs.property "mcVersion", project.mcVersion
 }
 
 jar {
-    from "LICENSE"
+    manifest {
+        attributes([
+                "Main-Class"              : "${project.group}.${id}.Main",
+                "Specification-Title"     : "${archivesBaseName}",
+                "Specification-Vendor"    : "Enaium",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : "${archivesBaseName}",
+                "Implementation-Version"  : "${project.version}",
+                "Implementation-Vendor"   : "${project.group}",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+
+    classifier = 'vanilla'
 }
 
-// configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    // select the repositories you want to publish to
-    repositories {
-        // uncomment to publish to the local maven
-        // mavenLocal()
-    }
+artifacts {
+    archives jar
 }
