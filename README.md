@@ -1,4 +1,4 @@
-# Minecraft Vanilla 1.15.2
+# Minecraft Vanilla 1.16.5
 ## Setup
 1. Clone this repository.
 2. Run the following command from the project's root directory:
