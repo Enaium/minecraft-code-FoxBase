@@ -46,7 +46,7 @@ dependencies {
 
 minecraft {
     version = "${project.mcVersion}"
-    mappings = 'stable_47'
+    mappings = 'stable_58'
     runDir = 'run'
     tweakClass = "${project.group}.${id}.launch.ClientTweaker"
     makeObfSourceJar = false
