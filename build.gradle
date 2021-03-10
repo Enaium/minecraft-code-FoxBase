@@ -4,7 +4,6 @@ buildscript {
         maven { url 'https://repo.spongepowered.org/maven' }
         maven { url 'https://files.minecraftforge.net/maven' }
         maven { url 'https://gitlab.com/EMC-Framework/maven/raw/master/' }
-        maven { url 'https://plugins.gradle.org/m2' }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
