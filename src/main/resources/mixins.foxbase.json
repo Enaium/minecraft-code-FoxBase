@@ -6,7 +6,7 @@
   "refmap": "mixins.foxbase.refmap.json",
   "mixins": [
     "EntityPlayerSPMixin",
-    "EntityRendererMixin",
+    "EntityRenderMixin",
     "GuiIngameMixin",
     "MinecraftMixin"
   ]
