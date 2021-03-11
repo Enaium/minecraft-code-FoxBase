@@ -4,7 +4,11 @@ import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
-
+/**
+ * Project: FoxBase
+ * -----------------------------------------------------------
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
+ */
 @Command({"t", "toggle"})
 public class ToggleCommand {
     @Exec

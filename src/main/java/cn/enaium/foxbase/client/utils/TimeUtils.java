@@ -3,7 +3,7 @@ package cn.enaium.foxbase.client.utils;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 public class TimeUtils {
     private long lastMS = 0L;

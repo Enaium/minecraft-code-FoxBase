@@ -13,11 +13,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Project: FoxBase
- * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
- */
 @Config("Modules")
 public class ModuleConfig {
     @Load
@@ -27,7 +22,7 @@ public class ModuleConfig {
             try {
                 jsonArray = new Gson().fromJson(read(CF4M.INSTANCE.config.getPath(this)), JsonArray.class);
             } catch (IOException e) {
-                System.out.println(e.getLocalizedMessage());
+                e.printStackTrace();
             }
             for (JsonElement jsonElement : jsonArray) {
                 JsonObject jsonObject = jsonElement.getAsJsonObject();

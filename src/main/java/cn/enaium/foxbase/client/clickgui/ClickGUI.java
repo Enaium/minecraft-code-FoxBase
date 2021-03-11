@@ -2,21 +2,23 @@ package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.module.Category;
 import cn.enaium.foxbase.client.utils.FontUtils;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-public class ClickGUI extends GuiScreen {
+public class ClickGUI extends Screen {
 
     ArrayList<CategoryPanel> categoryPanels;
 
     public ClickGUI() {
+        super(new LiteralText(""));
         categoryPanels = new ArrayList<>();
         double categoryY = 5;
         for (Category category : Category.values()) {
@@ -25,29 +27,30 @@ public class ClickGUI extends GuiScreen {
         }
     }
 
-
     @Override
-    public void drawScreen(int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         for (CategoryPanel categoryPanel : categoryPanels) {
-            categoryPanel.render(mouseX, mouseY, delta);
+            categoryPanel.render(matrices, mouseX, mouseY, delta);
         }
-        FontUtils.drawString("FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
-        super.drawScreen(mouseX, mouseY, delta);
+        FontUtils.drawString(matrices, "FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
-    public void mouseClicked(int mouseX, int mouseY, int button) throws IOException {
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for (CategoryPanel categoryPanel : categoryPanels) {
             categoryPanel.mouseClicked(mouseX, mouseY, button);
         }
-        super.mouseClicked(mouseX, mouseY, button);
+        return false;
     }
 
     @Override
-    public void mouseReleased(int mouseX, int mouseY, int button) {
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
         for (CategoryPanel categoryPanel : categoryPanels) {
             categoryPanel.mouseReleased(mouseX, mouseY, button);
         }
-        super.mouseReleased(mouseX, mouseY, button);
+        return false;
     }
 
 

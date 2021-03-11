@@ -1,13 +1,14 @@
 package cn.enaium.foxbase.client.clickgui;
 
 import cn.enaium.cf4m.CF4M;
-import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.BooleanSettingElement;
+import cn.enaium.foxbase.client.clickgui.setting.SettingElement;
 import cn.enaium.foxbase.client.clickgui.setting.ValueSettingElement;
 import cn.enaium.foxbase.client.settings.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
-import cn.enaium.foxbase.client.utils.Render2DUtils;
+import cn.enaium.foxbase.client.utils.Render2D;
+import net.minecraft.client.util.math.MatrixStack;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 public class ModulePanel {
 
@@ -33,7 +34,7 @@ public class ModulePanel {
         if (settings != null) {
             for (Object setting : settings) {
                 if (setting instanceof EnableSetting) {
-                    this.settingElements.add(new BooleanSettingElement(setting, module));
+                    this.settingElements.add(new BooleanSettingElement((EnableSetting) setting, module));
                 } else if (setting instanceof IntegerSetting || setting instanceof DoubleSetting || setting instanceof FloatSetting || setting instanceof LongSetting || setting instanceof ModeSetting) {
                     this.settingElements.add(new ValueSettingElement(setting, module));
                 }
@@ -41,8 +42,8 @@ public class ModulePanel {
         }
     }
 
-    public void render(int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
-        this.hovered = Render2DUtils.isHovered(mouseX, mouseY, x, y, width, height);
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, double x, double y, double width, double height) {
+        this.hovered = Render2D.isHovered(mouseX, mouseY, x, y, width, height);
         int color = ColorUtils.BG;
         if (CF4M.INSTANCE.module.getEnable(this.module)) {
             color = ColorUtils.TOGGLE;
@@ -51,12 +52,12 @@ public class ModulePanel {
             color = ColorUtils.SELECT;
         }
 
-        Render2DUtils.drawRectWH(x, y, width, height, color);
-        FontUtils.drawHVCenteredString(CF4M.INSTANCE.module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
+        Render2D.drawRectWH(matrices, x, y, width, height, color);
+        FontUtils.drawHVCenteredString(matrices, CF4M.INSTANCE.module.getName(this.module), x + width / 2, y + height / 2, Color.WHITE.getRGB());
         if (this.displaySettingElement) {
             double SettingElementY = y;
             for (SettingElement settingElement : settingElements) {
-                settingElement.render(mouseX, mouseY, delta, x + width, SettingElementY, getWidestSetting(), height);
+                settingElement.render(matrices, mouseX, mouseY, delta, x + width, SettingElementY, getWidestSetting(), height);
                 SettingElementY += height;
             }
         }
@@ -65,7 +66,9 @@ public class ModulePanel {
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered) {
             if (button == 0) {
-                CF4M.INSTANCE.module.enable(this.module);
+                if (!CF4M.INSTANCE.module.getModule("GUI").equals(this.module)) {
+                    CF4M.INSTANCE.module.enable(this.module);
+                }
             } else if (button == 1) {
                 this.displaySettingElement = !displaySettingElement;
             }
@@ -86,8 +89,6 @@ public class ModulePanel {
                 name = name + ":" + ((DoubleSetting) setting).getCurrent();
             } else if (setting instanceof FloatSetting) {
                 name = name + ":" + ((FloatSetting) setting).getCurrent();
-            } else if (setting instanceof LongSetting) {
-                name = name + ":" + ((LongSetting) setting).getCurrent();
             } else if (setting instanceof ModeSetting) {
                 name = name + ":" + ((ModeSetting) setting).getCurrent();
             }

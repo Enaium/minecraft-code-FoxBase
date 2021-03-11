@@ -5,17 +5,17 @@ import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
 import cn.enaium.foxbase.client.settings.*;
-import cn.enaium.foxbase.client.settings.ModeSetting;
 
 import java.util.ArrayList;
 
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Command({"s", "set"})
+@Command({"s", "setting"})
 public class SetCommand {
+
     private Object currentModule;
     private ArrayList<Object> settings;
     private Object currentSetting;
