@@ -59,7 +59,7 @@ public class ClickGUI extends Screen {
         for (Category c : Category.values()) {
             String name = c.name();
             int cWidth = FontUtils.getStringWidth(
-                    name.substring(0, 1).toUpperCase() + name.substring(1, name.length()).toLowerCase());
+                    name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {
                 width = cWidth;
             }

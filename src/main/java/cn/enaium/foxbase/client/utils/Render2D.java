@@ -39,7 +39,7 @@ public class Render2D {
     }
 
     public static void drawRectWH(MatrixStack matrices, double x, double y, double width, double height, int color) {
-        fill(matrices.peek().getModel(), x, y, x + width, y + height, color);
+        drawRect(matrices, x, y, x + width, y + height, color);
     }
 
     public static void drawHorizontalLine(MatrixStack matrices, int i, int j, int k, int l) {

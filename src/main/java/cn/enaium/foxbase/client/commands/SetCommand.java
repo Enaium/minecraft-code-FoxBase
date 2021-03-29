@@ -4,7 +4,9 @@ import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
-import cn.enaium.foxbase.client.settings.*;
+import cn.enaium.cf4m.provider.ModuleProvider;
+import cn.enaium.cf4m.provider.SettingProvider;
+import cn.enaium.foxbase.client.setting.*;
 
 import java.util.ArrayList;
 
@@ -16,31 +18,31 @@ import java.util.ArrayList;
 @Command({"s", "setting"})
 public class SetCommand {
 
-    private Object currentModule;
-    private ArrayList<Object> settings;
-    private Object currentSetting;
+    private ModuleProvider currentModule;
+    private ArrayList<SettingProvider> settings;
+    private SettingProvider currentSetting;
 
     @Exec
     public void exec(@Param("Module") String moduleName) {
-        currentModule = CF4M.INSTANCE.module.getModule(moduleName);
+        currentModule = CF4M.module.getByName(moduleName);
         if (currentModule == null) {
-            CF4M.INSTANCE.configuration.message("The module with the name \"" + moduleName + "\" does not exist.");
+            CF4M.configuration.command().message("The module with the name \"" + moduleName + "\" does not exist.");
             return;
         }
 
-        settings = CF4M.INSTANCE.setting.getSettings(currentModule);
+        settings = currentModule.getSetting().getAll();
 
         if (settings == null) {
-            CF4M.INSTANCE.configuration.message("The module with the name \"" + moduleName + "\" no setting exists.");
+            CF4M.configuration.command().message("The module with the name \"" + moduleName + "\" no setting exists.");
             return;
         }
 
-        CF4M.INSTANCE.configuration.message("Here are the list of settings:");
+        CF4M.configuration.command().message("Here are the list of settings:");
 
-        for (Object s : settings) {
-            CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, s) + "(" + s.getClass().getSimpleName() + ")" + CF4M.INSTANCE.setting.getDescription(currentModule, s));
+        for (SettingProvider s : settings) {
+            CF4M.configuration.command().message(s.getName() + "(" + s.getClass().getSimpleName() + ")" + s.getDescription());
             if (s instanceof ModeSetting) {
-                ((ModeSetting) s).getModes().forEach(CF4M.INSTANCE.configuration::message);
+                ((ModeSetting) s).getModes().forEach(CF4M.configuration.command()::message);
             }
         }
     }
@@ -48,12 +50,12 @@ public class SetCommand {
     @Exec
     public void exec(@Param("Module") String moduleName, @Param("Setting") String settingName) {
         exec(moduleName);
-        Object setting = CF4M.INSTANCE.setting.getSetting(currentModule, settingName);
+        SettingProvider setting = currentModule.getSetting().getByName(settingName);
         if (setting != null) {
             currentSetting = setting;
-            CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, currentSetting) + "|" + currentSetting.getClass().getSimpleName());
+            CF4M.configuration.command().message(currentSetting.getName() + "|" + currentSetting.getClass().getSimpleName());
         } else {
-            CF4M.INSTANCE.configuration.message("The setting with the name \"" + settingName + "\" does not exist.");
+            CF4M.configuration.command().message("The setting with the name \"" + settingName + "\" does not exist.");
         }
     }
 
@@ -72,6 +74,6 @@ public class SetCommand {
             ((ModeSetting) currentSetting).setCurrent(settingValue);
         }
 
-        CF4M.INSTANCE.configuration.message(CF4M.INSTANCE.setting.getName(currentModule, currentSetting) + " has setting to " + settingValue + ".");
+        CF4M.configuration.command().message(currentSetting.getName() + " has setting to " + settingValue + ".");
     }
 }

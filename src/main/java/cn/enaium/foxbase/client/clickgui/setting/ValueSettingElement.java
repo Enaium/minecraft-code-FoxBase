@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
-import cn.enaium.foxbase.client.settings.*;
+import cn.enaium.cf4m.provider.SettingProvider;
+import cn.enaium.foxbase.client.setting.*;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
@@ -18,8 +19,8 @@ public class ValueSettingElement extends SettingElement {
     private boolean addHovered;
     private boolean removeHovered;
 
-    public ValueSettingElement(Object setting, Object module) {
-        super(setting, module);
+    public ValueSettingElement(SettingProvider setting) {
+        super(setting);
     }
 
     @Override
@@ -36,51 +37,51 @@ public class ValueSettingElement extends SettingElement {
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.addHovered && button == 0) {
-            if (this.setting instanceof IntegerSetting) {
-                if (((IntegerSetting) this.setting).getCurrent() < ((IntegerSetting) this.setting).getMax()) {
-                    ((IntegerSetting) this.setting).setCurrent(((IntegerSetting) this.setting).getCurrent() + 1);
+            if (this.setting.getSetting() instanceof IntegerSetting) {
+                if (this.setting.<IntegerSetting>getSetting().getCurrent() < this.setting.<IntegerSetting>getSetting().getMax()) {
+                    this.setting.<IntegerSetting>getSetting().setCurrent(this.setting.<IntegerSetting>getSetting().getCurrent() + 1);
                 }
-            } else if (this.setting instanceof DoubleSetting) {
-                if (((DoubleSetting) this.setting).getCurrent() < ((DoubleSetting) this.setting).getMax()) {
-                    ((DoubleSetting) this.setting).setCurrent(((DoubleSetting) this.setting).getCurrent() + 0.1D);
+            } else if (this.setting.getSetting() instanceof FloatSetting) {
+                if (this.setting.<FloatSetting>getSetting().getCurrent() < this.setting.<FloatSetting>getSetting().getMax()) {
+                    this.setting.<FloatSetting>getSetting().setCurrent(this.setting.<FloatSetting>getSetting().getCurrent() + 0.1F);
                 }
-            } else if (this.setting instanceof FloatSetting) {
-                if (((FloatSetting) this.setting).getCurrent() < ((FloatSetting) this.setting).getMax()) {
-                    ((FloatSetting) this.setting).setCurrent(((FloatSetting) this.setting).getCurrent() + 0.1F);
+            } else if (this.setting.getSetting() instanceof DoubleSetting) {
+                if (this.setting.<DoubleSetting>getSetting().getCurrent() < this.setting.<DoubleSetting>getSetting().getMax()) {
+                    this.setting.<DoubleSetting>getSetting().setCurrent(this.setting.<DoubleSetting>getSetting().getCurrent() + 0.1D);
                 }
-            } else if (this.setting instanceof LongSetting) {
-                if (((LongSetting) this.setting).getCurrent() < ((LongSetting) this.setting).getMax()) {
-                    ((LongSetting) this.setting).setCurrent(((LongSetting) this.setting).getCurrent() + 1L);
+            } else if (this.setting.getSetting() instanceof LongSetting) {
+                if (this.setting.<LongSetting>getSetting().getCurrent() < this.setting.<LongSetting>getSetting().getMax()) {
+                    this.setting.<LongSetting>getSetting().setCurrent(this.setting.<LongSetting>getSetting().getCurrent() + 1L);
                 }
-            } else if (this.setting instanceof ModeSetting) {
+            } else if (this.setting.getSetting() instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getCurrentModeIndex() + 1));
+                    this.setting.<ModeSetting>getSetting().setCurrent(this.setting.<ModeSetting>getSetting().getModes().get(this.setting.<ModeSetting>getSetting().getCurrentModeIndex() + 1));
                 } catch (Exception e) {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(0));
+                    this.setting.<ModeSetting>getSetting().setCurrent(this.setting.<ModeSetting>getSetting().getModes().get(0));
                 }
             }
         } else if (this.removeHovered && button == 0) {
-            if (this.setting instanceof IntegerSetting) {
-                if (((IntegerSetting) this.setting).getCurrent() > ((IntegerSetting) this.setting).getMin()) {
-                    ((IntegerSetting) this.setting).setCurrent(((IntegerSetting) this.setting).getCurrent() - 1);
+            if (this.setting.getSetting() instanceof IntegerSetting) {
+                if (this.setting.<IntegerSetting>getSetting().getCurrent() < this.setting.<IntegerSetting>getSetting().getMax()) {
+                    this.setting.<IntegerSetting>getSetting().setCurrent(this.setting.<IntegerSetting>getSetting().getCurrent() - 1);
                 }
-            } else if (this.setting instanceof DoubleSetting) {
-                if (((DoubleSetting) this.setting).getCurrent() > ((DoubleSetting) this.setting).getMin()) {
-                    ((DoubleSetting) this.setting).setCurrent(((DoubleSetting) this.setting).getCurrent() - 0.1D);
+            } else if (this.setting.getSetting() instanceof FloatSetting) {
+                if (this.setting.<FloatSetting>getSetting().getCurrent() < this.setting.<FloatSetting>getSetting().getMax()) {
+                    this.setting.<FloatSetting>getSetting().setCurrent(this.setting.<FloatSetting>getSetting().getCurrent() - 0.1F);
                 }
-            } else if (this.setting instanceof FloatSetting) {
-                if (((FloatSetting) this.setting).getCurrent() > ((FloatSetting) this.setting).getMin()) {
-                    ((FloatSetting) this.setting).setCurrent(((FloatSetting) this.setting).getCurrent() - 0.1F);
+            } else if (this.setting.getSetting() instanceof DoubleSetting) {
+                if (this.setting.<DoubleSetting>getSetting().getCurrent() < this.setting.<DoubleSetting>getSetting().getMax()) {
+                    this.setting.<DoubleSetting>getSetting().setCurrent(this.setting.<DoubleSetting>getSetting().getCurrent() - 0.1D);
                 }
-            } else if (this.setting instanceof LongSetting) {
-                if (((LongSetting) this.setting).getCurrent() > ((LongSetting) this.setting).getMin()) {
-                    ((LongSetting) this.setting).setCurrent(((LongSetting) this.setting).getCurrent() - 1L);
+            } else if (this.setting.getSetting() instanceof LongSetting) {
+                if (this.setting.<LongSetting>getSetting().getCurrent() < this.setting.<LongSetting>getSetting().getMax()) {
+                    this.setting.<LongSetting>getSetting().setCurrent(this.setting.<LongSetting>getSetting().getCurrent() - 1L);
                 }
-            } else if (this.setting instanceof ModeSetting) {
+            } else if (this.setting.getSetting() instanceof ModeSetting) {
                 try {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getCurrentModeIndex() - 1));
+                    this.setting.<ModeSetting>getSetting().setCurrent(this.setting.<ModeSetting>getSetting().getModes().get(this.setting.<ModeSetting>getSetting().getCurrentModeIndex() - 1));
                 } catch (Exception e) {
-                    ((ModeSetting) this.setting).setCurrent(((ModeSetting) this.setting).getModes().get(((ModeSetting) this.setting).getModes().size() - 1));
+                    this.setting.<ModeSetting>getSetting().setCurrent(this.setting.<ModeSetting>getSetting().getModes().get(this.setting.<ModeSetting>getSetting().getModes().size() - 1));
                 }
             }
         }

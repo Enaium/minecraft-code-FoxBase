@@ -1,43 +1,43 @@
-package cn.enaium.foxbase.client.settings;
+package cn.enaium.foxbase.client.setting;
 
 /**
  * Project: FoxBase
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-public class LongSetting {
+public class DoubleSetting {
 
-    private Long current;
-    private Long min;
-    private Long max;
+    private Double current;
+    private Double min;
+    private Double max;
 
-    public LongSetting(Long current, Long min, Long max) {
+    public DoubleSetting(Double current, Double min, Double max) {
         this.current = current;
         this.min = min;
         this.max = max;
     }
 
-    public Long getCurrent() {
+    public Double getCurrent() {
         return current;
     }
 
-    public void setCurrent(Long current) {
+    public void setCurrent(Double current) {
         this.current = current;
     }
 
-    public Long getMin() {
+    public Double getMin() {
         return min;
     }
 
-    public void setMin(Long min) {
+    public void setMin(Double min) {
         this.min = min;
     }
 
-    public Long getMax() {
+    public Double getMax() {
         return max;
     }
 
-    public void setMax(Long max) {
+    public void setMax(Double max) {
         this.max = max;
     }
 }

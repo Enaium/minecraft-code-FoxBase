@@ -14,9 +14,9 @@ public enum FoxBase {
     public String name = "FoxBase";
     public String author = "Enaium";
     public String version = "1.0";
-    public String game = "21w07a";
+    public String game = "21w11a";
 
     public void run() {
-        CF4M.INSTANCE.run(this);
+        CF4M.run(this);
     }
 }

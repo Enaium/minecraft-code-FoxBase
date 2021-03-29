@@ -3,10 +3,10 @@ package cn.enaium.foxbase.client.modules.combat;
 import cn.enaium.cf4m.annotation.Event;
 import cn.enaium.cf4m.annotation.Setting;
 import cn.enaium.cf4m.annotation.module.Module;
-import cn.enaium.cf4m.event.events.UpdateEvent;
-import cn.enaium.foxbase.client.settings.IntegerSetting;
-import cn.enaium.foxbase.client.settings.ModeSetting;
-import org.lwjgl.glfw.GLFW;
+import cn.enaium.foxbase.client.event.Events;
+import cn.enaium.foxbase.client.event.Events.UpdatingEvent;
+import cn.enaium.foxbase.client.setting.IntegerSetting;
+import cn.enaium.foxbase.client.setting.ModeSetting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +26,7 @@ public class Aura {
     ModeSetting mode = new ModeSetting("MOD1", new ArrayList<>(Arrays.asList("MOD1", "MOD2", "MOD3")));
 
     @Event
-    public void onUpdate(UpdateEvent e) {
+    public void onUpdate(UpdatingEvent e) {
 
     }
 }

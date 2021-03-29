@@ -2,8 +2,8 @@ package cn.enaium.foxbase.client.modules.movement;
 
 import cn.enaium.cf4m.annotation.Event;
 import cn.enaium.cf4m.annotation.module.Module;
-import cn.enaium.cf4m.event.events.UpdateEvent;
 import cn.enaium.cf4m.module.Category;
+import cn.enaium.foxbase.client.event.Events.UpdatedEvent;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
 
@@ -16,7 +16,7 @@ import org.lwjgl.glfw.GLFW;
 public class Sprint {
 
     @Event
-    public void onUpdate(UpdateEvent e) {
+    public void onUpdate(UpdatedEvent e) {
         assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.setSprinting(true);
     }

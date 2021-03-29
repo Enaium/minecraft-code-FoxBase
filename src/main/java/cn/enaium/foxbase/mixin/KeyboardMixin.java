@@ -1,6 +1,8 @@
 package cn.enaium.foxbase.mixin;
 
-import cn.enaium.cf4m.event.events.KeyboardEvent;
+import cn.enaium.cf4m.CF4M;
+import cn.enaium.foxbase.client.event.Events;
+import cn.enaium.foxbase.client.event.Events.KeyboardEvent;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import org.lwjgl.glfw.GLFW;
@@ -20,6 +22,7 @@ public class KeyboardMixin {
     private void onOnKey(long windowHandle, int keyCode, int scanCode, int action, int modifiers, CallbackInfo callbackInfo) {
         if (action == GLFW.GLFW_PRESS && MinecraftClient.getInstance().currentScreen == null) {
             new KeyboardEvent(keyCode).call();
+            CF4M.module.onKey(keyCode);
         }
     }
 }

@@ -18,6 +18,6 @@ public class GUI {
     @Enable
     public void onEnable() {
         MinecraftClient.getInstance().openScreen(new ClickGUI());
-        CF4M.INSTANCE.module.enable(this);
+        CF4M.module.getByInstance(this).enable();
     }
 }

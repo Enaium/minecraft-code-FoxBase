@@ -1,4 +1,4 @@
-package cn.enaium.foxbase.client.settings;
+package cn.enaium.foxbase.client.setting;
 
 /**
  * Project: FoxBase
