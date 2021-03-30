@@ -4,11 +4,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 
-/**
- * Project: FoxBase
- * -----------------------------------------------------------
- * Copyright © 2020-2021 | Enaium | All rights reserved.
- */
 public class FontUtils {
 
     public static TextRenderer tr = MinecraftClient.getInstance().textRenderer;

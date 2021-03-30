@@ -27,15 +27,15 @@ public class SettingElement {
         Render2D.drawRectWH(matrices, x, y, width + height, height, ColorUtils.BG);
         String name = setting.getName();
         if (this.setting.getSetting() instanceof IntegerSetting) {
-            name = name + ":" + ((IntegerSetting) this.setting).getCurrent();
+            name = name + ":" + this.setting.<IntegerSetting>getSetting().getCurrent();
         } else if (this.setting.getSetting() instanceof DoubleSetting) {
-            name = name + ":" + ((DoubleSetting) this.setting).getCurrent();
+            name = name + ":" + this.setting.<DoubleSetting>getSetting().getCurrent();
         } else if (this.setting.getSetting() instanceof FloatSetting) {
-            name = name + ":" + ((FloatSetting) this.setting).getCurrent();
+            name = name + ":" + this.setting.<FloatSetting>getSetting().getCurrent();
         } else if (this.setting.getSetting() instanceof LongSetting) {
-            name = name + ":" + ((LongSetting) this.setting).getCurrent();
+            name = name + ":" + this.setting.<LongSetting>getSetting().getCurrent();
         } else if (this.setting.getSetting() instanceof ModeSetting) {
-            name = name + ":" + ((ModeSetting) this.setting).getCurrent();
+            name = name + ":" + this.setting.<ModeSetting>getSetting().getCurrent();
         }
         FontUtils.drawHVCenteredString(matrices, name, x + width / 2, y + height / 2, Color.WHITE.getRGB());
     }

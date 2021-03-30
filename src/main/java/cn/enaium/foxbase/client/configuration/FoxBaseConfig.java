@@ -9,9 +9,9 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 /**
- * Project: FoxBase-forge-example
+ * Project: FoxBase
  * -----------------------------------------------------------
- * Copyright © 2020 | Enaium | All rights reserved.
+ * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
 @Configuration
 public class FoxBaseConfig implements IConfiguration {

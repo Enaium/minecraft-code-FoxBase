@@ -1,5 +1,6 @@
 package cn.enaium.foxbase.mixin;
 
+import cn.enaium.foxbase.client.event.Events;
 import cn.enaium.foxbase.client.event.Events.Render2DEvent;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;

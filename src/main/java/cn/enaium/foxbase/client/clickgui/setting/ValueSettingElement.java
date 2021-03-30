@@ -62,19 +62,19 @@ public class ValueSettingElement extends SettingElement {
             }
         } else if (this.removeHovered && button == 0) {
             if (this.setting.getSetting() instanceof IntegerSetting) {
-                if (this.setting.<IntegerSetting>getSetting().getCurrent() < this.setting.<IntegerSetting>getSetting().getMax()) {
+                if (this.setting.<IntegerSetting>getSetting().getCurrent() > this.setting.<IntegerSetting>getSetting().getMin()) {
                     this.setting.<IntegerSetting>getSetting().setCurrent(this.setting.<IntegerSetting>getSetting().getCurrent() - 1);
                 }
             } else if (this.setting.getSetting() instanceof FloatSetting) {
-                if (this.setting.<FloatSetting>getSetting().getCurrent() < this.setting.<FloatSetting>getSetting().getMax()) {
+                if (this.setting.<FloatSetting>getSetting().getCurrent() > this.setting.<FloatSetting>getSetting().getMin()) {
                     this.setting.<FloatSetting>getSetting().setCurrent(this.setting.<FloatSetting>getSetting().getCurrent() - 0.1F);
                 }
             } else if (this.setting.getSetting() instanceof DoubleSetting) {
-                if (this.setting.<DoubleSetting>getSetting().getCurrent() < this.setting.<DoubleSetting>getSetting().getMax()) {
+                if (this.setting.<DoubleSetting>getSetting().getCurrent() > this.setting.<DoubleSetting>getSetting().getMin()) {
                     this.setting.<DoubleSetting>getSetting().setCurrent(this.setting.<DoubleSetting>getSetting().getCurrent() - 0.1D);
                 }
             } else if (this.setting.getSetting() instanceof LongSetting) {
-                if (this.setting.<LongSetting>getSetting().getCurrent() < this.setting.<LongSetting>getSetting().getMax()) {
+                if (this.setting.<LongSetting>getSetting().getCurrent() > this.setting.<LongSetting>getSetting().getMin()) {
                     this.setting.<LongSetting>getSetting().setCurrent(this.setting.<LongSetting>getSetting().getCurrent() - 1L);
                 }
             } else if (this.setting.getSetting() instanceof ModeSetting) {

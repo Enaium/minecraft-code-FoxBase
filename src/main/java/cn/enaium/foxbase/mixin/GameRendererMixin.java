@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.mixin;
 
-import cn.enaium.foxbase.client.event.Events.*;
+import cn.enaium.foxbase.client.event.Events;
+import cn.enaium.foxbase.client.event.Events.Render3DEvent;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;

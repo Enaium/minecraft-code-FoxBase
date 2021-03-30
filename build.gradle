@@ -1,6 +1,10 @@
 plugins {
-    id 'fabric-loom' version '0.6-SNAPSHOT'
+    id 'fabric-loom' version '0.5-SNAPSHOT'
     id 'maven-publish'
+}
+
+repositories {
+    maven { url = "https://maven.enaium.cn" }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -9,10 +13,6 @@ targetCompatibility = JavaVersion.VERSION_1_8
 archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
-
-repositories {
-    maven { url 'https://maven.enaium.cn' }
-}
 
 dependencies {
     //to change the versions see the gradle.properties file
@@ -40,7 +40,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude "fabric.mod.json"
     }
-
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is

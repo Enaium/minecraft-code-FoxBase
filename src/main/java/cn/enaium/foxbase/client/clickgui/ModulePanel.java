@@ -35,9 +35,9 @@ public class ModulePanel {
         ArrayList<SettingProvider> settings = module.getSetting().getAll();
         if (settings != null) {
             for (SettingProvider setting : settings) {
-                if (setting instanceof EnableSetting) {
+                if (setting.getSetting() instanceof EnableSetting) {
                     this.settingElements.add(new BooleanSettingElement(setting));
-                } else if (setting instanceof IntegerSetting || setting instanceof DoubleSetting || setting instanceof FloatSetting || setting instanceof LongSetting || setting instanceof ModeSetting) {
+                } else if (setting.getSetting() instanceof IntegerSetting || setting.getSetting() instanceof DoubleSetting || setting.getSetting() instanceof FloatSetting || setting.getSetting() instanceof LongSetting || setting.getSetting() instanceof ModeSetting) {
                     this.settingElements.add(new ValueSettingElement(setting));
                 }
             }
@@ -84,15 +84,19 @@ public class ModulePanel {
     private int getWidestSetting() {
         int width = 0;
         for (SettingProvider setting : module.getSetting().getAll()) {
-            String name = module.getName();
-            if (setting instanceof IntegerSetting) {
-                name = name + ":" + ((IntegerSetting) setting).getCurrent();
-            } else if (setting instanceof DoubleSetting) {
-                name = name + ":" + ((DoubleSetting) setting).getCurrent();
-            } else if (setting instanceof FloatSetting) {
-                name = name + ":" + ((FloatSetting) setting).getCurrent();
-            } else if (setting instanceof ModeSetting) {
-                name = name + ":" + ((ModeSetting) setting).getCurrent();
+            String name = setting.getName();
+            if (setting.getSetting() instanceof EnableSetting) {
+                name = name + ": " + (setting.<EnableSetting>getSetting()).getEnable();
+            } else if (setting.getSetting() instanceof IntegerSetting) {
+                name = name + ": " + setting.<IntegerSetting>getSetting().getCurrent();
+            } else if (setting.getSetting() instanceof DoubleSetting) {
+                name = name + ": " + setting.<DoubleSetting>getSetting().getCurrent();
+            } else if (setting.getSetting() instanceof FloatSetting) {
+                name = name + ": " + setting.<FloatSetting>getSetting().getCurrent();
+            } else if (setting.getSetting() instanceof LongSetting) {
+                name = name + ": " + setting.<LongSetting>getSetting().getCurrent();
+            } else if (setting.getSetting() instanceof ModeSetting) {
+                name = name + ": " + setting.<ModeSetting>getSetting().getCurrent();
             }
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
