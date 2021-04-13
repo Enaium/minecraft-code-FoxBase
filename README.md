@@ -1,9 +1,10 @@
-# Minecraft 1.16.5 Fabric
+# Minecraft Snapshot Fabric
 ## Setup
 1. Clone this repository.
 2. Run the following command from the project's root directory:
 ```
 ./gradlew genSources
+./gradlew idea
 ```
 3. Open IntelliJ IDEA.
 4. Open `Open => Select FoxBase folder`
