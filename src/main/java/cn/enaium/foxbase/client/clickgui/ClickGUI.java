@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.clickgui;
 
-import cn.enaium.cf4m.module.Category;
+import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.utils.FontUtils;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,22 +15,22 @@ import java.util.ArrayList;
  */
 public class ClickGUI extends Screen {
 
-    ArrayList<CategoryPanel> categoryPanels;
+    ArrayList<TypePanel> typePanels;
 
     public ClickGUI() {
         super(new LiteralText(""));
-        categoryPanels = new ArrayList<>();
+        typePanels = new ArrayList<>();
         double categoryY = 5;
-        for (Category category : Category.values()) {
-            categoryPanels.add(new CategoryPanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
+        for (String category : CF4M.INSTANCE.getModule().getAllType()) {
+            typePanels.add(new TypePanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
             categoryY += FontUtils.getFontHeight() + 10 + 5;
         }
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        for (CategoryPanel categoryPanel : categoryPanels) {
-            categoryPanel.render(matrices, mouseX, mouseY, delta);
+        for (TypePanel typePanel : typePanels) {
+            typePanel.render(matrices, mouseX, mouseY, delta);
         }
         FontUtils.drawString(matrices, "FoxClickGUI Design By - Enaium", 5, this.height - FontUtils.getFontHeight(), 0xFFFFFFFF);//Don't delete
         super.render(matrices, mouseX, mouseY, delta);
@@ -39,16 +39,16 @@ public class ClickGUI extends Screen {
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        for (CategoryPanel categoryPanel : categoryPanels) {
-            categoryPanel.mouseClicked(mouseX, mouseY, button);
+        for (TypePanel typePanel : typePanels) {
+            typePanel.mouseClicked(mouseX, mouseY, button);
         }
         return false;
     }
 
     @Override
     public boolean mouseReleased(double mouseX, double mouseY, int button) {
-        for (CategoryPanel categoryPanel : categoryPanels) {
-            categoryPanel.mouseReleased(mouseX, mouseY, button);
+        for (TypePanel typePanel : typePanels) {
+            typePanel.mouseReleased(mouseX, mouseY, button);
         }
         return false;
     }
@@ -56,8 +56,7 @@ public class ClickGUI extends Screen {
 
     private int getWidestCategory() {
         int width = 0;
-        for (Category c : Category.values()) {
-            String name = c.name();
+        for (String name : CF4M.INSTANCE.getModule().getAllType()) {
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {

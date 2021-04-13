@@ -1,9 +1,11 @@
 package cn.enaium.foxbase.client.config;
 
-import cn.enaium.cf4m.CF4M;
+import cn.enaium.cf4m.annotation.Auto;
 import cn.enaium.cf4m.annotation.config.Config;
 import cn.enaium.cf4m.annotation.config.Load;
 import cn.enaium.cf4m.annotation.config.Save;
+import cn.enaium.cf4m.container.ConfigContainer;
+import cn.enaium.cf4m.container.ModuleContainer;
 import cn.enaium.cf4m.provider.ModuleProvider;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -14,14 +16,19 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
+@Auto
 @Config("Modules")
 public class ModuleConfig {
+
+    private ModuleContainer module;
+    private ConfigContainer config;
+
     @Load
     public void load() {
-        for (ModuleProvider module : CF4M.module.getAll()) {
+        for (ModuleProvider module : module.getAll()) {
             JsonArray jsonArray = new JsonArray();
             try {
-                jsonArray = new Gson().fromJson(read(CF4M.config.getByInstance(this).getPath()), JsonArray.class);
+                jsonArray = new Gson().fromJson(read(config.getByInstance(this).getPath()), JsonArray.class);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -40,7 +47,7 @@ public class ModuleConfig {
     @Save
     public void save() {
         JsonArray jsonArray = new JsonArray();
-        for (ModuleProvider module : CF4M.module.getAll()) {
+        for (ModuleProvider module : module.getAll()) {
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("name", module.getName());
             jsonObject.addProperty("enable", module.getEnable());
@@ -48,7 +55,7 @@ public class ModuleConfig {
             jsonArray.add(jsonObject);
         }
         try {
-            write(CF4M.config.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
+            write(config.getByInstance(this).getPath(), new Gson().toJson(jsonArray));
         } catch (IOException e) {
             e.printStackTrace();
         }
