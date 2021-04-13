@@ -1,6 +1,5 @@
 package cn.enaium.foxbase.client.clickgui;
 
-import cn.enaium.cf4m.module.Category;
 import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.provider.ModuleProvider;
 import cn.enaium.foxbase.client.utils.ColorUtils;
@@ -16,9 +15,9 @@ import java.util.ArrayList;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-public class CategoryPanel {
+public class TypePanel {
 
-    private Category category;
+    private String type;
     private double x;
     private double y;
     private double width;
@@ -35,14 +34,14 @@ public class CategoryPanel {
 
     private ArrayList<ModulePanel> modulePanels;
 
-    public CategoryPanel(Category category, double x, double y, double width, double height) {
-        this.category = category;
+    public TypePanel(String type, double x, double y, double width, double height) {
+        this.type = type;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.modulePanels = new ArrayList<>();
-        ArrayList<ModuleProvider> modules = new ArrayList<>(CF4M.module.getAllByCategory(this.category));
+        ArrayList<ModuleProvider> modules = new ArrayList<>(CF4M.INSTANCE.getModule().getAllByType(this.type));
         for (ModuleProvider module : modules) {
             this.modulePanels.add(new ModulePanel(module));
         }
@@ -55,7 +54,7 @@ public class CategoryPanel {
             this.y = this.prevY + mouseY;
         }
         Render2D.drawRectWH(matrices, this.x, this.y, this.width, this.height, this.hovered ? ColorUtils.SELECT : ColorUtils.BG);
-        FontUtils.drawHVCenteredString(matrices, this.category.name(), this.x + this.width / 2, this.y + this.height / 2, Color.WHITE.getRGB());
+        FontUtils.drawHVCenteredString(matrices, this.type, this.x + this.width / 2, this.y + this.height / 2, Color.WHITE.getRGB());
         if (this.displayModulePanel) {
             double moduleY = this.y + this.height;
             for (ModulePanel modulePanel : this.modulePanels) {
@@ -89,7 +88,7 @@ public class CategoryPanel {
 
     private int getWidestModule() {
         int width = 0;
-        for (ModuleProvider module : CF4M.module.getAll()) {
+        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
             String name = module.getName();
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());

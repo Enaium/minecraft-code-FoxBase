@@ -1,6 +1,5 @@
 package cn.enaium.foxbase.client.event;
 
-import cn.enaium.cf4m.event.Listener;
 import net.minecraft.client.util.math.MatrixStack;
 
 /**
@@ -9,13 +8,13 @@ import net.minecraft.client.util.math.MatrixStack;
  */
 public class Events {
 
-    public static class UpdatingEvent extends Listener {
+    public static class UpdatingEvent {
     }
 
-    public static class UpdatedEvent extends Listener {
+    public static class UpdatedEvent {
     }
 
-    public static class Render2DEvent extends Listener {
+    public static class Render2DEvent {
         private final MatrixStack matrixStack;
 
         public Render2DEvent(MatrixStack matrixStack) {
@@ -27,7 +26,7 @@ public class Events {
         }
     }
 
-    public static class Render3DEvent extends Listener {
+    public static class Render3DEvent {
 
         public float particleTicks;
 
@@ -37,7 +36,7 @@ public class Events {
 
     }
 
-    public static class KeyboardEvent extends Listener{
+    public static class KeyboardEvent {
         private final int key;
 
         public KeyboardEvent(int key) {

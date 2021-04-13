@@ -1,9 +1,8 @@
-package cn.enaium.foxbase.client.modules.combat;
+package cn.enaium.foxbase.client.module.combat;
 
 import cn.enaium.cf4m.annotation.Event;
-import cn.enaium.cf4m.annotation.Setting;
 import cn.enaium.cf4m.annotation.module.Module;
-import cn.enaium.foxbase.client.event.Events;
+import cn.enaium.cf4m.annotation.module.Setting;
 import cn.enaium.foxbase.client.event.Events.UpdatingEvent;
 import cn.enaium.foxbase.client.setting.IntegerSetting;
 import cn.enaium.foxbase.client.setting.ModeSetting;

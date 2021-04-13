@@ -16,7 +16,7 @@ import net.minecraft.util.Formatting;
 @Configuration
 public class FoxBaseConfig implements IConfiguration {
     @Override
-    public ICommandConfiguration command() {
+    public ICommandConfiguration getCommand() {
         return new ICommandConfiguration() {
             @Override
             public void message(String message) {

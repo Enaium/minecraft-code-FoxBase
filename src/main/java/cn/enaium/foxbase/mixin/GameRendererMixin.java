@@ -1,5 +1,6 @@
 package cn.enaium.foxbase.mixin;
 
+import cn.enaium.cf4m.CF4M;
 import cn.enaium.foxbase.client.event.Events;
 import cn.enaium.foxbase.client.event.Events.Render3DEvent;
 import net.minecraft.client.render.GameRenderer;
@@ -18,8 +19,7 @@ public class GameRendererMixin {
             method = {
                     "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V"})
     private void onRenderWorld(float partialTicks, long finishTimeNano,
-                               MatrixStack matrixStack, CallbackInfo ci)
-    {
-        new Render3DEvent(partialTicks).call();
+                               MatrixStack matrixStack, CallbackInfo ci) {
+        CF4M.INSTANCE.getEvent().call(new Render3DEvent(partialTicks));
     }
 }
