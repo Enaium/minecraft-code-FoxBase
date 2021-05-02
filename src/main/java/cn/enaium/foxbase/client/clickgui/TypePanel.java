@@ -41,7 +41,7 @@ public class TypePanel {
         this.width = width;
         this.height = height;
         this.modulePanels = new ArrayList<>();
-        ArrayList<ModuleProvider> modules = new ArrayList<>(CF4M.INSTANCE.getModule().getAllByType(this.type));
+        ArrayList<ModuleProvider> modules = new ArrayList<>(CF4M.MODULE.getAllByType(this.type));
         for (ModuleProvider module : modules) {
             this.modulePanels.add(new ModulePanel(module));
         }
@@ -88,7 +88,7 @@ public class TypePanel {
 
     private int getWidestModule() {
         int width = 0;
-        for (ModuleProvider module : CF4M.INSTANCE.getModule().getAll()) {
+        for (ModuleProvider module : CF4M.MODULE.getAll()) {
             String name = module.getName();
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());

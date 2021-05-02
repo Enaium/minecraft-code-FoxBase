@@ -1,9 +1,8 @@
 package cn.enaium.foxbase.client.module.render;
 
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.Event;
 import cn.enaium.cf4m.annotation.module.Module;
-import cn.enaium.cf4m.CF4M;
 import cn.enaium.cf4m.annotation.module.Setting;
 import cn.enaium.cf4m.container.ModuleContainer;
 import cn.enaium.cf4m.provider.ModuleProvider;
@@ -28,10 +27,10 @@ import static cn.enaium.foxbase.client.module.Type.RENDER;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Auto
 @Module(value = "HUD", key = GLFW.GLFW_KEY_O, type = RENDER)
 public class HUD {
 
+    @Autowired
     private ModuleContainer module;
 
     private int currentTypeIndex, currentModIndex, currentSettingIndex;
@@ -40,10 +39,10 @@ public class HUD {
     private int screen;
 
     @Setting("TabGUI")
-    private EnableSetting tabGUI = new EnableSetting(true);
+    private Boolean tabGUI = true;
 
     @Setting("ToggleList")
-    private EnableSetting toggleList = new EnableSetting(true);
+    private Boolean toggleList = true;
 
     public HUD() {
         this.currentTypeIndex = 0;
@@ -55,7 +54,7 @@ public class HUD {
 
     @Event
     public void toggleList(Render2DEvent e) {
-        if (!this.toggleList.getEnable()) {
+        if (!this.toggleList) {
             return;
         }
 
@@ -80,7 +79,7 @@ public class HUD {
 
     @Event
     public void onTabGUI(Render2DEvent e) {
-        if (!this.tabGUI.getEnable()) {
+        if (!this.tabGUI) {
             return;
         }
 
@@ -128,8 +127,8 @@ public class HUD {
                     Render2D.drawRect(e.getMatrixStack(), startSettingX + 1, startSettingY, startSettingX + this.getWidestSetting() + 5 - 1,
                             startSettingY + 9 + 2, ColorUtils.SELECT);
                 }
-                if (setting.getSetting() instanceof EnableSetting) {
-                    FontUtils.drawStringWithShadow(e.getMatrixStack(), setting.getName() + ": " + ((EnableSetting) setting.getSetting()).getEnable(),
+                if (setting.getSetting() instanceof Boolean) {
+                    FontUtils.drawStringWithShadow(e.getMatrixStack(), setting.getName() + ": " + setting.getSetting(),
                             startSettingX + 2 + (this.getCurrentSetting().equals(setting) ? 2 : 0), startSettingY + 2,
                             editMode && this.getCurrentSetting().equals(setting) ? -1 : Color.GRAY.getRGB());
                 } else if (setting.getSetting() instanceof IntegerSetting) {
@@ -175,8 +174,8 @@ public class HUD {
 
         if (editMode) {
             SettingProvider setting = this.getCurrentSetting();
-            if (setting.getSetting() instanceof EnableSetting) {
-                setting.<EnableSetting>getSetting().setEnable(!setting.<EnableSetting>getSetting().getEnable());
+            if (setting.getSetting() instanceof Boolean) {
+                setting.setSetting(!setting.<Boolean>getSetting());
             } else if (setting.getSetting() instanceof IntegerSetting) {
                 setting.<IntegerSetting>getSetting().setCurrent(setting.<IntegerSetting>getSetting().getCurrent() + 1);
             } else if (setting.getSetting() instanceof DoubleSetting) {
@@ -215,8 +214,8 @@ public class HUD {
 
         if (editMode) {
             SettingProvider setting = this.getCurrentSetting();
-            if (setting.getSetting() instanceof EnableSetting) {
-                setting.<EnableSetting>getSetting().setEnable(!setting.<EnableSetting>getSetting().getEnable());
+            if (setting.getSetting() instanceof Boolean) {
+                setting.setSetting(!setting.<Boolean>getSetting());
             } else if (setting.getSetting() instanceof IntegerSetting) {
                 setting.<IntegerSetting>getSetting().setCurrent(setting.<IntegerSetting>getSetting().getCurrent() - 1);
             } else if (setting.getSetting() instanceof DoubleSetting) {
@@ -308,8 +307,8 @@ public class HUD {
         int width = 0;
         for (SettingProvider setting : getSettingForCurrentMod()) {
             String name;
-            if (setting.getSetting() instanceof EnableSetting) {
-                name = setting.getName() + ": " + (setting.<EnableSetting>getSetting()).getEnable();
+            if (setting.getSetting() instanceof Boolean) {
+                name = setting.getName() + ": " + (setting.<Boolean>getSetting());
             } else if (setting.getSetting() instanceof IntegerSetting) {
                 name = setting.getName() + ": " + setting.<IntegerSetting>getSetting().getCurrent();
             } else if (setting.getSetting() instanceof DoubleSetting) {

@@ -20,8 +20,8 @@ public class KeyboardMixin {
     @Inject(at = @At("HEAD"), method = "onKey")
     private void onOnKey(long windowHandle, int keyCode, int scanCode, int action, int modifiers, CallbackInfo callbackInfo) {
         if (action == GLFW.GLFW_PRESS && MinecraftClient.getInstance().currentScreen == null) {
-            CF4M.INSTANCE.getModule().onKey(keyCode);
-            CF4M.INSTANCE.getEvent().call(new Events.KeyboardEvent(keyCode));
+            CF4M.MODULE.onKey(keyCode);
+            CF4M.EVENT.post(new Events.KeyboardEvent(keyCode));
         }
     }
 }
