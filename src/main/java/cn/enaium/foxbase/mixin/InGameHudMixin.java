@@ -16,6 +16,6 @@ public class InGameHudMixin {
             target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V",
             ordinal = 4), method = "render")
     private void render(MatrixStack matrixStack, float partialTicks, CallbackInfo info) {
-        CF4M.INSTANCE.getEvent().call(new Render2DEvent(matrixStack));
+        CF4M.EVENT.post(new Render2DEvent(matrixStack));
     }
 }

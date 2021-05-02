@@ -1,7 +1,6 @@
 package cn.enaium.foxbase.client.command;
 
-import cn.enaium.cf4m.CF4M;
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
@@ -14,7 +13,7 @@ import cn.enaium.cf4m.provider.ModuleProvider;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Auto
+@Autowired
 @Command({"t", "toggle"})
 public class ToggleCommand {
 

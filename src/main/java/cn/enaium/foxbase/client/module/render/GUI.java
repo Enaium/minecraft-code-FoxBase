@@ -19,6 +19,6 @@ public class GUI {
     @Enable
     public void onEnable() {
         MinecraftClient.getInstance().openScreen(new ClickGUI());
-        CF4M.INSTANCE.getModule().getByInstance(this).enable();
+        CF4M.MODULE.getByInstance(this).enable();
     }
 }

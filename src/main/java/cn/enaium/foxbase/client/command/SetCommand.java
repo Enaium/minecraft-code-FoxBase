@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.command;
 
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Auto
+@Autowired
 @Command({"s", "setting"})
 public class SetCommand {
 
@@ -68,16 +68,16 @@ public class SetCommand {
     @Exec
     public void exec(@Param("Module") String moduleName, @Param("Setting") String settingName, @Param("SettingValue") String settingValue) {
         exec(moduleName, settingName);
-        if (currentSetting instanceof EnableSetting) {
-            ((EnableSetting) currentSetting).setEnable(Boolean.parseBoolean(settingName));
-        } else if (currentSetting instanceof IntegerSetting) {
-            ((IntegerSetting) currentSetting).setCurrent(Integer.parseInt(settingName));
-        } else if (currentSetting instanceof DoubleSetting) {
-            ((DoubleSetting) currentSetting).setCurrent(Double.parseDouble(settingName));
-        } else if (currentSetting instanceof LongSetting) {
-            ((LongSetting) currentSetting).setCurrent(Long.parseLong(settingName));
-        } else if (currentSetting instanceof ModeSetting) {
-            ((ModeSetting) currentSetting).setCurrent(settingValue);
+        if (currentSetting.getSetting() instanceof Boolean) {
+            currentSetting.setSetting(Boolean.parseBoolean(settingName));
+        } else if (currentSetting.getSetting() instanceof IntegerSetting) {
+            ((IntegerSetting) currentSetting.getSetting()).setCurrent(Integer.parseInt(settingName));
+        } else if (currentSetting.getSetting() instanceof DoubleSetting) {
+            ((DoubleSetting) currentSetting.getSetting()).setCurrent(Double.parseDouble(settingName));
+        } else if (currentSetting.getSetting() instanceof LongSetting) {
+            ((LongSetting) currentSetting.getSetting()).setCurrent(Long.parseLong(settingName));
+        } else if (currentSetting.getSetting() instanceof ModeSetting) {
+            ((ModeSetting) currentSetting.getSetting()).setCurrent(settingValue);
         }
 
         configuration.getCommand().message(currentSetting.getName() + " has setting to " + settingValue + ".");
