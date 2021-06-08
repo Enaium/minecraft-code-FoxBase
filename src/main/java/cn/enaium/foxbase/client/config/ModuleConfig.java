@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.config;
 
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.config.Config;
 import cn.enaium.cf4m.annotation.config.Load;
 import cn.enaium.cf4m.annotation.config.Save;
@@ -16,7 +16,7 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.io.IOException;
 
-@Auto
+@Autowired
 @Config("Modules")
 public class ModuleConfig {
 

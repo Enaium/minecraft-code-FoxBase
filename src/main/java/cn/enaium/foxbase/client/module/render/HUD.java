@@ -1,6 +1,6 @@
 package cn.enaium.foxbase.client.module.render;
 
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.Event;
 import cn.enaium.cf4m.annotation.module.Module;
 import cn.enaium.cf4m.CF4M;
@@ -28,7 +28,7 @@ import static cn.enaium.foxbase.client.module.Type.RENDER;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Auto
+@Autowired
 @Module(value = "HUD", key = GLFW.GLFW_KEY_O, type = RENDER)
 public class HUD {
 

@@ -30,7 +30,7 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.16.x",
-    "cf4m": ">=1.6.1"
+    "cf4m": ">=1.9.3"
   },
   "suggests": {
     "flamingo": "*"

@@ -20,6 +20,6 @@ public class GameRendererMixin {
                     "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V"})
     private void onRenderWorld(float partialTicks, long finishTimeNano,
                                MatrixStack matrixStack, CallbackInfo ci) {
-        CF4M.INSTANCE.getEvent().call(new Render3DEvent(partialTicks));
+        CF4M.EVENT.post(new Render3DEvent(partialTicks));
     }
 }

@@ -1,14 +1,14 @@
 package cn.enaium.foxbase.client.command;
 
-import cn.enaium.cf4m.annotation.Auto;
+import cn.enaium.cf4m.annotation.Autowired;
 import cn.enaium.cf4m.annotation.command.Command;
 import cn.enaium.cf4m.annotation.command.Exec;
 import cn.enaium.cf4m.annotation.command.Param;
-import cn.enaium.cf4m.configuration.IConfiguration;
 import cn.enaium.cf4m.container.ModuleContainer;
 import cn.enaium.cf4m.provider.ModuleProvider;
 import cn.enaium.cf4m.provider.SettingProvider;
 import cn.enaium.foxbase.client.setting.*;
+import cn.enaium.foxbase.client.utils.ChatUtils;
 
 import java.util.ArrayList;
 
@@ -17,12 +17,11 @@ import java.util.ArrayList;
  * -----------------------------------------------------------
  * Copyright © 2020-2021 | Enaium | All rights reserved.
  */
-@Auto
 @Command({"s", "setting"})
 public class SetCommand {
 
+    @Autowired
     private ModuleContainer module;
-    private IConfiguration configuration;
 
     private ModuleProvider currentModule;
     private ArrayList<SettingProvider> settings;
@@ -32,23 +31,23 @@ public class SetCommand {
     public void exec(@Param("Module") String moduleName) {
         currentModule = module.getByName(moduleName);
         if (currentModule == null) {
-            configuration.getCommand().message("The module with the name \"" + moduleName + "\" does not exist.");
+            ChatUtils.message("The module with the name \"" + moduleName + "\" does not exist.");
             return;
         }
 
         settings = currentModule.getSetting().getAll();
 
         if (settings == null) {
-            configuration.getCommand().message("The module with the name \"" + moduleName + "\" no setting exists.");
+            ChatUtils.message("The module with the name \"" + moduleName + "\" no setting exists.");
             return;
         }
 
-        configuration.getCommand().message("Here are the list of settings:");
+        ChatUtils.message("Here are the list of settings:");
 
         for (SettingProvider s : settings) {
-            configuration.getCommand().message(s.getName() + "(" + s.getClass().getSimpleName() + ")" + s.getDescription());
+            ChatUtils.message(s.getName() + "(" + s.getClass().getSimpleName() + ")" + s.getDescription());
             if (s instanceof ModeSetting) {
-                ((ModeSetting) s).getModes().forEach(configuration.getCommand()::message);
+                ((ModeSetting) s).getModes().forEach(ChatUtils::message);
             }
         }
     }
@@ -59,9 +58,9 @@ public class SetCommand {
         SettingProvider setting = currentModule.getSetting().getByName(settingName);
         if (setting != null) {
             currentSetting = setting;
-            configuration.getCommand().message(currentSetting.getName() + "|" + currentSetting.getClass().getSimpleName());
+            ChatUtils.message(currentSetting.getName() + "|" + currentSetting.getClass().getSimpleName());
         } else {
-            configuration.getCommand().message("The setting with the name \"" + settingName + "\" does not exist.");
+            ChatUtils.message("The setting with the name \"" + settingName + "\" does not exist.");
         }
     }
 
@@ -80,6 +79,6 @@ public class SetCommand {
             ((ModeSetting) currentSetting).setCurrent(settingValue);
         }
 
-        configuration.getCommand().message(currentSetting.getName() + " has setting to " + settingValue + ".");
+        ChatUtils.message(currentSetting.getName() + " has setting to " + settingValue + ".");
     }
 }
