@@ -21,7 +21,7 @@ public class ClickGUI extends Screen {
         super(new LiteralText(""));
         typePanels = new ArrayList<>();
         double categoryY = 5;
-        for (String category : CF4M.MODULE.getAllType()) {
+        for (String category : CF4M.INSTANCE.getModule().getAllType()) {
             typePanels.add(new TypePanel(category, 5, categoryY, getWidestCategory() + 50, FontUtils.getFontHeight() + 10));
             categoryY += FontUtils.getFontHeight() + 10 + 5;
         }
@@ -56,7 +56,7 @@ public class ClickGUI extends Screen {
 
     private int getWidestCategory() {
         int width = 0;
-        for (String name : CF4M.MODULE.getAllType()) {
+        for (String name : CF4M.INSTANCE.getModule().getAllType()) {
             int cWidth = FontUtils.getStringWidth(
                     name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
             if (cWidth > width) {

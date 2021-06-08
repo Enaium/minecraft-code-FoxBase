@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 @Autowired
 @Config("Modules")
@@ -63,10 +62,10 @@ public class ModuleConfig {
     }
 
     private String read(String path) throws IOException {
-        return FileUtils.readFileToString(new File(path), StandardCharsets.UTF_8);
+        return FileUtils.readFileToString(new File(path));
     }
 
     private void write(String path, String string) throws IOException {
-        FileUtils.writeStringToFile(new File(path), string, StandardCharsets.UTF_8);
+        FileUtils.writeStringToFile(new File(path), string, "UTF-8");
     }
 }

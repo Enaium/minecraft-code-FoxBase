@@ -35,7 +35,7 @@ public class ModulePanel {
         ArrayList<SettingProvider> settings = module.getSetting().getAll();
         if (settings != null) {
             for (SettingProvider setting : settings) {
-                if (setting.getSetting() instanceof Boolean) {
+                if (setting.getSetting() instanceof EnableSetting) {
                     this.settingElements.add(new BooleanSettingElement(setting));
                 } else if (setting.getSetting() instanceof IntegerSetting || setting.getSetting() instanceof DoubleSetting || setting.getSetting() instanceof FloatSetting || setting.getSetting() instanceof LongSetting || setting.getSetting() instanceof ModeSetting) {
                     this.settingElements.add(new ValueSettingElement(setting));
@@ -85,8 +85,8 @@ public class ModulePanel {
         int width = 0;
         for (SettingProvider setting : module.getSetting().getAll()) {
             String name = setting.getName();
-            if (setting.getSetting() instanceof Boolean) {
-                name = name + ": " + (setting.<Boolean>getSetting());
+            if (setting.getSetting() instanceof EnableSetting) {
+                name = name + ": " + (setting.<EnableSetting>getSetting()).getEnable();
             } else if (setting.getSetting() instanceof IntegerSetting) {
                 name = name + ": " + setting.<IntegerSetting>getSetting().getCurrent();
             } else if (setting.getSetting() instanceof DoubleSetting) {

@@ -27,7 +27,7 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
-        CF4M.EVENT.post(new UpdatedEvent());
+        CF4M.INSTANCE.getEvent().post(new UpdatedEvent());
     }
 
 

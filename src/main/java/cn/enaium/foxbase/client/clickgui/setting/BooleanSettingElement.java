@@ -1,6 +1,7 @@
 package cn.enaium.foxbase.client.clickgui.setting;
 
 import cn.enaium.cf4m.provider.SettingProvider;
+import cn.enaium.foxbase.client.setting.EnableSetting;
 import cn.enaium.foxbase.client.utils.ColorUtils;
 import cn.enaium.foxbase.client.utils.Render2D;
 import net.minecraft.client.util.math.MatrixStack;
@@ -24,7 +25,7 @@ public class BooleanSettingElement extends SettingElement {
         super.render(matrices, mouseX, mouseY, delta, x, y, width, height);
         this.hovered = Render2D.isHovered(mouseX, mouseY, x + width + 2, y + 2, height - 4, height - 4);
         int color = ColorUtils.CHECK_BG;
-        if (this.setting.<Boolean>getSetting()) {
+        if (this.setting.<EnableSetting>getSetting().getEnable()) {
             color = ColorUtils.CHECK_TOGGLE;
         }
         if (this.hovered) {
@@ -36,7 +37,7 @@ public class BooleanSettingElement extends SettingElement {
     @Override
     public void mouseClicked(double mouseX, double mouseY, int button) {
         if (this.hovered && button == 0) {
-            this.setting.setSetting(!this.setting.<Boolean>getSetting());
+            this.setting.<EnableSetting>getSetting().setEnable(!this.setting.<EnableSetting>getSetting().getEnable());
         }
         super.mouseClicked(mouseX, mouseY, button);
     }
