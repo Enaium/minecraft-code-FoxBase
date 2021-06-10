@@ -68,15 +68,15 @@ public class SetCommand {
     public void exec(@Param("Module") String moduleName, @Param("Setting") String settingName, @Param("SettingValue") String settingValue) {
         exec(moduleName, settingName);
         if (currentSetting instanceof EnableSetting) {
-            ((EnableSetting) currentSetting).setEnable(Boolean.parseBoolean(settingName));
+            ((EnableSetting) currentSetting.getSetting()).setEnable(Boolean.parseBoolean(settingName));
         } else if (currentSetting instanceof IntegerSetting) {
-            ((IntegerSetting) currentSetting).setCurrent(Integer.parseInt(settingName));
+            ((IntegerSetting) currentSetting.getSetting()).setCurrent(Integer.parseInt(settingName));
         } else if (currentSetting instanceof DoubleSetting) {
-            ((DoubleSetting) currentSetting).setCurrent(Double.parseDouble(settingName));
+            ((DoubleSetting) currentSetting.getSetting()).setCurrent(Double.parseDouble(settingName));
         } else if (currentSetting instanceof LongSetting) {
-            ((LongSetting) currentSetting).setCurrent(Long.parseLong(settingName));
+            ((LongSetting) currentSetting.getSetting()).setCurrent(Long.parseLong(settingName));
         } else if (currentSetting instanceof ModeSetting) {
-            ((ModeSetting) currentSetting).setCurrent(settingValue);
+            ((ModeSetting) currentSetting.getSetting()).setCurrent(settingValue);
         }
 
         ChatUtils.message(currentSetting.getName() + " has setting to " + settingValue + ".");

@@ -15,7 +15,7 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = @At("HEAD"), method = "sendChatMessage", cancellable = true)
     private void onSendChatMessage(String message, CallbackInfo info) {
-        if (CF4M.INSTANCE.getCommand().execCommand(message)) {
+        if (CF4M.COMMAND.execCommand(message)) {
             info.cancel();
         }
     }
@@ -27,7 +27,7 @@ public class ClientPlayerEntityMixin {
 
     @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
-        CF4M.INSTANCE.getEvent().post(new UpdatedEvent());
+        CF4M.EVENT.post(new UpdatedEvent());
     }
 
 
