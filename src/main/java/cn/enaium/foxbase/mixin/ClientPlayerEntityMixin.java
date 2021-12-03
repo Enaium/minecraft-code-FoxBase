@@ -20,12 +20,12 @@ public class ClientPlayerEntityMixin {
         }
     }
 
-    @Inject(at = {@At("HEAD")}, method = {"sendMovementPackets()V"})
+    @Inject(at = @At("HEAD"), method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsHEAD(CallbackInfo ci) {
         CF4M.EVENT.post(new UpdatingEvent());
     }
 
-    @Inject(at = {@At("TAIL")}, method = {"sendMovementPackets()V"})
+    @Inject(at = @At("TAIL"), method = {"sendMovementPackets()V"})
     private void onSendMovementPacketsTAIL(CallbackInfo ci) {
         CF4M.EVENT.post(new UpdatedEvent());
     }

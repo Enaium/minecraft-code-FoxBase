@@ -26,7 +26,7 @@ public class Render2D {
     }
 
     public static void drawRect(MatrixStack matrices, double x1, double y1, double x2, double y2, int color) {
-        fill(matrices.peek().getModel(), x1, y1, x2, y2, color);
+        fill(matrices.peek().getPositionMatrix(), x1, y1, x2, y2, color);
     }
 
     public static void drawRectWH(MatrixStack matrices, int x, int y, int width, int height, int color) {
@@ -34,7 +34,7 @@ public class Render2D {
     }
 
     public static void drawRectWH(MatrixStack matrices, double x, double y, double width, double height, int color) {
-        fill(matrices.peek().getModel(), x, y, x + width, y + height, color);
+        fill(matrices.peek().getPositionMatrix(), x, y, x + width, y + height, color);
     }
 
     public static void drawHorizontalLine(MatrixStack matrices, int i, int j, int k, int l) {

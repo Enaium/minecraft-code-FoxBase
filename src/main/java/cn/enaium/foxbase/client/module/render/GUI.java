@@ -18,7 +18,7 @@ import static cn.enaium.foxbase.client.module.Type.RENDER;
 public class GUI {
     @Enable
     public void onEnable() {
-        MinecraftClient.getInstance().openScreen(new ClickGUI());
+        MinecraftClient.getInstance().setScreen(new ClickGUI());
         CF4M.INSTANCE.getModule().getByInstance(this).enable();
     }
 }
